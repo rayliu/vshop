@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:135px;top:10px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:230px;top:178px;"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="goodsData" idColumn="id" limit="20" confirmRefresh="false" confirmDelete="false"
       onCustomRefresh="goodsDataCustomRefresh"> 
@@ -64,16 +64,41 @@
       xid="calculateData" idColumn="allSum"> 
       <column label="合计" name="allSum" type="String" xid="xid7"></column>
   <column label="总数量" name="allNumber" type="String" xid="xid8"></column>
+  <column label="是否返回" name="isBack" type="Integer" xid="xid17"></column>
+  <data xid="default8">[{&quot;allSum&quot;:&quot;0&quot;,&quot;isBack&quot;:0}]</data>
   <rule xid="rule2">
    <col name="allSum" xid="ruleCol5">
     <calculate xid="calculate5">
-     <expr xid="default7">$model.goodsData.sum('fSum')</expr></calculate> </col> 
+     <expr xid="default7">$model.baasCartGoodsData.sum('fSum')</expr></calculate> </col> 
    <col name="allNumber" xid="ruleCol6">
     <calculate xid="calculate6">
-     <expr xid="default9">$model.goodsData.sum('fChoose')</expr></calculate> </col> </rule>
-  <column label="是否返回" name="isBack" type="Integer" xid="xid17"></column>
-  <data xid="default8">[{&quot;allSum&quot;:&quot;0&quot;,&quot;isBack&quot;:0}]</data></div> 
-  </div>  
+     <expr xid="default9">$model.baasCartGoodsData.sum('fChoose')</expr></calculate> </col> </rule></div> 
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCartShopData" queryAction="queryCartShop" tableName="cart_shop" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default18"></column>
+  <column label="fShopName" name="fShopName" type="String" xid="default19"></column>
+  <column label="fLevel" name="fLevel" type="Integer" xid="default20"></column>
+  <column label="fShopImg" name="fShopImg" type="String" xid="default21"></column>
+  <column label="fConsistent" name="fConsistent" type="Float" xid="default22"></column>
+  <column label="fService" name="fService" type="Float" xid="default23"></column>
+  <column label="fGoodsNumber" name="fGoodsNumber" type="Integer" xid="default24"></column>
+  <column label="fFocusNumber" name="fFocusNumber" type="Integer" xid="default25"></column></div>
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCartGoodsData" queryAction="queryCartGoods" tableName="cart_goods" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default32"></column>
+  <column label="fShopID" name="fShopID" type="String" xid="default33"></column>
+  <column label="fTitle" name="fTitle" type="String" xid="default34"></column>
+  <column label="fImg" name="fImg" type="String" xid="default35"></column>
+  <column label="fPrice" name="fPrice" type="Float" xid="default36"></column>
+  <column label="fOldPrice" name="fOldPrice" type="Float" xid="default37"></column>
+  <column label="fPostage" name="fPostage" type="String" xid="default38"></column>
+  <column label="fRecord" name="fRecord" type="Integer" xid="default39"></column>
+  <column label="fAddress" name="fAddress" type="String" xid="default40"></column>
+  <column label="fColor" name="fColor" type="String" xid="default41"></column>
+  <column label="fSize" name="fSize" type="String" xid="default42"></column>
+  <column label="fChoose" name="fChoose" type="String" xid="default43"></column>
+  <column label="fNumber" name="fNumber" type="Integer" xid="default44"></column>
+  <column label="总价" name="fSum" type="Float" xid="default45"></column>
+  <rule xid="rule3">
+   <col name="fSum" xid="ruleCol7">
+    <calculate xid="calculate7">
+     <expr xid="default10">$row.val('fChoose')==1?$row.val('fPrice')*$row.val('fNumber'):'0'</expr></calculate> </col> </rule></div></div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card x-has-iosstatusbar"> 
     <div class="x-panel-top" height="48"> 
       <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar"> 
@@ -82,7 +107,7 @@
    <span xid="span3"></span></a></div>  
         <div class="x-titlebar-title"> 
           <span xid="span1"><![CDATA[购物车（]]></span>  
-          <span xid="span11" bind-text="goodsData.count()"/>  
+          <span xid="span11" bind-text="baasCartGoodsData.count()"/>  
           <span xid="span2"><![CDATA[）]]></span> 
         </div>  
         <div class="x-titlebar-right reverse"> 
@@ -103,7 +128,7 @@
         </div>  
         <div class="x-scroll-content" xid="div7"> 
           <div component="$UI/system/components/justep/list/list" class="x-list"
-            data="shopData" limit="-1" xid="shopList" disablePullToRefresh="true" disableInfiniteLoad="true"
+            data="baasCartShopData" limit="-1" xid="shopList" disablePullToRefresh="true" disableInfiniteLoad="true"
             autoLoad="true" dataItemAlias="shopRow"> 
             <ul class="x-list-template x-min-height" xid="listTemplateUl1"
               componentname="$UI/system/components/justep/list/list#listTemplateUl"
@@ -116,7 +141,7 @@
                   <span xid="span4" bind-text="ref('fShopName')"/>
                 </div>  
                 <div component="$UI/system/components/justep/list/list" class="x-list bg-white"
-                  data="goodsData" filter="$row.val('fShopID')==shopRow.val('id')"
+                  data="baasCartGoodsData" filter="$row.val('fShopID')==shopRow.val('id')"
                   xid="goodsList" disablePullToRefresh="true" disableInfiniteLoad="true"> 
                   <ul class="x-list-template x-min-height" xid="listTemplateUl4"
                     componentname="$UI/system/components/justep/list/list#listTemplateUl"

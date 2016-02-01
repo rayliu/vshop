@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xid="window" class="window" component="$UI/system/components/justep/window/window"
   design="device:m;">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:84px;top:18px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:153px;width:178px;left:144px;top:340px;"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="goodsData" idColumn="id" limit="20" confirmRefresh="false" confirmDelete="false"
       onCustomRefresh="goodsDataCustomRefresh"> 
@@ -67,7 +67,27 @@
       <column label="费用" name="fCost" type="String" xid="xid18"/>  
       <column label="状态" name="fState" type="Integer" xid="xid17"/>
     </div>
-  </div>  
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasOrderGoodsData" queryAction="queryOrderGoods" tableName="order_goods" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default20"></column>
+  <column label="fShopID" name="fShopID" type="String" xid="default21"></column>
+  <column label="fTitle" name="fTitle" type="String" xid="default22"></column>
+  <column label="fImg" name="fImg" type="String" xid="default23"></column>
+  <column label="fPrice" name="fPrice" type="Float" xid="default24"></column>
+  <column label="fOldPrice" name="fOldPrice" type="Float" xid="default25"></column>
+  <column label="fPostage" name="fPostage" type="String" xid="default26"></column>
+  <column label="卖出数量" name="fRecord" type="Integer" xid="default27"></column>
+  <column label="fAddress" name="fAddress" type="String" xid="default28"></column>
+  <column label="fSize" name="fSize" type="String" xid="default29"></column>
+  <column label="fColor" name="fColor" type="String" xid="default30"></column>
+  <column label="fNumber" name="fNumber" type="Integer" xid="default31"></column>
+  <column label="fSum" name="fSum" type="Float" xid="default32"></column></div>
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasOrderShopData" queryAction="queryOrderShop" tableName="order_shop" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default41"></column>
+  <column label="fShopName" name="fShopName" type="String" xid="default42"></column>
+  <column label="fLevel" name="fLevel" type="String" xid="default43"></column>
+  <column label="fShopImg" name="fShopImg" type="String" xid="default44"></column>
+  <column label="fConsistent" name="fConsistent" type="String" xid="default45"></column>
+  <column label="fService" name="fService" type="String" xid="default46"></column>
+  <column label="fGoodsNumber" name="fGoodsNumber" type="String" xid="default47"></column>
+  <column label="fFocusNumber" name="fFocusNumber" type="String" xid="default48"></column></div></div>  
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
     xid="popOver"> 
     <div class="x-popOver-overlay" xid="div9"/>  

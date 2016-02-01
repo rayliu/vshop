@@ -26,16 +26,16 @@ define(function(require) {
 		/*
 		1、加载商品数据
 		 */
-		var url = require.toUrl("./cart/json/goodsData.json");
-		allData.loadDataFromFile(url,event.source,true);        
+//		var url = require.toUrl("./cart/json/goodsData.json");
+//		allData.loadDataFromFile(url,event.source,true);        
 	};
 	//获取店铺信息
 	Model.prototype.shopDataCustomRefresh = function(event){
 		/*
 		1、加载店铺数据
 		 */
-		var url = require.toUrl("./cart/json/shopData.json");
-		allData.loadDataFromFile(url,event.source,true);
+//		var url = require.toUrl("./cart/json/shopData.json");
+//		allData.loadDataFromFile(url,event.source,true);
 	};
 	//全选
 	Model.prototype.allChooseChange = function(event){
@@ -44,7 +44,7 @@ define(function(require) {
 		2、点击全选多选框按钮，获取其值
 		3、修改商品表中的fChoose字段为全选多选框按钮的值
 		*/
-		var goodsData = this.comp("goodsData");
+		var goodsData = this.comp("baasCartGoodsData");
 		var choose=this.comp("allChoose").val();
 		goodsData.each(function(obj){
 			if(choose){				
@@ -87,11 +87,11 @@ define(function(require) {
 		2、删除选中商品
 		3、如果商店里已经没有商品，则删除商店
 		*/
-		var goodsData = this.comp("goodsData");
+		var goodsData = this.comp("baasCartGoodsData");
 		var goodsRows = goodsData.find(["fChoose"],["1"]);
 		goodsData.deleteData(goodsRows);
   
-		var shopData = this.comp("shopData");
+		var shopData = this.comp("baasCartShopData");
 		var shopRows = new Array();
 		shopData.each(function(obj){
 			var n = goodsData.find(["fShopID"],[obj.row.val("id")]).length; 

@@ -5,11 +5,11 @@
   <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;"
     onModelConstruct="modelModelConstruct" onLoad="modelLoad" onunLoad="modelUnLoad"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="imgData" idColumn="id" onCustomRefresh="imgDataCustomRefresh"> 
+      xid="imgData" idColumn="id"> 
       <column label="id" name="id" type="String" xid="xid1"/>  
       <column label="图片" name="fImgUrl" type="String" xid="xid2"/>  
       <column label="链接地址" name="fUrl" type="String" xid="xid9"/>
-    </div>  
+    <master xid="default1" data="imgData"></master></div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="goodsData" idColumn="id" onCustomRefresh="goodsDataCustomRefresh"> 
       <column label="id" name="id" type="String" xid="column1"/>  
@@ -20,7 +20,16 @@
       <column label="邮费" name="fPostage" type="String" xid="column6"/>  
       <column label="月销量" name="fRecord" type="Integer" xid="column7"/> 
     </div> 
-  </div>  
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasImgData" queryAction="queryCarousel" tableName="carousel" url="/eeda/shop" idColumn="id" onAfterRefresh="baasImgDataAfterRefresh"><column label="id" name="id" type="String" xid="default5"></column>
+  <column label="fImgUrl" name="fImgUrl" type="String" xid="default6"></column>
+  <column label="fUrl" name="fUrl" type="String" xid="default7"></column></div>
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasGoodsData" queryAction="queryGoods" tableName="goods" url="/eeda/shop" idColumn="id" onAfterRefresh="baasGoodsDataAfterRefresh"><column label="id" name="id" type="String" xid="default15"></column>
+  <column label="fShopID" name="fShopID" type="String" xid="default16"></column>
+  <column label="fTitle" name="fTitle" type="String" xid="default17"></column>
+  <column label="fImg" name="fImg" type="String" xid="default18"></column>
+  <column label="fPrice" name="fPrice" type="String" xid="default19"></column>
+  <column label="fPostage" name="fPostage" type="String" xid="default20"></column>
+  <column label="fRecord" name="fRecord" type="String" xid="default21"></column></div></div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full"> 
     <div class="x-panel-content tb-trans"> 
       <div component="$UI/system/components/justep/contents/contents" class="x-contents x-full"
@@ -31,22 +40,18 @@
             <div class="x-panel-top" xid="top1"> 
               <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar" xid="titleBar1"> 
                 <div class="x-titlebar-left" xid="div6"> 
-                  <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="扫一扫" icon="glyphicon glyphicon-qrcode"> 
-                    <i xid="i6" class="glyphicon glyphicon-qrcode" />  
-                    <span xid="span6">扫一扫</span> 
+                  <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="Logo" icon="icon-android-settings" style="width:40px;"> 
+                    <i xid="i6" class="icon-android-settings" />  
+                    <span xid="span6">Logo</span> 
                   </a> 
                 </div>  
                 <div class="x-titlebar-title tb-searchBox" xid="div1" bind-click="searchBtnClick"> 
                   <i xid="i10" class="icon-ios7-search-strong" />  
-                  <span><![CDATA[芊芊玉手如何保养]]></span>  
+                  <span><![CDATA[等你来淘]]></span>  
                   <div /> 
                 </div>  
                 <div class="x-titlebar-right reverse" xid="div5"> 
-                  <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="消息" xid="button8" icon="icon-ios7-chatbubble"> 
-                    <i xid="i8" class="icon-ios7-chatbubble" />  
-                    <span xid="span8">消息</span> 
-                  </a> 
-                </div> 
+                  </div> 
               </div> 
             </div><div class="x-panel-content  x-scroll-view" xid="content3" style="bottom: 0px;"> 
               <div class="x-scroll" component="$UI/system/components/justep/scrollView/scrollView"
@@ -75,9 +80,10 @@
                     class="panel panel-default x-card" xid="panel2"> 
                     </div><div component="$UI/system/components/justep/panel/panel"
                     class="panel panel-default x-card" xid="panel5"> 
-                    <h4 xid="h41" class="list-group-item text-black"><![CDATA[精选商品]]></h4>  
+                    <h4 xid="h41" class="list-group-item text-black"><![CDATA[精选商品]]>
+  </h4>  
                     <div component="$UI/system/components/justep/list/list"
-                      class="x-list x-flex" xid="list1" data="goodsData" limit="6"
+                      class="x-list x-flex" xid="list1" data="baasGoodsData" limit="6"
                       disablePullToRefresh="false" disableInfiniteLoad="false" bind-click="listClick"> 
                       <ul class="x-list-template" xid="listTemplateUl1"> 
                         <li xid="li1" class="col col-xs-6 tb-twoColList"> 
@@ -137,12 +143,12 @@
           <span xid="span1">首页</span> 
         </a>  
         <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-          label="微淘" xid="microBtn" icon="icon-radio-waves" target="microContent"> 
+          label="分类" xid="microBtn" icon="icon-radio-waves" target="microContent"> 
           <i xid="i2" class="icon-radio-waves icon"/>  
-          <span xid="span2">微淘</span> 
+          <span xid="span2">分类</span> 
         </a>  
-        <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-          label="发现" xid="foundBtn" icon="icon-eye" target="foundContent"> 
+        <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" style="display:none;"
+          label="发现" xid="foundBtn" icon="icon-eye" target="shoppingContent"> 
           <i xid="i3" class="icon icon-eye"/>  
           <span xid="span3">发现</span> 
         </a>  
