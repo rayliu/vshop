@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:230px;top:178px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:148px;width:219px;left:43px;top:337px;"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="goodsData" idColumn="id" limit="20" confirmRefresh="false" confirmDelete="false"
       onCustomRefresh="goodsDataCustomRefresh"> 
@@ -98,7 +98,8 @@
   <rule xid="rule3">
    <col name="fSum" xid="ruleCol7">
     <calculate xid="calculate7">
-     <expr xid="default10">$row.val('fChoose')==1?$row.val('fPrice')*$row.val('fNumber'):'0'</expr></calculate> </col> </rule></div></div>  
+     <expr xid="default10">$row.val('fChoose')==1?$row.val('fPrice')*$row.val('fNumber'):'0'</expr></calculate> </col> </rule></div>
+  </div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card x-has-iosstatusbar"> 
     <div class="x-panel-top" height="48"> 
       <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar"> 

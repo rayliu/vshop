@@ -17,16 +17,25 @@ define(function(require){
 		/*
 		1、加载商品数据
 		 */
-		var url = require.toUrl("./cart/json/goodsData.json");
-		allData.loadDataFromFile(url,event.source,true);
+//		var url = require.toUrl("./cart/json/goodsData.json");
+//		allData.loadDataFromFile(url,event.source,true);
+		var goodsData = this.comp("goodsData");
+		var data =  JSON.parse(localStorage.getItem("cart_submit_goods"));
+		goodsData.loadData(data);
+		goodsData.each(function(obj){
+			console.log(obj.row.val('id')+", fNumber: " + obj.row.val('fNumber') );
+		});    
 	};
 	//获取店铺信息
 	Model.prototype.shopDataCustomRefresh = function(event){
 		/*
-		1、加载店铺数据
+		1、从localStorage 加载itemId, 查出店铺数据
 		 */
-		var url = require.toUrl("./cart/json/shopData.json");
-		allData.loadDataFromFile(url,event.source,true);
+//		var url = require.toUrl("./cart/json/shopData.json");
+//		allData.loadDataFromFile(url,event.source,true);
+		var shopData = this.comp("shopData");
+		var data =  JSON.parse(localStorage.getItem("cart_submit_shop"));
+		shopData.loadData(data);
 	};
 	//获取邮寄信息
 	Model.prototype.sendDataCustomRefresh = function(event){
@@ -65,6 +74,11 @@ define(function(require){
 		var title=row.val("fSendName")+" "+row.val("fCost");		
 		$("span[xid=sendTitle]", this.getRootNode()).text(title);
 		this.comp("popOver").hide();
+	};
+	
+	Model.prototype.button6Click = function(event){
+		var calculateData = this.comp("calculateData");
+		console.log(calculateData.count());
 	};
 	
 	return Model;

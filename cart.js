@@ -1,6 +1,8 @@
 define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
+	var Baas = justep.Baas;
+	//var Data = require("$UI/system/components/justep/data/data");
 	var allData = require("./js/loadData");
 
 	var Model = function() {
@@ -118,8 +120,65 @@ define(function(require) {
 		2、打开订单确认页面
 		3、点击确认按钮，选择支付方式
 		4、进入支付成功页面
-		*/		
-		justep.Shell.showPage("order");
+		*/
+		var goodsData = this.comp("goodsData");
+		if(goodsData.count()>0){
+			goodsData.clear();
+		}
+		var baasGoodsData = this.comp("baasCartGoodsData");
+		var shopIdArr=[];
+		baasGoodsData.each(function(obj){
+			var bChoose = obj.row.val('fChoose');
+			if(bChoose == '1'){
+				//googsDataArr.push(obj.row.val('id'));
+				
+				var data = {
+					defaultValues : [ {
+						"id" : obj.row.val('id'),
+						"fShopID" : obj.row.val('fShopID'),
+						"fTitle" : obj.row.val('fTitle'),
+						"fImg": obj.row.val('fImg'),
+						"fPrice": obj.row.val('fPrice'),
+						"fOldPrice": obj.row.val('fOldPrice'),
+						"fPostage": obj.row.val('fPostage'),
+						"fRecord": obj.row.val('fRecord'),
+						"fAddress": obj.row.val('fAddress'),
+						"fColor": obj.row.val('fColor'),
+						"fSize": obj.row.val('fSize'),
+						"fNumber": obj.row.val('fNumber'),
+						"fSum": obj.row.val('fSum')
+					} ]
+				};
+				shopIdArr.push(obj.row.val('fShopID'));
+				goodsData.newData(data);
+				console.log(obj.row.val('id')+', fChoose:'+obj.row.val('fChoose')+", fNumber: " + obj.row.val('fNumber') );
+			}	
+		});
+		
+		var shopIds = '';
+		$.each(shopIdArr, function( index, fShopID ) {
+			console.log( index + ": " + fShopID );
+			shopIds += ", '"+fShopID+"'";
+		});
+		
+		//把商品model，商店model通过localStorage直接传到下一页面
+		if(goodsData.count()>0){
+			var shopData = this.comp("shopData");
+			Baas.sendRequest({
+					"url" : "/eeda/shop",
+					"action" : "queryCartShop",
+					"async" : false,
+					"params" : {
+						filter : "id in ("+shopIds.substr(1)+")"
+					},
+					"success" : function(data) {
+						shopData.loadData(data);
+					}
+			});
+			localStorage.setItem("cart_submit_shop", JSON.stringify(shopData.toJson()));
+			localStorage.setItem("cart_submit_goods", JSON.stringify(goodsData.toJson()));
+			justep.Shell.showPage("order");
+		}
 	};
 
 	Model.prototype.listClick = function(event){

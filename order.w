@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xid="window" class="window" component="$UI/system/components/justep/window/window"
   design="device:m;">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:153px;width:178px;left:144px;top:340px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="width:178px;height:auto;left:43px;top:526px;"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="goodsData" idColumn="id" limit="20" confirmRefresh="false" confirmDelete="false"
       onCustomRefresh="goodsDataCustomRefresh"> 
@@ -20,35 +20,23 @@
       <column label="选择" name="fChoose" type="Integer" xid="xid4"/>  
       <column label="数量" name="fNumber" type="Integer" xid="xid5"/>  
       <column label="总价" name="fSum" type="Float" xid="xid6"/>  
-      <rule xid="rule1"> 
-        <col name="fColor" xid="ruleCol1"> 
-          <constraint xid="constraint1"> 
-            <expr xid="default1"/> 
-          </constraint>  
-          <calculate xid="calculate1"> 
-            <expr xid="default2"/> 
-          </calculate>  
-          <readonly xid="readonly1"> 
-            <expr xid="default6"/> 
-          </readonly> 
-        </col>  
-        <col name="fSize" xid="ruleCol2"> 
-          <calculate xid="calculate2"> 
-            <expr xid="default3"/> 
-          </calculate> 
-        </col>  
-        <col name="fSum" xid="ruleCol3"> 
-          <calculate xid="calculate3"> 
-            <expr xid="default4">$row.val('fChoose')==1?$row.val('fPrice')*$row.val('fNumber'):'0'</expr> 
-          </calculate> 
-        </col>  
-        <col name="fNumber" xid="ruleCol4"> 
-          <calculate xid="calculate4"> 
-            <expr xid="default5"/> 
-          </calculate> 
-        </col> 
-      </rule> 
-    </div>  
+      <rule xid="rule1">
+   <col name="fColor" xid="ruleCol1">
+    <constraint xid="constraint1">
+     <expr xid="default1"></expr></constraint> 
+    <calculate xid="calculate1">
+     <expr xid="default2"></expr></calculate> 
+    <readonly xid="readonly1">
+     <expr xid="default6"></expr></readonly> </col> 
+   <col name="fSize" xid="ruleCol2">
+    <calculate xid="calculate2">
+     <expr xid="default3"></expr></calculate> </col> 
+   <col name="fSum" xid="ruleCol3">
+    <calculate xid="calculate3">
+     <expr xid="default4">$row.val('fPrice')*$row.val('fNumber')</expr></calculate> </col> 
+   <col name="fNumber" xid="ruleCol4">
+    <calculate xid="calculate4">
+     <expr xid="default5"></expr></calculate> </col> </rule></div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="shopData" idColumn="id" confirmDelete="false" confirmRefresh="false" onCustomRefresh="shopDataCustomRefresh"> 
       <column label="id" name="id" type="String" xid="xid9"/>  
@@ -87,7 +75,19 @@
   <column label="fConsistent" name="fConsistent" type="String" xid="default45"></column>
   <column label="fService" name="fService" type="String" xid="default46"></column>
   <column label="fGoodsNumber" name="fGoodsNumber" type="String" xid="default47"></column>
-  <column label="fFocusNumber" name="fFocusNumber" type="String" xid="default48"></column></div></div>  
+  <column label="fFocusNumber" name="fFocusNumber" type="String" xid="default48"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="false" xid="calculateData" idColumn="allSum" autoNew="true">
+  	<column label="合计" name="allSum" type="Float" xid="xid19"></column>
+  <column label="总数量" name="allNumber" type="String" xid="xid20"></column>
+  <rule xid="rule2">
+   <col name="allSum" xid="ruleCol5">
+    <calculate xid="calculate5">
+     <expr xid="default7">$model.goodsData.sum(&quot;fSum&quot;)</expr></calculate> </col> 
+   <col name="allNumber" xid="ruleCol6">
+    <calculate xid="calculate6">
+     <expr xid="default8">$model.goodsData.sum('fSum')</expr></calculate> </col> </rule></div>
+  
+  </div>  
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
     xid="popOver"> 
     <div class="x-popOver-overlay" xid="div9"/>  
@@ -148,7 +148,7 @@
       <div component="$UI/system/components/justep/panel/panel" class="panel panel-default tb-noborder x-card x-tuniu"
         xid="panel3"> 
         <div component="$UI/system/components/justep/list/list" class="x-list"
-          data="shopData" limit="1" xid="shopList" disablePullToRefresh="true" disableInfiniteLoad="true"
+          data="shopData" limit="-1" xid="shopList" disablePullToRefresh="true" disableInfiniteLoad="true"
           autoLoad="true" dataItemAlias="shopRow"> 
           <ul class="x-list-template x-min-height" xid="listTemplateUl1" componentname="$UI/system/components/justep/list/list#listTemplateUl"
             id="undefined_listTemplateUl1"> 
@@ -160,7 +160,7 @@
               </div>  
               <div component="$UI/system/components/justep/list/list" class="x-list"
                 data="goodsData" filter="$row.val('fShopID')==shopRow.val('id')" xid="list4"
-                disablePullToRefresh="true" disableInfiniteLoad="true" limit="1"> 
+                disablePullToRefresh="true" disableInfiniteLoad="true" limit="-1"> 
                 <ul class="x-list-template x-min-height" xid="listTemplateUl4"
                   componentname="$UI/system/components/justep/list/list#listTemplateUl"
                   id="undefined_listTemplateUl4"> 
@@ -224,7 +224,7 @@
                 xid="input1" bind-value="'选填，可填写您和卖家达成的协议'"/> 
             </div> 
           </div>  
-          <div class="panel-heading text-right" bind-text="'共1件商品'"/> 
+          <div class="panel-heading text-right" bind-text="'共'+ $model.goodsData.count(&quot;id&quot;)+'种商品'"></div> 
         </div> 
       </div> 
     </div>  
@@ -233,8 +233,8 @@
         <div class="col col-xs-8" xid="col7"> 
           <div class="h4 text-right" xid="div4"> 
             <span xid="span15" class="text-muted">合计：</span>  
-            <span xid="span17" class="text-danger"><![CDATA[￥56]]></span> 
-          </div> 
+            <span xid="span17" class="text-danger"><![CDATA[￥]]></span> 
+          <span xid="sum" class="text-danger" bind-text='$model.calculateData.sum("allSum")'></span></div> 
         </div>  
         <div class="col col-xs-4 tb-settlement" xid="col6"> 
           <div component="$UI/system/components/justep/button/buttonGroup"
