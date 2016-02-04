@@ -154,9 +154,8 @@
             id="undefined_listTemplateUl1"> 
             <li xid="li1" class="tb-noborder"> 
               <div class="panel-body"> 
-                <img src="" alt="" xid="image3" bind-attr-src="$model.getImageUrl(val(&quot;fShopImg&quot;))"
-                  class="img-circle tb-img-shop"/>  
-                <span bind-text="ref('fShopName')" class="text-black"></span> 
+                <i xid="i5" class="icon-chevron-right"></i>  
+                <img src="" alt="" xid="image3" bind-attr-src="$model.getImageUrl(val(&quot;fShopImg&quot;))" class="img-circle tb-img-shop" /><span bind-text="ref('fShopName')" class="text-black"></span> 
               </div>  
               <div component="$UI/system/components/justep/list/list" class="x-list"
                 data="goodsData" filter="$row.val('fShopID')==shopRow.val('id')" xid="list4"
@@ -221,7 +220,7 @@
             </div>  
             <div class="media-body"> 
               <input component="$UI/system/components/justep/input/input" class="form-control input-sm tb-noborder text-muted"
-                xid="input1" bind-value="'选填，可填写您和卖家达成的协议'"/> 
+                xid="input1" placeHolder="选填，可填写您和卖家达成的协议"/> 
             </div> 
           </div>  
           <div class="panel-heading text-right" bind-text="'共'+ $model.goodsData.count(&quot;id&quot;)+'种商品'"></div> 

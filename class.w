@@ -25,7 +25,7 @@
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card x-has-iosstatusbar"> 
     <div class="x-panel-top" height="49"> 
       <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar"
-        title="宝贝分类"> 
+        title="宝贝分类c"> 
         <div class="x-titlebar-left"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon"
             label="分类" xid="button6" icon="icon-chevron-left" onClick="{operation:'window.close'}"> 
@@ -33,7 +33,7 @@
             <span xid="span6">分类</span> 
           </a> 
         </div>  
-        <div class="x-titlebar-title">宝贝分类</div>  
+        <div class="x-titlebar-title">宝贝分类c</div>  
         <div class="x-titlebar-right reverse"/> 
       </div> 
     </div>  

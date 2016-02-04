@@ -311,21 +311,15 @@
         <div class="col col-xs-5 tb-nopadding" xid="col3"> 
           <div component="$UI/system/components/justep/button/buttonGroup"
             class="btn-group btn-group-justified" tabbed="true" xid="buttonGroup1"> 
-            <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="客服" xid="button1" icon="icon-ios7-chatboxes-outline"> 
-              <i xid="i1" class="icon icon-ios7-chatboxes-outline"/>  
-              <span xid="span1">客服</span> 
-            </a>  
-            <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="店铺" xid="button2" icon="icon-bag"> 
-              <i xid="i2" class="icon icon-bag"/>  
-              <span xid="span2">店铺</span> 
-            </a>  
-            <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="收藏" xid="button3" icon="icon-ios7-star-outline"> 
-              <i xid="i3" class="icon icon-ios7-star-outline"/>  
+            <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="收藏" xid="favoriteBtn" icon="icon-ios7-star-outline"> 
+              <i xid="i3" class="icon icon-ios7-star-outline" />  
               <span xid="span3">收藏</span> 
-            </a> 
+            </a><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
+              label="购物车" xid="menuCartBtn" icon="icon-ios7-cart-outline" onClick="menuCartBtnClick"> 
+              <i xid="i2" class="icon icon-ios7-cart-outline"/>  
+              <span xid="span2">购物车</span> 
+            </a>  
+             
           </div> 
         </div>  
         <div class="col col-xs-7 tb-nopadding" xid="col6"> 

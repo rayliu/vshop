@@ -209,5 +209,13 @@ define(function(require) {
 		colorData.setValue("fState", "1",row);
 	};	
 
+	Model.prototype.menuCartBtnClick = function(event){
+		/*
+		1、切换到购物车页面
+		*/
+		justep.Shell.fireEvent("onShoppingContent",{});
+		justep.Shell.showMainPage();
+	};	
+
 	return Model;
 });

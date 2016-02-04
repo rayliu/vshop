@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;"
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:39px;top:499px;"
     onModelConstruct="modelModelConstruct" onLoad="modelLoad" onunLoad="modelUnLoad"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="imgData" idColumn="id"> 
@@ -20,16 +20,17 @@
       <column label="邮费" name="fPostage" type="String" xid="column6"/>  
       <column label="月销量" name="fRecord" type="Integer" xid="column7"/> 
     </div> 
-  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasImgData" queryAction="queryCarousel" tableName="carousel" url="/eeda/shop" idColumn="id" onAfterRefresh="baasImgDataAfterRefresh"><column label="id" name="id" type="String" xid="default5"></column>
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCarouselData" queryAction="queryCarousel" tableName="carousel" url="/eeda/shop" idColumn="id" onAfterRefresh="baasImgDataAfterRefresh"><column label="id" name="id" type="String" xid="default5"></column>
   <column label="fImgUrl" name="fImgUrl" type="String" xid="default6"></column>
   <column label="fUrl" name="fUrl" type="String" xid="default7"></column></div>
-  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasGoodsData" queryAction="queryGoods" tableName="goods" url="/eeda/shop" idColumn="id" onAfterRefresh="baasGoodsDataAfterRefresh"><column label="id" name="id" type="String" xid="default15"></column>
-  <column label="fShopID" name="fShopID" type="String" xid="default16"></column>
-  <column label="fTitle" name="fTitle" type="String" xid="default17"></column>
-  <column label="fImg" name="fImg" type="String" xid="default18"></column>
-  <column label="fPrice" name="fPrice" type="String" xid="default19"></column>
-  <column label="fPostage" name="fPostage" type="String" xid="default20"></column>
-  <column label="fRecord" name="fRecord" type="String" xid="default21"></column></div></div>  
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasGoodsData" queryAction="queryIndexGoods" tableName="goods" url="/eeda/shop" idColumn="id" onAfterRefresh="baasGoodsDataAfterRefresh"><column label="id" name="id" type="String" xid="default26"></column>
+  <column label="fShopID" name="fShopID" type="String" xid="default27"></column>
+  <column label="fTitle" name="fTitle" type="String" xid="default28"></column>
+  <column label="fImg" name="fImg" type="String" xid="default29"></column>
+  <column label="fPrice" name="fPrice" type="Float" xid="default30"></column>
+  <column label="fPostage" name="fPostage" type="String" xid="default31"></column>
+  <column label="fRecord" name="fRecord" type="Integer" xid="default32"></column></div>
+  </div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full"> 
     <div class="x-panel-content tb-trans"> 
       <div component="$UI/system/components/justep/contents/contents" class="x-contents x-full"
@@ -40,9 +41,9 @@
             <div class="x-panel-top" xid="top1"> 
               <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar" xid="titleBar1"> 
                 <div class="x-titlebar-left" xid="div6"> 
-                  <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="Logo" icon="icon-android-settings" style="width:40px;"> 
-                    <i xid="i6" class="icon-android-settings" />  
-                    <span xid="span6">Logo</span> 
+                  <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" icon="img:./main/img/logo.png|" style="width:40px;"> 
+                    <i xid="i6"/>  
+                    <img src="./main/img/logo.png" xid="image1"></img><span xid="span6"></span> 
                   </a> 
                 </div>  
                 <div class="x-titlebar-title tb-searchBox" xid="div1" bind-click="searchBtnClick"> 
@@ -143,8 +144,8 @@
           <span xid="span1">首页</span> 
         </a>  
         <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-          label="分类" xid="microBtn" icon="icon-radio-waves" target="microContent"> 
-          <i xid="i2" class="icon-radio-waves icon"/>  
+          label="分类" xid="microBtn" icon="icon-android-storage" target="microContent"> 
+          <i xid="i2" class="icon icon-android-storage"/>  
           <span xid="span2">分类</span> 
         </a>  
         <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" style="display:none;"
