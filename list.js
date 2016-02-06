@@ -2,26 +2,58 @@ define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
 	var allData = require("./js/loadData");
+	var Baas = justep.Baas;
 
 	var Model = function() {
 		this.callParent();
 		this.keyValue = "";
+		this.category_id = "";
 	};
 
 	// 图片路径转换
 	Model.prototype.getImageUrl = function(url) {
 		return require.toUrl(url);
 	};
+	
+	/*
+		注意这里使用自定义SQL进行查询，设置filter是没有用的，需要设置参数var
+
+		params中， SQL参数一定要带"var-"(后台代码会去掉这个前缀) 
+		并且顺序要一一对应上
+		Ray Liu
+	 */
+	Model.prototype.getGoodsByCategoryId = function(category_id) {
+		var me = this;
+		Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryCategoryGoods",
+			"async" : false,
+			"params" : {
+				"var-category_id": category_id
+			},
+			"success" : function(data) {
+				console.log(data);
+				me.comp("baasCategoryGoodsData").loadData(data);
+			}
+		});
+	};
 
 	Model.prototype.modelParamsReceive = function(event) {
+		console.log('modelParamsReceive  ...');
 		/*
 		 * 1、接收上页传来参数、显示在搜索框中、参数不变不刷新
 		 */
 		if (this.params != undefined) {
-			if (this.keyValue != this.params.keyValue) {
-				this.keyValue = this.params.keyValue;
-				this.comp("keyInput").val(this.keyValue);
-				this.comp("goodsData").refreshData();
+			if(this.params.category_id){//来自分类页
+				this.category_id = this.params.category_id;
+				this.comp("keyInput").val(this.params.keyValue);
+				this.getGoodsByCategoryId(this.category_id);
+			}else{//来自查询页
+				if (this.keyValue != this.params.keyValue) {
+					this.keyValue = this.params.keyValue;
+					this.comp("keyInput").val(this.keyValue);
+					this.comp("goodsData").refreshData();
+				}
 			}
 		}
 	};
@@ -31,8 +63,8 @@ define(function(require) {
 		/*
 		 * 1、加载商品数据 2、接收传入的参数，过滤数据
 		 */
-		var url = require.toUrl("./list/json/goodsData.json");
-		allData.loadDataFromFile(url, event.source, true);
+//		var url = require.toUrl("./list/json/goodsData.json");
+//		allData.loadDataFromFile(url, event.source, true);
 	};
 
 	// 商品点击事件
@@ -183,6 +215,13 @@ define(function(require) {
 		 */
 		localStorage.setItem("list_style_name", this.comp("pages").getActiveXid());
 	};
+
+
+	Model.prototype.baasCategoryGoodsDataCustomRefresh = function(event){
+		console.log("baasCategoryGoodsDataCustomRefresh category_id="+this.params.category_id);
+		
+	};
+
 
 	return Model;
 });

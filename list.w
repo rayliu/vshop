@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:148px;top:20px;"
+  <span xid="span36"></span><div component="$UI/system/components/justep/model/model" xid="model" style="left:82px;top:230px;height:188px;width:164px;"
     onParamsReceive="modelParamsReceive" onLoad="modelLoad" onunLoad="modelUnLoad"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="false"
       xid="goodsData" idColumn="id" onCustomRefresh="goodsDataCustomRefresh"> 
@@ -36,7 +36,22 @@
       <data xid="default3">[{"id":"1","fName":"3C数码配件市场","fState":0},{"id":"2","fName":"品牌手表/流行手表","fState":0},{"id":"3","fName":"女装","fState":0}]</data>
     </div> 
   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="backData" idColumn="isBack"><column label="是否显示" name="isBack" type="String" xid="xid16"></column>
-  <data xid="default4">[{&quot;isBack&quot;:&quot;1&quot;}]</data></div></div>  
+  <data xid="default4">[{&quot;isBack&quot;:&quot;1&quot;}]</data></div>
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="false" xid="baasCategoryGoodsData" queryAction="queryCategoryGoods" tableName="category" url="/eeda/shop" idColumn="id" onCustomRefresh="baasCategoryGoodsDataCustomRefresh"><column label="id" name="id" type="String" xid="default63"></column>
+  <column label="fShopID" name="fShopID" type="String" xid="default64"></column>
+  <column label="fTitle" name="fTitle" type="String" xid="default65"></column>
+  <column label="fImg" name="fImg" type="String" xid="default66"></column>
+  <column label="fPrice" name="fPrice" type="Float" xid="default67"></column>
+  <column label="fPostage" name="fPostage" type="String" xid="default68"></column>
+  <column label="fRecord" name="fRecord" type="Integer" xid="default69"></column>
+  </div>
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasData1" queryAction="queryCategoryGoods" tableName="goods" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default130"></column>
+  <column label="fShopID" name="fShopID" type="String" xid="default131"></column>
+  <column label="fTitle" name="fTitle" type="String" xid="default132"></column>
+  <column label="fImg" name="fImg" type="String" xid="default133"></column>
+  <column label="fPrice" name="fPrice" type="Float" xid="default134"></column>
+  <column label="fPostage" name="fPostage" type="String" xid="default135"></column>
+  <column label="fRecord" name="fRecord" type="Integer" xid="default136"></column></div></div>  
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
     xid="sortingPopOver" anchor="sortingBtn" direction="left-bottom" opacity="0.7"
     dismissible="true"> 
@@ -195,7 +210,7 @@
             </div>  
             <div class="x-scroll-content" xid="div6"> 
               <div component="$UI/system/components/justep/list/list" class="x-list"
-                xid="list1" data="goodsData" limit="6" bind-click="listClick"> 
+                xid="list1" data="baasCategoryGoodsData" limit="6" bind-click="listClick" autoLoad="true"> 
                 <ul class="x-list-template" xid="listTemplateUl1"> 
                   <li xid="li1" class="media"> 
                     <div xid="div10" class="media-left"> 
@@ -213,9 +228,9 @@
                       <div class="text-muted" xid="div16"> 
                         <span xid="span30">月销</span>  
                         <span xid="span21" bind-text="ref('fRecord')"/>  
-                        <span xid="span22"><![CDATA[笔 ]]></span>  
-                        <span xid="span20" bind-text=" ref('fPostage')"/> 
-                      </div> 
+                        <span xid="span22"><![CDATA[笔]]></span>  
+                        <span xid="span20" bind-text="ref('fPostage')"/> 
+                      <span xid="span33" bind-text="ref('category_id')"></span></div> 
                     </div> 
                   </li> 
                 </ul> 

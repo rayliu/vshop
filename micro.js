@@ -43,7 +43,6 @@ define(function(require) {
 
 	Model.prototype.li1Click = function(event){
 		var row = event.bindingContext.$object;
-		console.log(row.val('id'));
 		this.loadLvl1Data(row.val('id'));
 	};
 
@@ -83,9 +82,11 @@ define(function(require) {
 	Model.prototype.li3Click = function(event){
 		var row = event.bindingContext.$object;
 		var category_name = row.val("name");
+		var category_id = row.val("id");
 		//console.log('商品类别='+category_name);
 		justep.Shell.showPage("list",{
-			keyValue : category_name
+			keyValue : category_name,
+			category_id: category_id
 		});
 	};
 
