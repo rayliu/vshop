@@ -1,4 +1,4 @@
 .cache
 .release
 *.design.html
-class/*
+class/*.*
