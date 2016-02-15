@@ -32,6 +32,9 @@ define(function(require) {
 				},
 				"success" : {
 					url : require.toUrl('./success.w')
+				},
+				"login" : {
+					url : require.toUrl('./login.w')
 				}
 			}
 		});

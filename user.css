@@ -1,5 +1,13 @@
-.x-titlebar{ background-color:#fafafa;}
+.x-titlebar, .o-use{ background-color:#ff4400;}
 
 /*我的*/
 .tb-user{ height:150px; background-color:#f0f0f0;}
 .tb-user .btn{ width:100px; margin:60px 5px 0 5px;}
+
+.img1{ width:70px; height:70px;}
+.o-user{ height:150px; background-color:#ea413c;}
+
+.btn_padding {
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
