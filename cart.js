@@ -161,8 +161,15 @@ define(function(require) {
 			shopIds += ", '"+fShopID+"'";
 		});
 		
+		
 		//把商品model，商店model通过localStorage直接传到下一页面
 		if(goodsData.count()>0){
+			//如果没有登录就先跳转到登录页面
+			var userID = localStorage.getItem("userID");
+			if(!userID){
+				justep.Shell.showPage("login");
+				return;
+			}
 			var shopData = this.comp("shopData");
 			Baas.sendRequest({
 					"url" : "/eeda/shop",
