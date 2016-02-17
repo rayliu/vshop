@@ -3,7 +3,7 @@
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
   <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:39px;top:499px;"
-    onModelConstruct="modelModelConstruct" onLoad="modelLoad" onunLoad="modelUnLoad"> 
+    onModelConstruct="modelModelConstruct" onLoad="modelLoad" onunLoad="modelUnLoad" onParamsReceive="modelParamsReceive"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="imgData" idColumn="id"> 
       <column label="id" name="id" type="String" xid="xid1"/>  
