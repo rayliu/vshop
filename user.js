@@ -18,7 +18,7 @@ define(function(require) {
 		justep.Shell.showPage("login");
 	};
 	Model.prototype.modelModelConstruct = function(event){
-		$(this.getElementByXid("userIfo")).text(localStorage.getItem("username"))//拿到用户名称回显
+		$(this.getElementByXid("userInfo")).text(localStorage.getItem("username"))//拿到用户名称回显
 	};
 	return Model;
 });
