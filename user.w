@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:20px;top:554px;"></div>  
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:20px;top:554px;" onModelConstruct="modelModelConstruct"></div>  
     
   <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card x-has-iosstatusbar"
     xid="panel1"> 
@@ -13,13 +13,16 @@
    <div class="x-titlebar-right reverse" xid="div4">
     </div> </div><img src="" alt="" xid="image1" class="img1" bind-attr-src="$model.getImageUrl('./img/user.png')"></img>  
      
-  <div xid="div1" class="btn_padding"><a component="$UI/system/components/justep/button/button" class="btn btn-success" label="登录" xid="loginBtn" onClick="loginBtnClick"> 
+  <div xid="div1" bind-visible="divShow" class="btn_padding"><a component="$UI/system/components/justep/button/button" class="btn btn-success" label="登录" xid="loginBtn" onClick="userLoginBtn"> 
       <i xid="i17" />  
       <span xid="span42">登录</span>
     </a><a component="$UI/system/components/justep/button/button" class="btn btn-warning" label="注册" xid="button12"> 
       <i xid="i18" />  
       <span xid="span43">注册</span>
     </a></div>
+    <div xid="divinfo" bind-visible="divInfoShow" class="btn_padding" >
+      <span xid="userIfo">请登录 </span>
+    </div>
   </div><div component="$UI/system/components/justep/button/buttonGroup" class="btn-group btn-group-justified"
       tabbed="true" xid="buttonGroup3"> 
       <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"

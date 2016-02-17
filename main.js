@@ -173,6 +173,11 @@ define(function(require) {
 		var baasData = event.source;
 		console.log(baasData.count());
 	};
-
+	Model.prototype.modelParamsReceive = function(event){
+		var status=event.params.status;
+			if(status=="login"){
+				this.comp("contents2").to("homeContent");
+			}
+	};
 	return Model;
 });

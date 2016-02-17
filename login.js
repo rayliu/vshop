@@ -1,7 +1,7 @@
 define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
-
+	var Baas = justep.Baas;
 	require("cordova!plugin.http.request");
 	require("cordova!com.justep.cordova.plugin.qq");
 	require("cordova!com.justep.cordova.plugin.weibo");
@@ -219,35 +219,33 @@ define(function(require) {
 
 	};
 
-	Model.prototype.loginIsmBtn = function(event) {
-
+	Model.prototype.loginBtn = function(event) {
 		var phoneInput = this.comp("nameInput").val();
 		var passwordInput = this.comp("passwordInput").val();
-		var userData = this.comp("baasData1");
-		userData.clear();
-		userData.filters.setVar("userPhone", phoneInput);
-		userData.filters.setVar("password", passwordInput);
-		userData.refreshData();
-		if (userData.count() > 0) {
-			justep.Util.hint("登录成功");
-			justep.Shell.userType.set("ISM");
-			justep.Shell.userName.set(phoneInput);
-			localStorage.removeItem("userUUID");
-
-			var user = {};
-			user.userid = phoneInput;
-			user.accountType = "ISM";
-			user.name = phoneInput || "NONAME";
-			localStorage.setItem("userUUID", JSON.stringify(user));
-
-			setTimeout(function() {
-				justep.Shell.closePage();
-			}, 3000);
-		} else {
-			justep.Util.hint("用户或密码有误！", {
-				"type" : "danger"
-			});
-		}
+		Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "login",
+			"async" : false,
+			"params" : {
+				"filter" : " login_id ='"+phoneInput+"' and login_pwd ='"+passwordInput+"'"
+			},
+			"success" : function(data) {
+				if (data.rows.length > 0) {
+				localStorage.setItem("userID", $(data.rows).attr('id').value);
+				localStorage.setItem("username",phoneInput);
+				justep.Util.hint("登陆成功")
+				var status={
+					status:"login"
+				}
+				//justep.Shell.loadPage("user");//为了加载modelModelConstruct方法
+				justep.Shell.showPage("main",status);	
+			} else {
+				justep.Util.hint("用户或密码有误！", {
+					"type" : "danger"
+				});
+			}
+			}
+		});
 
 	};
 

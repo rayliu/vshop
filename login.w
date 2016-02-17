@@ -4,14 +4,9 @@
   design="device:mobile;" xid="window">  
   <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:25px;top:538px;"> 
     <div component="$UI/system/components/justep/data/baasData" autoLoad="false"
-      xid="baasData1" saveAction="saveNetease_user" queryAction="queryRegist_user"
-      tableName="netease_user" url="/justep/netease" idColumn="fID"> 
-      <column label="机器码" name="fID" type="String" xid="default1"/>  
-      <column label="姓名" name="fName" type="String" xid="default2"/>  
-      <column label="密码" name="passwd" type="String" xid="default3"/>  
-      <column label="电话" name="fPhoneNumber" type="String" xid="default4"/>  
-      <column label="地址" name="fAddress" type="String" xid="default5"/> 
-    </div>  
+      xid="baasData1" queryAction="queryRegistUser"
+      tableName="users" url="/eeda/shop" idColumn="fID"> 
+      </div>  
     <!--   <div component="$UI/system/components/justep/data/baasData" autoLoad="false" xid="myPlatformData"></div> --> 
   </div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card x-has-iosstatusbar"
@@ -38,7 +33,7 @@
               <i class="icon-ios7-contact"/> 
             </span>  
             <input component="$UI/system/components/justep/input/input" class="form-control x-inputText"
-              xid="nameInput" bind-value="'邮箱/手机号'"/> 
+              xid="nameInput" placeHolder="邮箱/手机号"/> 
           </div> 
         </div>  
         <div class="list-group-item" xid="div6"> 
@@ -47,12 +42,12 @@
               <i class="icon-unlocked" xid="i3"/> 
             </span>  
             <input component="$UI/system/components/justep/input/input" class="form-control x-inputText"
-              xid="passwordInput" bind-value="'密码'"/> 
+              xid="passwordInput" placeHolder="密码"/> 
           </div> 
         </div> 
       </div>  
       <a component="$UI/system/components/justep/button/button" class="btn x-black btn-only-label btn-block"
-        label="登录" xid="loginIsmBtn" onClick="loginIsmBtn"> 
+        label="登录" xid="userLoginBtn" onClick="loginBtn"> 
         <i xid="i4"/>  
         <span xid="span4">登录</span> 
       </a>  

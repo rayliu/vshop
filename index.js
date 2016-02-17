@@ -35,6 +35,9 @@ define(function(require) {
 				},
 				"login" : {
 					url : require.toUrl('./login.w')
+				},
+				"user" : {
+					url : require.toUrl('./user.w')
 				}
 			}
 		});
