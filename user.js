@@ -6,8 +6,6 @@ define(function(require) {
 	
 	var Model = function() {
 		this.callParent();
-		this.divShow=localStorage.getItem("userID")?false:true;//隐藏与显示DIV
-		this.divInfoShow=localStorage.getItem("userID")?true:false;//隐藏与显示DIV
 	};
 	
 	// 图片路径转换
@@ -18,7 +16,16 @@ define(function(require) {
 		justep.Shell.showPage("login");
 	};
 	Model.prototype.modelModelConstruct = function(event){
-		$(this.getElementByXid("userInfo")).text(localStorage.getItem("username"))//拿到用户名称回显
+		var divBtn=localStorage.getItem("userID")//隐藏与显示DIV
+		if(divBtn===null){
+			$(this.getElementByXid("divinfo")).hide();
+			$(this.getElementByXid("userDivBtn")).show();
+		}else{
+			$(this.getElementByXid("divinfo")).show();
+			$(this.getElementByXid("userDivBtn")).hide();
+			$(this.getElementByXid("userInfo")).text(localStorage.getItem("username"))//拿到用户名称回显	
+		}
+		
 	};
 	return Model;
 });

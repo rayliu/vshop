@@ -237,7 +237,7 @@ define(function(require) {
 				var status={
 					status:"login"
 				}
-				//justep.Shell.loadPage("user");//为了加载modelModelConstruct方法
+				justep.Shell.loadPage("user");//为了加载modelModelConstruct方法
 				justep.Shell.showPage("main",status);	
 			} else {
 				justep.Util.hint("用户或密码有误！", {

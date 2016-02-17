@@ -176,7 +176,9 @@ define(function(require) {
 	Model.prototype.modelParamsReceive = function(event){
 		var status=event.params.status;
 			if(status=="login"){
-				this.comp("contents2").to("homeContent");
+				this.comp("contents2").to("userContent");
+				//this.comp("contents2").initOperation()getContent("userContent").getActiveXid()
+				//this.comp("contents2").getContent("userContent").active();
 			}
 	};
 	return Model;
