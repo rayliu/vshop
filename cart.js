@@ -201,5 +201,21 @@ define(function(require) {
 		});
 	};
 
+	Model.prototype.baasCartShopDataCustomRefresh = function(event){
+		console.log('baasCartShopDataCustomRefresh.....');
+		var cartShopData = this.comp("baasCartShopData");
+		Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryCartShop",
+			"async" : false,
+			"params" : {
+				"var-user_id": localStorage.getItem("userID")
+			},
+			"success" : function(data) {
+				cartShopData.loadData(data);
+			}
+		});
+	};
+
 	return Model;
 });

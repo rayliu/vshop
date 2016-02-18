@@ -73,14 +73,9 @@
    <col name="allNumber" xid="ruleCol6">
     <calculate xid="calculate6">
      <expr xid="default9">$model.baasCartGoodsData.sum('fChoose')</expr></calculate> </col> </rule></div> 
-  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCartShopData" queryAction="queryCartShop" tableName="cart_shop" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default18"></column>
+  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCartShopData" queryAction="queryCartShop" tableName="cart_shop" url="/eeda/shop" idColumn="id" onCustomRefresh="baasCartShopDataCustomRefresh"><column label="id" name="id" type="String" xid="default18"></column>
   <column label="fShopName" name="fShopName" type="String" xid="default19"></column>
-  <column label="fLevel" name="fLevel" type="Integer" xid="default20"></column>
-  <column label="fShopImg" name="fShopImg" type="String" xid="default21"></column>
-  <column label="fConsistent" name="fConsistent" type="Float" xid="default22"></column>
-  <column label="fService" name="fService" type="Float" xid="default23"></column>
-  <column label="fGoodsNumber" name="fGoodsNumber" type="Integer" xid="default24"></column>
-  <column label="fFocusNumber" name="fFocusNumber" type="Integer" xid="default25"></column></div>
+  <column label="fShopImg" name="fShopImg" type="String" xid="default21"></column></div>
   <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCartGoodsData" queryAction="queryCartGoods" tableName="cart_goods" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default32"></column>
   <column label="fShopID" name="fShopID" type="String" xid="default33"></column>
   <column label="fTitle" name="fTitle" type="String" xid="default34"></column>
