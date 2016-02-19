@@ -151,13 +151,11 @@ define(function(require) {
 				};
 				shopIdArr.push(obj.row.val('fShopID'));
 				goodsData.newData(data);
-				console.log(obj.row.val('id')+', fChoose:'+obj.row.val('fChoose')+", fNumber: " + obj.row.val('fNumber') );
 			}	
 		});
 		
 		var shopIds = '';
 		$.each(shopIdArr, function( index, fShopID ) {
-			console.log( index + ": " + fShopID );
 			shopIds += ", '"+fShopID+"'";
 		});
 		
@@ -173,7 +171,7 @@ define(function(require) {
 			var shopData = this.comp("shopData");
 			Baas.sendRequest({
 					"url" : "/eeda/shop",
-					"action" : "queryCartShop",
+					"action" : "queryShop",
 					"async" : false,
 					"params" : {
 						filter : "id in ("+shopIds.substr(1)+")"
@@ -202,7 +200,6 @@ define(function(require) {
 	};
 
 	Model.prototype.baasCartShopDataCustomRefresh = function(event){
-		console.log('baasCartShopDataCustomRefresh.....');
 		var cartShopData = this.comp("baasCartShopData");
 		Baas.sendRequest({
 			"url" : "/eeda/shop",

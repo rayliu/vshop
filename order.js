@@ -50,8 +50,10 @@ define(function(require){
 	Model.prototype.confirmBtnClick = function(event){
 		/*
 		1、确认按钮点击事件
+		 TODO 后台生成订单记录，购物车清除已购买的记录
 		2、打开成功页面
 		*/
+		
 		justep.Shell.showPage("success");
 	};
 	
@@ -74,11 +76,6 @@ define(function(require){
 		var title=row.val("fSendName")+" "+row.val("fCost");		
 		$("span[xid=sendTitle]", this.getRootNode()).text(title);
 		this.comp("popOver").hide();
-	};
-	
-	Model.prototype.button6Click = function(event){
-		var calculateData = this.comp("calculateData");
-		console.log(calculateData.count());
 	};
 	
 	return Model;
