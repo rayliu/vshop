@@ -50,11 +50,11 @@ define(function(require){
 	Model.prototype.confirmBtnClick = function(event){
 		/*
 		1、确认按钮点击事件
-		 TODO 后台生成订单记录，购物车清除已购买的记录
+			跳出支付方式，选择dialog: 微信，支付宝，信用卡，到付
+		    TODO 后台生成订单记录，购物车清除已购买的记录
 		2、打开成功页面
 		*/
-		
-		justep.Shell.showPage("success");
+		//justep.Shell.showPage("success");
 	};
 	
 	Model.prototype.sendClick = function(event){
@@ -76,6 +76,26 @@ define(function(require){
 		var title=row.val("fSendName")+" "+row.val("fCost");		
 		$("span[xid=sendTitle]", this.getRootNode()).text(title);
 		this.comp("popOver").hide();
+	};
+	Model.prototype.payMethodLiClick = function(event){
+		/*
+		1、配送列表点击事件
+		2、选中配送方式，关闭配送列表
+		*/
+		this.comp("payMethodData").setValue("state",0);
+		var row = event.bindingContext.$object; 
+		row.val("state",1);
+		var title=row.val("payMethodName");		
+		$("span[xid=payTitle]", this.getRootNode()).text(title);
+		this.comp("popOverPay").hide();
+	};
+	
+	Model.prototype.payMethodClick = function(event){
+		this.comp("popOverPay").show();
+	};
+	
+	Model.prototype.payRadioClick = function(event){
+		this.comp("popOverPay").hide();
 	};
 	
 	return Model;
