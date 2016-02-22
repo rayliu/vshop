@@ -2,7 +2,7 @@ define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
 	var allData = require("./js/loadData");
-
+	var user = require("./user");
 	var Model = function() {
 		this.callParent();
 		this.contentName;
@@ -177,8 +177,15 @@ define(function(require) {
 		var status=event.params.status;
 			if(status=="login"){
 				this.comp("contents2").to("userContent");
-				//this.comp("contents2").initOperation()getContent("userContent").getActiveXid()
-				//this.comp("contents2").getContent("userContent").active();
+				var divBtn=localStorage.getItem("userID")//隐藏与显示DIV
+				if(divBtn===null){
+					$("#divinfo").hide();
+					$("#userDivBtn").show();
+				}else{
+					$("#divinfo").show();
+					$("#userDivBtn").hide();
+					$("#userInfo").text(localStorage.getItem("username"))//拿到用户名称回显	
+		}
 			}
 	};
 	return Model;

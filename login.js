@@ -220,6 +220,7 @@ define(function(require) {
 	};
 
 	Model.prototype.loginBtn = function(event) {
+
 		var phoneInput = this.comp("nameInput").val();
 		var passwordInput = this.comp("passwordInput").val();
 		Baas.sendRequest({
@@ -232,12 +233,12 @@ define(function(require) {
 			"success" : function(data) {
 				if (data.rows.length > 0) {
 				localStorage.setItem("userID", $(data.rows).attr('id').value);
+				localStorage.setItem("nickname", $(data.rows).attr('nickname').value);
 				localStorage.setItem("username",phoneInput);
 				justep.Util.hint("登陆成功")
 				var status={
 					status:"login"
 				}
-				justep.Shell.loadPage("user");//为了加载modelModelConstruct方法
 				justep.Shell.showPage("main",status);	
 			} else {
 				justep.Util.hint("用户或密码有误！", {

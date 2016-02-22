@@ -38,6 +38,15 @@ define(function(require) {
 				},
 				"user" : {
 					url : require.toUrl('./user.w')
+				},
+				"userInfo" : {
+					url : require.toUrl('./userInfo.w')
+				},
+				"registeMobile" : {
+					url : require.toUrl('./registeMobile.w')
+				},
+				"registered" : {
+					url : require.toUrl('./registered.w')
 				}
 			}
 		});
