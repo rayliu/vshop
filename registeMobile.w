@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xid="window" class="window" component="$UI/system/components/justep/window/window"
   design="device:m;">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:87px;top:63px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:87px;top:63px;" onParamsReceive="modelParamsReceive"> 
     <!--     <div component="$UI/system/components/justep/data/baasData" autoLoad="true" -->  
     <!--       xid="baasData2" queryAction="queryUsers" tableName="taobao_user" url="/justep/taobao"> -->  
     <!--       <filter name="userfilter" xid="filter2"><![CDATA[fID=:user]]></filter></div>  -->  
@@ -29,26 +29,30 @@
         xid="titleBar1"> 
         <div class="x-titlebar-left" xid="div2"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-left"
-            label="邮箱注册" xid="button6" icon="icon-arrow-left-c" onClick="{operation:'window.close'}"> 
+             xid="button6" icon="icon-arrow-left-c" onClick="{operation:'window.close'}"> 
             <i xid="i2" class="icon-arrow-left-c"/>  
-            <span xid="span6">邮箱注册</span> 
+            <span xid="span6" id="spanValue">邮箱注册</span> 
           </a>  
           </div>  
         <div class="x-titlebar-title" xid="div3"/>  
         <div class="x-titlebar-right reverse" xid="div4"/> 
       </div> 
     </div>  
-    <div class="x-panel-content x-cards" xid="content1" bind-click="dbTestClick"> 
+    <div class="x-panel-content x-cards" xid="content1"> 
       <div component="$UI/system/components/justep/panel/panel" class="panel panel-default tb-noborder x-card x-tuniu"
         xid="panel3"> 
         <div> 
-          <div class="panel-heading"> 
+          <div class="panel-heading" xid="nickname">
+   <div class="media-left media-middle" xid="div12">
+    <span class="x-flex" style="width:42px;" xid="span3"><![CDATA[昵称]]></span></div> 
+   <div class="media-body" style="width:119px;" xid="div14">
+    <input component="$UI/system/components/justep/input/input" class="form-control input-sm tb-noborder text-muted" xid="nickInput" style="width:202px;"></input></div> </div><div class="panel-heading"> 
             <div class="media-left media-middle"> 
-              <span class="x-flex" style="width:42px;"><![CDATA[邮箱]]></span> 
+              <span class="x-flex" id="spanValue1" style="width:42px;"><![CDATA[邮箱]]></span> 
             </div>  
             <div class="media-body" style="width:119px;"> 
               <input component="$UI/system/components/justep/input/input" class="form-control input-sm tb-noborder text-muted"
-                xid="emailNumber" bind-value="'985643410@qq.com'" style="width:202px;" bind-ref="userInfoData.ref('login_pwd')"/> 
+                xid="varietyNumber" style="width:202px;"/> 
             </div> 
           </div>  
           <div class="panel-heading" xid="div1"> 
@@ -82,7 +86,7 @@
      <i xid="i2"></i>
      <span xid="span4">提交</span></a></div>
   </div> 
-      <span xid="span8" class="text-muted"><![CDATA[测试数据库连接]]></span></div> 
+      </div> 
     </div> 
   </div> 
 </div>

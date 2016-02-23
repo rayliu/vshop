@@ -66,7 +66,7 @@
             class="media-object img-small"/> 
         </div>  
         <div xid="div13" class="media-body"> 
-          <span xid="span7" class="text-muted"><![CDATA[如果您已经注册“网易邮箱”或其他网易产品请直接登录。]]></span>
+          <span xid="span7" class="text-muted"><![CDATA[如果您已经注册“邮箱”请直接登录。]]></span>
         </div>
       </div>
     </div> 

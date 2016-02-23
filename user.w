@@ -49,13 +49,12 @@
       </a> 
     </div>  
     <ul class="list-group x-tuniu" xid="ul1"> 
-      <a component="$UI/system/components/justep/button/button" xid="usernameInfo"
-        onClick="usernameInfoClick">
-        <li class="list-group-item" xid="li4">资料管家
+      
+        <li class="list-group-item" xid="li4" bind-click="li4Click">资料管家
           <span class="pull-right text-muted" xid="span4"><![CDATA[个人资料、常用资料]]></span>  
           <i xid="i20" class="icon-android-storage"/> 
         </li>
-      </a>  
+        
       <li class="list-group-item" xid="li1">我的小金库
         <span class="pull-right text-muted" xid="span1"><![CDATA[抵用卷、佣金卷
         

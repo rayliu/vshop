@@ -16,11 +16,17 @@ define(function(require) {
 	};
 
 	Model.prototype.div6Click = function(event){
-		justep.Shell.showPage("registeMobile");
+		var type={
+					btnType:"phone"
+				}
+		justep.Shell.showPage("registeMobile",type);
 	};
 
 	Model.prototype.div9Click = function(event){
-		justep.Shell.showPage("registeMobile");
+		var type={
+					btnType:"email"
+				}
+		justep.Shell.showPage("registeMobile",type);
 	};
 
 	Model.prototype.button4Click = function(event){

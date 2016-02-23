@@ -29,19 +29,16 @@ define(function(require) {
 	Model.prototype.modelModelConstruct = function(event){
 		this.showUserInfo();
 	};
-	
-	Model.prototype.usernameInfoClick = function(event){
-	var islogin=localStorage.getItem("userID")//判断用户是否登陆
+	Model.prototype.button12Click = function(event){
+		justep.Shell.showPage("registered");
+	};
+	Model.prototype.li4Click = function(event){
+		var islogin=localStorage.getItem("userID")//判断用户是否登陆
 		if(islogin===null){
 			justep.Shell.showPage("login");
 		}else{
 			justep.Shell.showPage("userInfo");
 		}
-		
-	};
-	
-	Model.prototype.button12Click = function(event){
-		justep.Shell.showPage("registered");
 	};
 	
 	return Model;
