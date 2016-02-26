@@ -58,17 +58,17 @@
           <div component="$UI/system/components/bootstrap/row/row" class="row panel-heading text-center"
             xid="row1"> 
             <div class="col col-xs-4 x-nopadding" xid="col5"> 
-              <img src="" alt="" bind-attr-src="$model.getImageUrl('./img/weixin.png')"
+              <img src="" alt="" bind-attr-src="$model.getImageUrl('./img/user1.png')"
                 class="img3" xid="image2" bind-click="loginWeixinClicked"/>  
               <div bind-text="'微信账号登录'" class="text-muted" xid="div15"/> 
             </div>  
             <div class="col col-xs-4 x-nopadding" xid="col6"> 
-              <img src="" alt="" bind-attr-src="$model.getImageUrl('./img/weibo.png')"
+              <img src="" alt="" bind-attr-src="$model.getImageUrl('./img/user2.png')"
                 class="img3" xid="image1" bind-click="WeiboLogin"/>  
               <div bind-text="'新浪微博登录'" class="text-muted" xid="div13"/> 
             </div>  
             <div class="col col-xs-4 x-nopadding" xid="col7"> 
-              <img src="" alt="" xid="image4" bind-attr-src="$model.getImageUrl('./img/qq.png')"
+              <img src="" alt="" xid="image4" bind-attr-src="$model.getImageUrl('./img/user3.png')"
                 class="img3" bind-click="QQlogin"/>  
               <div bind-text="'QQ账号登录'" class="text-muted" xid="div14"/> 
             </div> 
