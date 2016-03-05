@@ -54,7 +54,10 @@ define(function(require){
 		    TODO 后台生成订单记录，购物车清除已购买的记录
 		2、打开成功页面
 		*/
-		//justep.Shell.showPage("success");
+		
+		
+		
+		justep.Shell.showPage("success");
 	};
 	
 	Model.prototype.sendClick = function(event){

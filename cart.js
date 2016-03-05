@@ -127,6 +127,7 @@ define(function(require) {
 		}
 		var baasGoodsData = this.comp("baasCartGoodsData");
 		var shopIdArr=[];
+		
 		baasGoodsData.each(function(obj){
 			var bChoose = obj.row.val('fChoose');
 			if(bChoose == '1'){
@@ -153,12 +154,13 @@ define(function(require) {
 				goodsData.newData(data);
 			}	
 		});
-		
 		var shopIds = '';
 		$.each(shopIdArr, function( index, fShopID ) {
-			shopIds += ", '"+fShopID+"'";
-		});
-		
+			if(shopIds != '')
+				shopIds += ",'" + fShopID + "'";
+			else
+			    shopIds += "'" + fShopID + "'";
+		}); 
 		
 		//把商品model，商店model通过localStorage直接传到下一页面
 		if(goodsData.count()>0){
@@ -170,16 +172,18 @@ define(function(require) {
 			}
 			var shopData = this.comp("shopData");
 			Baas.sendRequest({
-					"url" : "/eeda/shop",
+					"url" : "/eeda/shop", 
 					"action" : "queryShop",
 					"async" : false,
 					"params" : {
-						filter : "id in ("+shopIds.substr(1)+")"
+						"filter" : " id in("+shopIds+")"
+						//"var-shopIds" : shopIds
 					},
 					"success" : function(data) {
 						shopData.loadData(data);
 					}
 			});
+			
 			localStorage.setItem("cart_submit_shop", JSON.stringify(shopData.toJson()));
 			localStorage.setItem("cart_submit_goods", JSON.stringify(goodsData.toJson()));
 			justep.Shell.showPage("order");

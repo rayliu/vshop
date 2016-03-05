@@ -11,7 +11,7 @@
       <column label="链接地址" name="fUrl" type="String" xid="xid9"/>
     <master xid="default1" data="imgData"></master></div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="goodsData" idColumn="id" onCustomRefresh="goodsDataCustomRefresh"> 
+      xid="goodsData" idColumn="id" onCustomRefresh="goodsDataCustomRefresh" limit="20"> 
       <column label="id" name="id" type="String" xid="column1"/>  
       <column label="店铺ID" name="fShopID" type="String" xid="xid3"/>  
       <column label="标题" name="fTitle" type="String" xid="column2"/>  
@@ -43,12 +43,12 @@
                 <div class="x-titlebar-left" xid="div6"> 
                   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" icon="img:./main/img/logo.png|" style="width:40px;"> 
                     <i xid="i6"/>  
-                    <img src="./main/img/logo.png" xid="image1"></img><span xid="span6"></span> 
+                    <!-- <img src="/img/logo.png" xid="image1"></img><span xid="span6"></span>  -->
                   </a> 
                 </div>  
                 <div class="x-titlebar-title tb-searchBox" xid="div1" bind-click="searchBtnClick"> 
                   <i xid="i10" class="icon-ios7-search-strong" />  
-                  <span><![CDATA[等你来淘]]></span>  
+                  <span><![CDATA[等你来品尝]]></span>  
                   <div /> 
                 </div>  
                 <div class="x-titlebar-right reverse" xid="div5"> 
@@ -71,20 +71,39 @@
                         component="$UI/system/components/justep/contents/contents"
                         active="0" slidable="true" wrap="true" swipe="true" xid="contentsImg" routable="false"> 
                         <div class="x-contents-content" xid="content2"> 
-                          <img  src="./main/img/carouselBox61.jpg" alt="" xid="image13" bind-click="openPageClick"
+                          <img  src="$UI/vshop/img/main/0.png" alt="" xid="image13" bind-click="openPageClick"
                             class="tb-img1" pagename="./detail.w"/> 
                         </div> 
                       </div> 
                     </div> 
                   </div>  
-                  <div component="$UI/system/components/justep/panel/panel"
-                    class="panel panel-default x-card" xid="panel2"> 
-                    </div><div component="$UI/system/components/justep/panel/panel"
+                  <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card" xid="panel2">
+   <table class="table tb-menu" component="$UI/system/components/bootstrap/table/table" xid="table1">
+    <tbody class="x-list-template" xid="listTemplate2">
+     <tr xid="tr1">
+      <td bind-click="openPageClick" pagename="./list.w" xid="td1">
+       <div class="text-center" xid="div2">
+        <img src="./img/main/1.png" alt="" class="img-responsive center-block tb-img5" pagename="./class.w" xid="image3"></img>
+        <span xid="span7"><![CDATA[全部分类]]></span></div> </td> 
+      <td bind-click="openPageClick" pagename="./list.w" xid="td2">
+       <div class="text-center" xid="div3">
+        <img src="./img/main/2.png" alt="" xid="image1" class="img-responsive center-block tb-img5"></img>
+        <span xid="span9"><![CDATA[个人中心]]></span></div> </td> 
+      <td bind-click="openPageClick" pagename="./list.w" xid="td3">
+       <div class="text-center" xid="div4">
+        <img src="./img/main/3.png" alt="" xid="image2" class="img-responsive center-block tb-img5"></img>
+        <span xid="span10"><![CDATA[大闸蟹]]></span></div> </td> 
+      <td bind-click="openPageClick" pagename="./list.w" xid="td4">
+       <div class="text-center" xid="div7">
+        <img alt="" xid="image8" src="./img/main/4.png" class="img-responsive center-block tb-img5"></img>
+        <span xid="span11"><![CDATA[积分商城]]></span></div> </td> 
+      </tr> 
+     </tbody> </table> </div><div component="$UI/system/components/justep/panel/panel"
                     class="panel panel-default x-card" xid="panel5"> 
                     <h4 xid="h41" class="list-group-item text-black"><![CDATA[精选商品]]>
   </h4>  
                     <div component="$UI/system/components/justep/list/list"
-                      class="x-list x-flex" xid="list1" data="baasGoodsData" limit="6"
+                      class="x-list x-flex" xid="list1" data="baasGoodsData" limit="10"
                       disablePullToRefresh="false" disableInfiniteLoad="false" bind-click="listClick"> 
                       <ul class="x-list-template" xid="listTemplateUl1"> 
                         <li xid="li1" class="col col-xs-6 tb-twoColList"> 

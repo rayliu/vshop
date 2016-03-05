@@ -62,7 +62,7 @@
       <column label="商品ID" name="fGoodID" type="String" xid="xid22"/>  
       <column label="颜色" name="fColor" type="String" xid="xid23"/>  
       <column label="状态" name="fState" type="Integer" xid="xid25"/>  
-      <data xid="default2">[{"id":"1","fGoodID":"1","fColor":"草绿（12支/盒）","fState":0},{"id":"2","fGoodID":"1","fColor":"橙色（12支/盒）","fState":0},{"id":"3","fGoodID":"1","fColor":"蓝色（12支/盒）","fState":0},{"id":"4","fGoodID":"1","fColor":"粉红（12支/盒）","fState":0},{"id":"5","fGoodID":"1","fColor":"黑色（12支/盒）","fState":0},{"id":"6","fGoodID":"1","fColor":"红色（12支/盒）","fState":0},{"id":"7","fGoodID":"1","fColor":"黄色（12支/盒）","fState":0},{"id":"8","fGoodID":"1","fColor":"绿色（12支/盒）","fState":0},{"id":"9","fGoodID":"1","fColor":"墨蓝（12支/盒）","fState":0},{"id":"10","fGoodID":"1","fColor":"天蓝（12支/盒）","fState":0},{"id":"11","fGoodID":"1","fColor":"紫色（12支/盒）","fState":0},{"id":"12","fGoodID":"1","fColor":"棕色（12支/盒）","fState":0},{"id":"13","fGoodID":"1","fColor":"12色混装（12支/盒）","fState":0}]</data>
+      <data xid="default2">[{"id":"1","fGoodID":"1","fColor":"小型蟹（0.5kg/只）","fState":0},{"id":"10","fGoodID":"1","fColor":"中型蟹（0.8kg/只）","fState":0},{"id":"13","fGoodID":"1","fColor":"大型蟹（1.5kg/只）","fState":0}]</data>
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="stateData" idColumn="state">
@@ -78,7 +78,7 @@
         <i xid="i17" class="icon-ios7-close-outline"/>  
         <span xid="span35"/> 
       </a>  
-      <img src="$UI/demo/taobao/detail/img/pic1.png" alt="" class="img-thumbnail tb-colorImg"/>  
+      <img src="$UI2/vshop/img/main/5.jpg" alt="" class="img-thumbnail tb-colorImg"/>  
       <div class="tb-title"> 
         <span class="text-danger h4"><![CDATA[￥]]></span>  
         <span bind-text="goodsData.ref('fPrice')" class="text-danger h4"><![CDATA[]]></span>  
@@ -86,10 +86,10 @@
         <span><![CDATA[库存]]></span>  
         <span bind-text="goodsData.ref('fRecord')"/>  
         <span xid="span47"><![CDATA[件]]></span>  
-        <h5 xid="h52" class="text-black"><![CDATA[请选择颜色分类]]></h5> 
+        <h5 xid="h52" class="text-black"><![CDATA[请选择大小分类]]></h5> 
       </div>  
       <div class="panel-body"> 
-        <h4 class="text-black"><![CDATA[颜色分类]]> </h4>  
+        <h4 class="text-black"><![CDATA[大小分类]]> </h4>  
         <div component="$UI/system/components/justep/list/list" class="x-list tb-colorList"
           xid="colorList" data="colorData" bind-click="colorLiClick" dataItemAlias="colorRow"> 
           <ul class="x-list-template" xid="ul2" componentname="ul(html)" id="undefined_ul2"> 
@@ -186,7 +186,7 @@
       <div component="$UI/system/components/justep/panel/panel" class="panel panel-heading x-card"
         bind-click="popOverClick"> 
         <i xid="i4" class="text-muted icon-chevron-right pull-right btn-sm"/>  
-        <span xid="span20">选择颜色分类</span> 
+        <span xid="span20"><![CDATA[选择大小重量]]></span> 
       </div>  
       <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card"> 
         <div class="panel-body"> 
