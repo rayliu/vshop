@@ -23,7 +23,7 @@ define(function(require) {
 			var keyValue=this.params.keyValue;
 			this.comp("keyInput").val(keyValue);
 		}
-		this.comp("goodsData").refreshData();
+		this.comp("商品表").refreshData();
 	};
 	
 	//获取商品列表
@@ -32,8 +32,19 @@ define(function(require) {
 		1、加载商品数据
 		2、接收传入的参数，过滤数据
 		*/		
-		var url = require.toUrl("./list/json/goodsData.json");
-		allData.loadDataFromFile(url,event.source,true);
+		//var url = require.toUrl("./list/json/goodsData.json");
+		//allData.loadDataFromFile(url,event.source,true);
+		//加载model数据
+		var Rdata= this.comp("商品表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'商品规格表','templateName':'f3','value' : this.params.keyValue},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
 	};
 
 	//商品点击事件
@@ -43,10 +54,10 @@ define(function(require) {
 		 2、传入弹出窗口，弹出窗口中显示商品详细信息
 		 3、在弹出窗口的接收事件中，从服务端过滤数据
 		*/
-		var data=this.comp("goodsData"); 
+		var data=this.comp("商品表"); 
 		justep.Shell.showPage("detail", {
-			goodsID : data.getValue("id"),
-			shopID : data.getValue("fShopID")
+			goodsID : data.getValue("编号"),
+			shopID : data.getValue("商店编号")
 		});
 	};
 	
@@ -55,6 +66,7 @@ define(function(require) {
 		/*
 		1、进入搜索页面
 		 */
+		 alert("found");
 		justep.Shell.showPage("search");
 	};
 	

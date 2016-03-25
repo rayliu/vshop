@@ -42,6 +42,9 @@ define(function(require) {
 				"userInfo" : {
 					url : require.toUrl('./userInfo.w')
 				},
+				"addressInfo" : {
+					url : require.toUrl('./addressInfo.w')
+				},
 				"registeMobile" : {
 					url : require.toUrl('./registeMobile.w')
 				},

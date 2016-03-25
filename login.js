@@ -225,26 +225,33 @@ define(function(require) {
 		var passwordInput = this.comp("passwordInput").val();
 		Baas.sendRequest({
 			"url" : "/eeda/shop",
-			"action" : "login",
+			"action" : "queryByValue",
 			"async" : false,
 			"params" : {
-				"filter" : " login_id ='"+phoneInput+"' and login_pwd ='"+passwordInput+"'"
+				//"filter" : " login_id ='"+phoneInput+"' and login_pwd ='"+passwordInput+"'"
+				'tableName':'用户表','templateName':'f2','value' : phoneInput
 			},
 			"success" : function(data) {
 				if (data.rows.length > 0) {
-				localStorage.setItem("userID", $(data.rows).attr('id').value);
-				localStorage.setItem("nickname", $(data.rows).attr('nickname').value);
-				localStorage.setItem("username",phoneInput);
-				justep.Util.hint("登陆成功")
-				var status={
-					status:"login"
+					if($(data.rows).attr('密码').value==passwordInput){
+						localStorage.setItem("userID", $(data.rows).attr('编号').value);
+						localStorage.setItem("nickname", $(data.rows).attr('昵称').value);
+						localStorage.setItem("username",phoneInput);
+						justep.Util.hint("登陆成功")
+						var status={
+							status:"login"
+						}
+						justep.Shell.showPage("main",status);	
+					}else{
+						justep.Util.hint("密码有误！", {
+						"type" : "danger"
+						});
+					}
+				} else {
+					justep.Util.hint("此用户没有注册", {
+						"type" : "danger"
+					});
 				}
-				justep.Shell.showPage("main",status);	
-			} else {
-				justep.Util.hint("用户或密码有误！", {
-					"type" : "danger"
-				});
-			}
 			}
 		});
 

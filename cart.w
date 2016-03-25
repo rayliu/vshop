@@ -2,108 +2,71 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:148px;width:219px;left:43px;top:337px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:135px;top:10px;"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="goodsData" idColumn="id" limit="20" confirmRefresh="false" confirmDelete="false"
-      onCustomRefresh="goodsDataCustomRefresh"> 
-      <column label="id" name="id" type="String" xid="column1"/>  
-      <column label="店铺ID" name="fShopID" type="String" xid="xid1"/>  
-      <column label="标题" name="fTitle" type="String" xid="column2"/>  
-      <column label="图片" name="fImg" type="String" xid="column3"/>  
-      <column label="价格" name="fPrice" type="Float" xid="column4"/>  
-      <column label="原价格" name="fOldPrice" type="Float" xid="column5"/>  
-      <column label="邮费" name="fPostage" type="String" xid="column6"/>  
-      <column label="买出数量" name="fRecord" type="Integer" xid="column7"/>  
-      <column label="所在地区" name="fAddress" type="String" xid="column8"/>  
-      <column label="颜色" name="fColor" type="String" xid="xid2"/>  
-      <column label="尺寸" name="fSize" type="String" xid="xid3"/>  
-      <column label="选择" name="fChoose" type="Integer" xid="xid4"/>  
-      <column label="数量" name="fNumber" type="Integer" xid="xid5"/>  
-      <column label="总价" name="fSum" type="Float" xid="xid6"/>  
-      <rule xid="rule1"> 
-        <col name="fColor" xid="ruleCol1"> 
-          <constraint xid="constraint1"> 
-            <expr xid="default1"/> 
-          </constraint>  
-          <calculate xid="calculate1"> 
-            <expr xid="default2"/> 
-          </calculate>  
-          <readonly xid="readonly1"> 
-            <expr xid="default6"/> 
-          </readonly> 
-        </col>  
-        <col name="fSize" xid="ruleCol2"> 
-          <calculate xid="calculate2"> 
-            <expr xid="default3"/> 
-          </calculate> 
-        </col>  
-        <col name="fSum" xid="ruleCol3"> 
-          <calculate xid="calculate3"> 
-            <expr xid="default4">$row.val('fChoose')==1?$row.val('fPrice')*$row.val('fNumber'):'0'</expr> 
-          </calculate> 
-        </col>  
-        <col name="fNumber" xid="ruleCol4"> 
-          <calculate xid="calculate4"> 
-            <expr xid="default5"/> 
-          </calculate> 
-        </col> 
-      </rule> 
-    </div>  
+      xid="购物车商品表" idColumn="编号" limit="20" confirmRefresh="false" confirmDelete="false"
+      onCustomRefresh="购物车商品表DataCustomRefresh"> 
+      <column label="编号" name="编号" type="String" xid="xid1"></column>
+  <column label="商店编号" name="商店编号" type="String" xid="column2"></column>
+  <column label="商品编号" name="商品编号" type="String" xid="column3"></column>
+  <column label="图片外链" name="图片外链" type="String" xid="column4"></column>
+  <column label="现价" name="现价" type="Float" xid="column5"></column>
+  <column label="标题" name="标题" type="String" xid="xid3"></column>
+  <column label="原价" name="原价" type="Float" xid="xid4"></column>
+  <column label="规格" name="规格" type="String" xid="xid5"></column>
+  <column label="是否选中" name="是否选中" type="Integer" xid="xid6"></column>
+  <rule xid="rule1">
+   <col name="fSize" xid="ruleCol2">
+    <calculate xid="calculate2">
+     <expr xid="default3"></expr></calculate> </col> 
+   <col name="总价" xid="ruleCol3">
+    <calculate xid="calculate3">
+     <expr xid="default4">$row.val('是否选中')==1?$row.val('现价')*$row.val('数量'):'0'</expr></calculate> </col> 
+   <col name="数量" xid="ruleCol4">
+    <calculate xid="calculate4">
+     <expr xid="default5"></expr></calculate> </col> </rule>
+  <column label="数量" name="数量" type="String" xid="xid2"></column>
+  <column label="总价" name="总价" type="String" xid="xid9"></column></div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="shopData" idColumn="id" confirmDelete="false" confirmRefresh="false" onCustomRefresh="shopDataCustomRefresh"> 
-      <column label="id" name="id" type="String" xid="xid9"/>  
-      <column label="店名" name="fShopName" type="String" xid="xid10"/>  
-      <column label="等级" name="fLevel" type="Integer" xid="xid11"/>  
-      <column label="店标" name="fShopImg" type="String" xid="xid16"/>  
-      <column label="描述相符" name="fConsistent" type="Float" xid="xid12"/>  
-      <column label="服务态度" name="fService" type="Float" xid="xid13"/>  
-      <column label="商品数量" name="fGoodsNumber" type="Integer" xid="xid14"/>  
-      <column label="关注人数" name="fFocusNumber" type="Integer" xid="xid15"/> 
+      xid="商店表" idColumn="编号" confirmDelete="false" confirmRefresh="false" onCustomRefresh="商店表CustomRefresh"> 
+      <column label="编号" name="编号" type="String" xid="xid10"/>  
+      <column label="名称" name="名称" type="Integer" xid="xid11"/>  
+      <column label="图片外链" name="图片外链" type="String" xid="xid16"/>
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="calculateData" idColumn="allSum"> 
-      <column label="合计" name="allSum" type="String" xid="xid7"></column>
-  <column label="总数量" name="allNumber" type="String" xid="xid8"></column>
-  <column label="是否返回" name="isBack" type="Integer" xid="xid17"></column>
-  <data xid="default8">[{&quot;allSum&quot;:&quot;0&quot;,&quot;isBack&quot;:0}]</data>
-  <rule xid="rule2">
-   <col name="allSum" xid="ruleCol5">
-    <calculate xid="calculate5">
-     <expr xid="default7">$model.baasCartGoodsData.sum('fSum')</expr></calculate> </col> 
-   <col name="allNumber" xid="ruleCol6">
-    <calculate xid="calculate6">
-     <expr xid="default9">$model.baasCartGoodsData.sum('fChoose')</expr></calculate> </col> </rule></div> 
-  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCartShopData" queryAction="queryCartShop" tableName="cart_shop" url="/eeda/shop" idColumn="id" onCustomRefresh="baasCartShopDataCustomRefresh"><column label="id" name="id" type="String" xid="default18"></column>
-  <column label="fShopName" name="fShopName" type="String" xid="default19"></column>
-  <column label="fShopImg" name="fShopImg" type="String" xid="default21"></column></div>
-  <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="baasCartGoodsData" queryAction="queryCartGoods" tableName="cart_goods" url="/eeda/shop" idColumn="id"><column label="id" name="id" type="String" xid="default32"></column>
-  <column label="fShopID" name="fShopID" type="String" xid="default33"></column>
-  <column label="fTitle" name="fTitle" type="String" xid="default34"></column>
-  <column label="fImg" name="fImg" type="String" xid="default35"></column>
-  <column label="fPrice" name="fPrice" type="Float" xid="default36"></column>
-  <column label="fOldPrice" name="fOldPrice" type="Float" xid="default37"></column>
-  <column label="fPostage" name="fPostage" type="String" xid="default38"></column>
-  <column label="fRecord" name="fRecord" type="Integer" xid="default39"></column>
-  <column label="fAddress" name="fAddress" type="String" xid="default40"></column>
-  <column label="fColor" name="fColor" type="String" xid="default41"></column>
-  <column label="fSize" name="fSize" type="String" xid="default42"></column>
-  <column label="fChoose" name="fChoose" type="String" xid="default43"></column>
-  <column label="fNumber" name="fNumber" type="Integer" xid="default44"></column>
-  <column label="总价" name="fSum" type="Float" xid="default45"></column>
-  <rule xid="rule3">
-   <col name="fSum" xid="ruleCol7">
-    <calculate xid="calculate7">
-     <expr xid="default10">$row.val('fChoose')==1?$row.val('fPrice')*$row.val('fNumber'):'0'</expr></calculate> </col> </rule></div>
+      <column label="合计" name="allSum" type="String" xid="xid7"/>  
+      <column label="总数量" name="allNumber" type="String" xid="xid8"/>  
+      <rule xid="rule2"> 
+        <col name="allSum" xid="ruleCol5"> 
+          <calculate xid="calculate5"> 
+            <expr xid="default7">$model.购物车商品表.sum('总价')</expr> 
+          </calculate> 
+        </col>  
+        <col name="allNumber" xid="ruleCol6"> 
+          <calculate xid="calculate6"> 
+            <expr xid="default9">$model.购物车商品表.sum('是否选中')</expr> 
+          </calculate> 
+        </col> 
+      </rule>  
+      <column label="是否返回" name="isBack" type="Integer" xid="xid17"/>  
+      <data xid="default8">[{"allSum":"0","isBack":0}]</data> 
+    </div> 
   </div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card x-has-iosstatusbar"> 
     <div class="x-panel-top" height="48"> 
       <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar"> 
-        <div class="x-titlebar-left"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon" label="button" xid="backBtn" icon="icon-chevron-left" bind-visible='$model.calculateData.val("isBack")==1' onClick="backBtnClick">
-   <i xid="i1" class="icon-chevron-left"></i>
-   <span xid="span3"></span></a></div>  
+        <div class="x-titlebar-left"> 
+          <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon"
+            label="button" xid="backBtn" icon="icon-chevron-left" bind-visible="$model.calculateData.val(&quot;isBack&quot;)==1"
+            onClick="backBtnClick"> 
+            <i xid="i1" class="icon-chevron-left"/>  
+            <span xid="span3"/> 
+          </a> 
+        </div>  
         <div class="x-titlebar-title"> 
           <span xid="span1"><![CDATA[购物车（]]></span>  
-          <span xid="span11" bind-text="baasCartGoodsData.count()"/>  
+          <span xid="span11" bind-text=" $model.购物车商品表.count()"/>  
           <span xid="span2"><![CDATA[）]]></span> 
         </div>  
         <div class="x-titlebar-right reverse"> 
@@ -117,79 +80,109 @@
     </div>  
     <div xid="content" class="x-panel-content x-scroll-view x-cards" supportpulldown="true"> 
       <div class="x-scroll" component="$UI/system/components/justep/scrollView/scrollView"
-        xid="scrollView" pullUpLabel=" "> 
+        xid="scrollView" onPullDown="scrollViewPullDown"> 
         <div class="x-content-center x-pull-down container" xid="div8"> 
           <i class="x-pull-down-img glyphicon x-icon-pull-down" xid="i2"/>  
-          <span class="x-pull-down-label" xid="span9">下拉刷新...</span>
+          <span class="x-pull-down-label" xid="span9">下拉刷新...</span> 
         </div>  
         <div class="x-scroll-content" xid="div7"> 
           <div component="$UI/system/components/justep/list/list" class="x-list"
-            data="baasCartShopData" limit="-1" xid="shopList" disablePullToRefresh="true" disableInfiniteLoad="true"
+            data="商店表" limit="-1" xid="shopList" disablePullToRefresh="true" disableInfiniteLoad="true"
             autoLoad="true" dataItemAlias="shopRow"> 
             <ul class="x-list-template x-min-height" xid="listTemplateUl1"
               componentname="$UI/system/components/justep/list/list#listTemplateUl"
               id="undefined_listTemplateUl1"> 
               <li xid="li1" class="panel panel-default x-card tb-box"> 
-                <div class="panel-heading">
-                  <i xid="i5" class="icon-chevron-right"/> 
-                  <img src="" alt="" xid="image3" bind-attr-src="$model.getImageUrl(val(&quot;fShopImg&quot;))"
-                    class="img-circle tb-img-shop"/> 
-                  <span xid="span4" bind-text="ref('fShopName')"/>
+                <div class="panel-heading"> 
+                  <i xid="i5" class="icon-chevron-right"/>  
+                  <img src="" alt="" xid="image3" class="img-circle tb-img-shop"
+                    bind-attr-src=" $object.val(&quot;图片外链&quot;)"/>  
+                  <span xid="span4" bind-text="ref('名称')"/> 
                 </div>  
                 <div component="$UI/system/components/justep/list/list" class="x-list bg-white"
-                  data="baasCartGoodsData" filter="$row.val('fShopID')==shopRow.val('id')"
-                  xid="goodsList" disablePullToRefresh="true" disableInfiniteLoad="true"> 
+                  data="购物车商品表" filter="$row.val('商店编号')==shopRow.val('编号')" xid="goodsList"
+                  disablePullToRefresh="true" disableInfiniteLoad="true"> 
                   <ul class="x-list-template x-min-height" xid="listTemplateUl4"
                     componentname="$UI/system/components/justep/list/list#listTemplateUl"
                     id="undefined_listTemplateUl4"> 
                     <li xid="li4" class="x-min-height tb-goodList" componentname="li(html)"
                       id="undefined_li4"> 
-                      <div component="$UI/system/components/justep/row/row" class="x-row">
-   <div class="x-col x-col-fixed" xid="col1" style="width:auto;"><span component="$UI/system/components/justep/button/checkbox" class="x-checkbox x-radio choose" xid="checkbox2" bind-ref="ref('fChoose')" checkedValue="1"></span></div>
-   <div class="x-col x-col-fixed tb-nopadding" xid="col2"><img src="" alt="" xid="image1" bind-attr-src='$model.getImageUrl(val("fImg"))' class="tb-img-good" bind-click="listClick"></img></div>
-   <div class="x-col  tb-nopadding" xid="col3"><span bind-text="ref('fTitle')" class="x-flex text-black h5 tb-nomargin" xid="span26"></span>
-  <div class="text-muted h6" xid="div6">
-   <span xid="span27"><![CDATA[颜色:]]></span>
-   <span bind-text="ref('fColor')" xid="span6"></span>
-   <span xid="span7"><![CDATA[;]]></span>
-   <span xid="span12"><![CDATA[尺寸:]]></span>
-   <span bind-text="ref('fSize')" xid="span18"></span></div>
-  <div class="text-muted" xid="div5">
-   <span xid="span22" class="text-danger">￥</span>
-   <span xid="span28" bind-text="ref('fPrice')" class="h4 text-danger"></span>
-   <span xid="span19" class="tb-del-line">￥</span>
-   <span xid="span24" bind-text="ref('fOldPrice')" class="tb-del-line"></span></div>
-  <div class="tb-numberOperation" xid="div4">
-   <a component="$UI/system/components/justep/button/button" class="btn x-gray btn-sm btn-only-icon pull-left" label="button" xid="button1" icon="icon-android-remove" onClick="reductionBtnClick">
-    <i xid="i3" class="icon-android-remove"></i>
-    <span xid="span13"></span></a> 
-   <span bind-text="ref('fNumber')" class="pull-left"></span><a component="$UI/system/components/justep/button/button" class="btn x-gray btn-sm btn-only-icon pull-left" label="button" xid="button2" icon="icon-android-add" onClick="addBtnClick">
-    <i xid="i6" class="icon-android-add"></i>
-    <span xid="span29"></span></a> 
-   
-   </div></div></div></li> 
+                      <div component="$UI/system/components/justep/row/row"
+                        class="x-row"> 
+                        <div class="x-col x-col-fixed" xid="col1" style="width:auto;"> 
+                          <span component="$UI/system/components/justep/button/checkbox"
+                            class="x-checkbox x-radio choose" xid="checkbox2" bind-ref="ref('是否选中')"
+                            checkedValue="1"/> 
+                        </div>  
+                        <div class="x-col x-col-fixed tb-nopadding" xid="col2"> 
+                          <img src="" alt="" xid="image1" class="tb-img-good"
+                            bind-click="listClick" bind-attr-src="$object.val(&quot;图片外链&quot;)"/> 
+                        </div>  
+                        <div class="x-col  tb-nopadding" xid="col3"> 
+                          <span class="x-flex text-black h5 tb-nomargin" xid="span26"
+                            bind-text=" $object.val(&quot;标题&quot;)"/>  
+                          <div class="text-muted h6" xid="div6"> 
+                            <span xid="span12"><![CDATA[规格:]]></span>  
+                            <span bind-text="ref('规格')" xid="span18"/> 
+                          </div>  
+                          <div class="text-muted" xid="div5"> 
+                            <span xid="span22" class="text-danger">￥</span>  
+                            <span xid="span28" bind-text="ref('现价')" class="h4 text-danger"/>  
+                            <span xid="span19" class="tb-del-line">￥</span>  
+                            <span xid="span24" bind-text="ref('原价')" class="tb-del-line"/> 
+                          </div>  
+                          <div class="tb-numberOperation" xid="div4"> 
+                            <a component="$UI/system/components/justep/button/button"
+                              class="btn x-gray btn-sm btn-only-icon pull-left" label="button"
+                              xid="button1" icon="icon-android-remove" onClick="reductionBtnClick"> 
+                              <i xid="i3" class="icon-android-remove"/>  
+                              <span xid="span13"/> 
+                            </a>  
+                            <span bind-text="ref('数量')" class="pull-left"/>  
+                            <a component="$UI/system/components/justep/button/button"
+                              class="btn x-gray btn-sm btn-only-icon pull-left" label="button"
+                              xid="button2" icon="icon-android-add" onClick="addBtnClick"> 
+                              <i xid="i6" class="icon-android-add"/>  
+                              <span xid="span29"/> 
+                            </a> 
+                          </div> 
+                        </div> 
+                      </div> 
+                    </li> 
                   </ul> 
                 </div> 
               </li> 
             </ul> 
-          </div>
+          </div> 
         </div>  
         <div class="x-content-center x-pull-up" xid="div7"> 
-          <span class="x-pull-up-label" xid="span8"></span>
+          <span class="x-pull-up-label" xid="span8"/> 
         </div> 
-      </div>
+      </div> 
     </div>  
     <div class="x-panel-bottom" xid="bottom1"> 
-      <div component="$UI/system/components/justep/row/row" class="x-row tb-nopadding" xid="row2">
-   <div class="x-col x-col-20 x-col-center" xid="col4"><span component="$UI/system/components/justep/button/checkbox" class="x-checkbox" xid="allChoose" label="全选" checked="false" onChange="allChooseChange" /></div>
-   <div class="x-col" xid="col8"><div class="text-right" xid="div9">
-   <span xid="span15" class="text-muted">合计：</span>
-   <span xid="span17" class="text-danger">￥</span>
-   <span xid="sum" class="h4 text-danger" bind-text="calculateData.ref('allSum')"></span></div>
-  <div class="text-right" xid="div10">
-   <span xid="span16">不含运费</span></div></div>
-   <div class="x-col x-col-33 text-center tb-settlement" xid="col9" bind-click="settlementClick"><span xid="span10">结算(</span>
-  <span xid="number" class="allNumber" bind-text="calculateData.ref('allNumber')"></span>
-  <span xid="span14">)</span></div></div></div> 
+      <div component="$UI/system/components/justep/row/row" class="x-row tb-nopadding"
+        xid="row2"> 
+        <div class="x-col x-col-20 x-col-center" xid="col4"> 
+          <span component="$UI/system/components/justep/button/checkbox" class="x-checkbox"
+            xid="allChoose" label="全选" checked="false" onChange="allChooseChange"/> 
+        </div>  
+        <div class="x-col" xid="col8"> 
+          <div class="text-right" xid="div9"> 
+            <span xid="span15" class="text-muted">合计：</span>  
+            <span xid="span17" class="text-danger">￥</span>  
+            <span xid="sum" class="h4 text-danger" bind-text="calculateData.ref('allSum')"/> 
+          </div>  
+          <div class="text-right" xid="div10"> 
+            <span xid="span16">不含运费</span> 
+          </div> 
+        </div>  
+        <div class="x-col x-col-33 text-center tb-settlement" xid="col9" bind-click="settlementClick"> 
+          <span xid="span10">结算(</span>  
+          <span xid="number" class="allNumber" bind-text="calculateData.ref('allNumber')"/>  
+          <span xid="span14">)</span> 
+        </div> 
+      </div> 
+    </div> 
   </div> 
 </div>

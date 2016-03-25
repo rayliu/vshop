@@ -1,5 +1,6 @@
 .text-black{ color:#333;}
 .tb-nopadding{ padding-left:0;padding-right:0;}
+.bg-white{ background-color:#fff;}/*白色背景*/
 
 /*顶部titlebar*/
 .x-panel-top .x-titlebar{ background-color:#ff4400;}
@@ -21,3 +22,9 @@
 .tb-listBox{ padding-left:0px; padding-right:10px; margin-bottom:10px;}
 .tb-listBox div{ background-color:#fff;}
 .tb-listBox p{ font-size:13px; margin-top:5px;}
+
+/*图片样式*/
+
+
+.heig{ padding-top:20px;}
+.text{ text-align: center;}

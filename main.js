@@ -15,33 +15,6 @@ define(function(require) {
 		return require.toUrl(url);
 	};
 	
-	/*
-	 * 写首页图片数据缓存的代码 
-	 * 1、数据模型创建时事件
-	 * 2、判断有没有localStorage，如果有显示localStorage中的内容，否则显示静态内容。
-	 * 3、从服务端获取最新数据和图片，获取之后，更新界面并写入localStorage
-	 */
-	Model.prototype.modelModelConstruct = function(event) {
-		/*
-		 * 1、数据模型创建时事件 2、加载静态图片或从缓存中加载图片
-		 */
-		var carousel = this.comp("carousel1");
-
-		var fImgUrl = localStorage.getItem("index_BannerImg_src");
-		if (fImgUrl == undefined) {
-			$(carousel.domNode).find("img").eq(0).attr({
-				"src" : "./main/img/carouselBox61.jpg",
-				"pagename" : "./detail.w"
-			});
-		} else {
-			var fUrl = localStorage.getItem("index_BannerImg_url");
-			$(carousel.domNode).find("img").eq(0).attr({
-				"src" : fImgUrl,
-				"pagename" : fUrl
-			});
-		}
-	};
-
 
 	Model.prototype.goodsDataCustomRefresh = function(event) {
 		/*
@@ -66,10 +39,11 @@ define(function(require) {
 		/*
 		 * 1、获取当前行 2、进入详细页面，并传值rowid
 		 */
-		var data = this.comp("goodsData");
+		var data = this.comp("商品表");
 		justep.Shell.showPage("detail", {
-			goodsID : data.getValue("id"),
-			shopID : data.getValue("fShopID")
+			goodsID : data.getValue("编号"),
+			shopID : data.getValue("商店编号")
+			
 		});
 	};
 
@@ -86,8 +60,8 @@ define(function(require) {
 		/*
 		 * 1、滚动视图下拉事件 2、刷新data
 		 */
-		//this.comp("imgData").refreshData();
-		this.comp("baasImgData").refreshData();
+		this.comp("轮播图片表").refreshData();
+		this.comp("商品表").refreshData();
 	};
 
 	Model.prototype.shoppingContentInactive = function(event) {
@@ -104,6 +78,8 @@ define(function(require) {
 		justep.Shell.on("onRestoreContent", this.onRestoreContent, this);
 		justep.Shell.on("onShoppingContent", this.onShoppingContent, this);
 		justep.Shell.on("onHomeContent", this.onHomeContent, this);
+		
+		
 	};
 	// 卸载事件
 	Model.prototype.modelUnLoad = function(event) {
@@ -141,19 +117,19 @@ define(function(require) {
 
 	};
 
-	Model.prototype.baasImgDataAfterRefresh = function(event){
-		/*
+/*	Model.prototype.baasImgDataAfterRefresh = function(event){
+		
 		 * 1、加载轮换图片数据
 		 * 2、根据data数据动态添加carouse组件中的content页面 
 		 * 3、如果img已经创建了，只修改属性
 		 * 4、第一张图片信息存入localStorage
-		 */
+		 
 		var baasData = event.source;
 		var me = this;
-		var carousel = this.comp("carousel1");
+		var carousel = this.comp("轮播图片表");
 		baasData.each(function(obj) {
-			var fImgUrl = require.toUrl(obj.row.val("fImgUrl"));
-			var fUrl = require.toUrl(obj.row.val("fUrl"));
+			var fImgUrl = require.toUrl(obj.row.val("图片外链"));
+			var fUrl = require.toUrl(obj.row.val("图片超链接"));
 			if (me.comp('contentsImg').getLength() > obj.index) {
 				$(carousel.domNode).find("img").eq(obj.index).attr({
 					"src" : fImgUrl,
@@ -167,7 +143,7 @@ define(function(require) {
 				carousel.add('<img src="' + fImgUrl + '" class="tb-img1" bind-click="openPageClick" pagename="' + fUrl + '"/>');
 			}
 		});
-	};
+	};*/
 
 	Model.prototype.baasGoodsDataAfterRefresh = function(event){
 		var baasData = event.source;
@@ -188,5 +164,77 @@ define(function(require) {
 		}
 			}
 	};
+	
+	Model.prototype.商品表CustomRefresh = function(event){
+	    var dataR = this.comp("商品表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryIndexGoods",
+			"async" : false,
+			"params" : {},
+			"success" : function(data) {
+				dataR.loadData(data);
+			}
+		});
+	};
+	
+	Model.prototype.shoppingCartBtnClick = function(event){
+
+	};
+	
+	
+	/*Model.prototype.轮播图片表BeforeRefresh = function(event){
+		var dataR = this.comp("轮播图片表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryCarousel",
+			"async" : false,
+			"params" :  {},
+			"success" : function(data) {
+				dataR.loadData(data);
+			}
+		});
+	};*/
+	
+	
+	Model.prototype.轮播图片表CustomRefresh = function(event){
+		/*
+		 * 1、加载轮换图片数据
+		 * 2、根据data数据动态添加carouse组件中的content页面 
+		 * 3、如果img已经创建了，只修改属性
+		 * 4、第一张图片信息存入localStorage*/ 
+		var dataR = this.comp("轮播图片表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryCarousel",
+			"async" : false,
+			"params" :  {},
+			"success" : function(data) {
+				dataR.loadData(data);
+			}
+		});
+		 
+		 
+		/*var baasData = event.source;
+		var me = this;
+		var carousel = this.comp("轮播图片表");
+		baasData.each(function(obj) {
+			var fImgUrl = require.toUrl(obj.row.val("图片外链"));
+			var fUrl = require.toUrl(obj.row.val("图片超链接"));
+			if (me.comp('contentsImg').getLength() > obj.index) {
+				$(carousel.domNode).find("img").eq(obj.index).attr({
+					"src" : fImgUrl,
+					"pagename" : fUrl
+				});
+				if (obj.index == 0) {
+					localStorage.setItem("index_BannerImg_src", fImgUrl);
+					localStorage.setItem("index_BannerImg_url", fUrl);
+				}
+			} else {
+				carousel.add('<img src="' + fImgUrl + '" class="tb-img1" bind-click="openPageClick" pagename="' + fUrl + '"/>');
+			}
+		});*/
+	};
+	
 	return Model;
 });

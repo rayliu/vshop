@@ -2,17 +2,21 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:148px;top:20px;"
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:557px;top:180px;"
     onParamsReceive="modelParamsReceive" onLoad="modelLoad"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="false"
-      xid="goodsData" idColumn="id" onCustomRefresh="goodsDataCustomRefresh"> 
-      <column label="id" name="id" type="String" xid="default6"/>  
-      <column label="店铺ID" name="fShopID" type="String" xid="xid3"/>  
-      <column label="标题" name="fTitle" type="String" xid="xid6"/>  
-      <column label="图片" name="fImg" type="String" xid="xid7"/>  
-      <column label="价格" name="fPrice" type="Float" xid="xid8"/>  
-      <column label="邮费" name="fPostage" type="String" xid="xid9"/>  
-      <column label="月销量" name="fRecord" type="Integer" xid="xid10"/> 
+      xid="商品表" idColumn="编号" onCustomRefresh="goodsDataCustomRefresh"> 
+      <column label="编号" name="编号" type="String" xid="xid8"></column>
+  <column label="商店编号" name="商店编号" type="String" xid="xid10"></column>
+  <column label="商店名称" name="商店名称" type="String" xid="xid11"></column>
+  <column label="标题" name="标题" type="String" xid="xid12"></column>
+  <column label="图片外链" name="图片外链" type="String" xid="xid13"></column>
+  <column label="现价" name="现价" type="Float" xid="xid14"></column>
+  <column label="原价" name="原价" type="Float" xid="xid15"></column>
+  <master data="商品表" xid="default1"></master>
+  <column label="送货方式" name="送货方式" type="String" xid="xid5"></column>
+  <column label="销量" name="销量" type="String" xid="xid6"></column>
+  <column label="地址" name="地址" type="String" xid="xid7"></column>
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="conditionData" idColumn="id"> 
@@ -190,26 +194,26 @@
             </div>  
             <div class="x-scroll-content" xid="div6"> 
               <div component="$UI/system/components/justep/list/list" class="x-list"
-                xid="list1" data="goodsData" limit="6" bind-click="listClick"> 
+                xid="list1" data="商品表" limit="6" bind-click="listClick"> 
                 <ul class="x-list-template" xid="listTemplateUl1"> 
                   <li xid="li1" class="media"> 
                     <div xid="div10" class="media-left"> 
                       <img alt="" xid="image1" class="img-rounded media-object"
-                        bind-attr-src="$model.getImageUrl(val(&quot;fImg&quot;))" style="width:75px;"
+                        bind-attr-src="ref('图片外链')" style="width:75px;"
                         height="80px"/> 
                     </div>  
                     <div class="media-body" xid="div14"> 
-                      <h5 class="media-heading lead text-black" bind-text="ref('fTitle')"
+                      <h5 class="media-heading lead text-black" bind-text="ref('标题')"
                         xid="h51"/>  
                       <div class="text-muted" xid="div15"> 
                         <span xid="span11" class="text-danger">￥</span>  
-                        <span xid="span9" bind-text="ref('fPrice')" class="text-danger"/> 
+                        <span xid="span9" bind-text="ref('现价')" class="text-danger"/> 
                       </div>  
                       <div class="text-muted" xid="div16"> 
                         <span xid="span30">月销</span>  
-                        <span xid="span21" bind-text="ref('fRecord')"/>  
+                        <span xid="span21" bind-text="ref('销量')"/>  
                         <span xid="span22"><![CDATA[笔 ]]></span>  
-                        <span xid="span20" bind-text=" ref('fPostage')"/> 
+                        <span xid="span20" bind-text=" ref('送货方式')"/> 
                       </div> 
                     </div> 
                   </li> 

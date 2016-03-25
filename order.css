@@ -20,3 +20,6 @@
 /*配送方式*/
 .x-popOver-overlay{ background-color:#000;}
 .x-popOver-content{ width:300px; background-color:#fff;}
+
+/*删除线*/
+.tb-text-del{ text-decoration:line-through;}

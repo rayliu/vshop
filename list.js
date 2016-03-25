@@ -26,23 +26,20 @@ define(function(require) {
 		var me = this;
 		Baas.sendRequest({
 			"url" : "/eeda/shop",
-			"action" : "queryCategoryGoods",
+			"action" : "queryByValue",
 			"async" : false,
-			"params" : {
-				"var-category_id": category_id
-			},
+			"params" : {'tableName':'商品表','templateName':'f12','value' : category_id},
 			"success" : function(data) {
-				console.log(data);
-				me.comp("baasCategoryGoodsData").loadData(data);
+				me.comp("商品表").loadData(data);
 			}
 		});
 	};
 
 	Model.prototype.modelParamsReceive = function(event) {
-		console.log('modelParamsReceive  ...');
 		/*
 		 * 1、接收上页传来参数、显示在搜索框中、参数不变不刷新
 		 */
+		 
 		if (this.params != undefined) {
 			if(this.params.category_id){//来自分类页
 				this.category_id = this.params.category_id;
@@ -52,7 +49,7 @@ define(function(require) {
 				if (this.keyValue != this.params.keyValue) {
 					this.keyValue = this.params.keyValue;
 					this.comp("keyInput").val(this.keyValue);
-					this.comp("goodsData").refreshData();
+					this.comp("商品表").refreshData();
 				}
 			}
 		}
@@ -65,6 +62,18 @@ define(function(require) {
 		 */
 //		var url = require.toUrl("./list/json/goodsData.json");
 //		allData.loadDataFromFile(url, event.source, true);
+		if(!this.params.category_id){
+			var Rdata= this.comp("商品表");
+			justep.Baas.sendRequest({
+				"url" : "/eeda/shop",
+				"action" : "queryInterface",
+				"async" : false,
+				"params" : {'tableName':'商品表','functionName':'商品模糊查询表(value)','value' : this.params.keyValue},
+				"success" : function(data) {
+					Rdata.loadData(data);
+				}
+			});
+		}
 	};
 
 	// 商品点击事件
@@ -72,10 +81,10 @@ define(function(require) {
 		/*
 		 * 1、获取当前商品ID 2、传入弹出窗口，弹出窗口中显示商品详细信息 3、在弹出窗口的接收事件中，从服务端过滤数据
 		 */
-		var data = this.comp("goodsData");
+		var data = this.comp("商品表");
 		justep.Shell.showPage("detail", {
-			goodsID : data.getValue("id"),
-			shopID : data.getValue("fShopID")
+			goodsID : data.getValue("编号"),
+			shopID : data.getValue("商店编号")
 		});
 	};
 
@@ -217,9 +226,23 @@ define(function(require) {
 	};
 
 
-	Model.prototype.baasCategoryGoodsDataCustomRefresh = function(event){
-		console.log("baasCategoryGoodsDataCustomRefresh category_id="+this.params.category_id);
-		
+//	Model.prototype.baasCategoryGoodsDataCustomRefresh = function(event){
+//		console.log("baasCategoryGoodsDataCustomRefresh category_id="+this.params.category_id);
+//		
+//	};
+	
+	
+	// 下划刷新
+	Model.prototype.scrollViewPullDown = function(event) {
+		/*
+		 * 1、滚动视图下拉事件 2、刷新data
+		 */
+		this.modelParamsReceive();
+	};
+
+
+	Model.prototype.scrollView1PullDown = function(event){
+		this.comp("商品表").refreshData();
 	};
 
 

@@ -17,10 +17,10 @@ define(function(require) {
 			var verifyCode = this.comp("verifyCode").val();
 			var userInfoData = this.comp("userInfoData");
 			if(verifyCode==emailVerify){
-				userInfoData.newData({
+				/*userInfoData.newData({
 	                    index : 0,
 	                    defaultValues : [ {
-	                        "status" : "1",
+	                        "状态" : "1",
 	                        "reg_time" : null,
 	                        "nickname" : "test",
 	                        "info" : "test add",
@@ -29,7 +29,32 @@ define(function(require) {
 	                        "nickname": nickInput
 	                    } ]
 	                        });
-				userInfoData.saveData();
+				userInfoData.saveData();*/
+				
+				var obj={};
+		
+				obj.用户名 = emailNumber;
+				obj.密码 = password;
+				obj.昵称 = nickInput;
+				obj.状态 = "1";
+				
+				// 通过Baas保存数据
+				event.cancel = true;
+				var Rdata = event.source;
+				justep.Baas.sendRequest({
+					"url" : "/eeda/shop",
+					"action" : "createOrder",
+					"params" : {
+						"tableName":"用户表",
+						"json" : JSON.stringify(obj) 
+					},
+					"success" : function(resultData) {
+						justep.Shell.showPage("order", {
+							orderID : resultData.id
+						});
+					}
+				});
+				
 				justep.Util.hint("注册成功！");
 				justep.Shell.showPage("login");
 			}else{

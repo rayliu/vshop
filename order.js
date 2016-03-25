@@ -3,6 +3,16 @@ define(function(require){
 	var justep = require("$UI/system/lib/justep");
 	var allData = require("./js/loadData");
 	
+	require("$UI/system/lib/cordova/cordova");
+	require("cordova!org.apache.cordova.device");
+	require("cordova!com.justep.cordova.plugin.weixin.v3");
+	require("cordova!com.justep.cordova.plugin.alipay");
+	require("cordova!org.apache.cordova.geolocation");
+	require("cordova!com.justep.cordova.plugin.baidulocation");
+	require("cordova!cn.jpush.phonegap.JPushPlugin");
+	require("cordova!com.justep.cordova.plugin.unionpay");
+	require("res!./img");
+	
 	var Model = function(){
 		this.callParent();
 	};
@@ -12,31 +22,8 @@ define(function(require){
 		return require.toUrl(url);
 	};
 		
-	//获取商品列表
-	Model.prototype.goodsDataCustomRefresh = function(event){
-		/*
-		1、加载商品数据
-		 */
-//		var url = require.toUrl("./cart/json/goodsData.json");
-//		allData.loadDataFromFile(url,event.source,true);
-		var goodsData = this.comp("goodsData");
-		var data =  JSON.parse(localStorage.getItem("cart_submit_goods"));
-		goodsData.loadData(data);
-		goodsData.each(function(obj){
-			console.log(obj.row.val('id')+", fNumber: " + obj.row.val('fNumber') );
-		});    
-	};
-	//获取店铺信息
-	Model.prototype.shopDataCustomRefresh = function(event){
-		/*
-		1、从localStorage 加载itemId, 查出店铺数据
-		 */
-//		var url = require.toUrl("./cart/json/shopData.json");
-//		allData.loadDataFromFile(url,event.source,true);
-		var shopData = this.comp("shopData");
-		var data =  JSON.parse(localStorage.getItem("cart_submit_shop"));
-		shopData.loadData(data);
-	};
+
+
 	//获取邮寄信息
 	Model.prototype.sendDataCustomRefresh = function(event){
 		/*
@@ -49,15 +36,77 @@ define(function(require){
 	//打开成功页面
 	Model.prototype.confirmBtnClick = function(event){
 		/*
+		0`生成订单
 		1、确认按钮点击事件
 			跳出支付方式，选择dialog: 微信，支付宝，信用卡，到付
 		    TODO 后台生成订单记录，购物车清除已购买的记录
 		2、打开成功页面
 		*/
+		var self = this;
+		var orderID = justep.UUID.createUUID();
+		var 送货方式 = this.comp("sendData").val("fSendName");
+		var obj={};
+		obj.商店编号 = this.comp("购物车商品表").getCurrentRow().val("商店编号");
+		obj.商店名称 = this.comp("购物车商品表").getCurrentRow().val("商店名称");
+		obj.商品编号 = this.comp("购物车商品表").getCurrentRow().val("商品编号");
+		obj.标题 = this.comp("购物车商品表").getCurrentRow().val("标题");
+		obj.图片外链 = this.comp("购物车商品表").getCurrentRow().val("图片外链");
+		obj.现价 = this.comp("购物车商品表").getCurrentRow().val("现价");
+		obj.原价 = this.comp("购物车商品表").getCurrentRow().val("原价");
+		obj.规格 = this.comp("购物车商品表").getCurrentRow().val("规格");
+		obj.数量 = this.comp("购物车商品表").getCurrentRow().val("数量");
+		obj.状态 = "未付款";
+		if(送货方式=='特快')
+			obj.总价 = this.comp("购物车商品表").getCurrentRow().val("数量")*this.comp("购物车商品表").getCurrentRow().val("现价")+20;
+		obj.送货地址 = this.comp("收货地址表").getCurrentRow().val("地址")+"，姓名："+this.comp("收货地址表").getCurrentRow().val("姓名")+"，电话："+this.comp("收货地址表").getCurrentRow().val("电话");
+		obj.配送方式 = 送货方式;
+		obj.买家留言 = this.comp("input1").val();
+		
+		//通过Baas保存数据
+		event.cancel = true;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "createOrder",
+			"params" : {
+				"tableName":"订单表",
+				"json" : JSON.stringify(obj) 
+			},
+			"success" : function(resultData) {
+				justep.Util.hint("下单成功，谢谢您的订餐！");
+				debugger;
+				
+				justep.Baas.sendRequest({
+					"url" : "/eeda/shop",
+					"action" : "deleteOrder",
+					"async" : false,
+					"params" : {'tableName':'购物车商品表','value' : self.params.cardObjectIDs},
+					"success" : function(data) {
+					}
+				});
+				
+				
+				
+				
+				//userData.applyUpdates();
+				// 开始支付
+				var payDtd = self.payOrder(resultData.id);
+				payDtd.always(function(code) {
+					orderData.setValue("fPayState", code);
+					orderData.saveData({"onSuccess" : function() {
+							self.comp("contents").to("orderContent");
+						}});
+					self.sendOrderPushMessage();
+				}).fail(function(code) {
+					justep.Util.hint("支付遇到问题!");
+				});
+			}
+		});
 		
 		
 		
-		justep.Shell.showPage("success");
+		
+		
+		//justep.Shell.showPage("success");
 	};
 	
 	Model.prototype.sendClick = function(event){
@@ -76,6 +125,11 @@ define(function(require){
 		this.comp("sendData").setValue("fState",0);
 		var row = event.bindingContext.$object; 
 		row.val("fState",1);
+		if(row.val("fSendName")=='特快'){
+			this.comp('购物车商品表').setValue("总价",(this.comp('购物车商品表').val('总价')+20));
+		}else if(row.val("fSendName")=='快递'){
+			this.comp('购物车商品表').setValue("总价",(this.comp('购物车商品表').val('总价')-20));
+		}
 		var title=row.val("fSendName")+" "+row.val("fCost");		
 		$("span[xid=sendTitle]", this.getRootNode()).text(title);
 		this.comp("popOver").hide();
@@ -100,6 +154,234 @@ define(function(require){
 	Model.prototype.payRadioClick = function(event){
 		this.comp("popOverPay").hide();
 	};
+	
+	
+	/*Model.prototype.商店表CustomRefresh = function(event){
+		var Rdata= this.comp("商店表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryShop",
+			"async" : false,
+			"params" : {'tableName':'商店表','templateName':'f7','value' : this.params.orderID},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};*/
+	
+	Model.prototype.收货地址表CustomRefresh = function(event){
+		var userID =localStorage.getItem("userID")
+		var Rdata= this.comp("收货地址表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'收货地址表','templateName':'f2,f7','value' : userID+',是'},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};
+	
+	Model.prototype.购物车商品表DataCustomRefresh = function(event){
+		var Rdata= this.comp("购物车商品表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'购物车商品表','templateName':'f18','value' : this.params.cardIDs,'type':'in'},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+		支付失败参数:
+			   <0 支付失败 按照不同支付类型 返回值不同
+			   0 货到付款
+		   1 用户采用微信支付付款完成
+		   2 用户采用微信应用中js-sdk支付付款完成
+		   3 用户采用支付宝支付付款完成
+		   4 用户采用银联支付付款完成
+		  ....未完待续 
+	 **/
+	Model.prototype.payOrder = function(orderID) {
+	debugger;
+		var payDtd = $.Deferred();
+		var payType = this.comp('payMethodData').val('payMethodCode');
+		if (payType === "faceToFace" || payType === "") {
+			payDtd.resolve(0);
+		} else if (payType === "weixin") {
+			this.payOrderByWeixin(payDtd, orderID);
+		} else if (payType == "alipay") {
+			this.payOrderByAlipay(payDtd, orderID);
+		} else if (payType == "weixinJSSDK") {
+			this.payOrderByWeixinJSSDK(payDtd,orderID);
+		} else if (payType == "union") {
+			this.payOrderByUnion(payDtd,orderID);
+		} else {
+			payDtd.reject(0);
+		}
+		return payDtd.promise();
+	};
+
+	/**  
+		-23 当前环境不支持微信支付
+	  	-20 微信支付失败
+	 */
+	Model.prototype.payOrderByWeixinJSSDK = function(payDtd, orderID) {
+		if (!navigator.WxApi) {
+			payDtd.reject(-33);
+			return;
+		}
+		var tradeNo = orderID;
+		var notifyUrl = location.origin + "/baas/weixin/weixin/notify";
+		this.wxApi.chooseWXPay({
+			body : "x5外卖",
+			mchId : "1228613502",
+			notifyUrl : notifyUrl,
+			outTradeNo : tradeNo,
+			totalFee : "1"
+		}).done(function() {
+			payDtd.resolve(2);
+		}).fail(function() {
+			payDtd.reject(-20);
+		});
+	};
+
+	/** 
+	 * 9000 操作成功。 
+	 * 4000 系统异常。 
+	 * 4001 数据格式不正确。  
+	 * 4003 该用户绑定的支付宝账户被冻结或不允许支付。 
+	 * 4004  该用户已解除绑定。 
+	 * 4005  绑定失败或没有绑定。 
+	 * 4006  订单支付失败。 
+	 * 4010  重新绑定账户。  
+	 * 6000 支付服务正在进行升级操作。 
+	 * 6001 用户中途取消支付操作。
+	 * 
+	    当请求支付已经到alipay应用但是失败 错误编码 以 -33 + message(message是非常大的整数一般都3000+)  
+		-33 当前环境不支持支付宝支付
+	  	-30 支付宝支付支付请求被拒绝
+	 */
+	Model.prototype.payOrderByAlipay = function(payDtd, orderID) {
+		if (!navigator.alipay) {
+			payDtd.reject(-33);
+			return;
+		}
+		var notifyUrl = location.origin;
+		var tradeNo = orderID;
+		var alipay = navigator.alipay;
+		alipay.pay({
+			"seller" : "huangyx@justep.com", // 卖家支付宝账号或对应的支付宝唯一用户号
+			"subject" : "x5外卖", // 商品名称
+			"body" : "x5外卖", // 商品详情
+			"price" : "0.01", // 金额，单位为RMB
+			"tradeNo" : tradeNo, // 唯一订单号
+			"timeout" : "30m", // 超时设置
+			"notifyUrl" : notifyUrl
+		}, // 服务器通知路径
+		function(message) {
+			var responseCode = parseInt(message);
+			if (responseCode === 9000) {
+				payDtd.resolve(3);
+			} else if (!isNaN(responseCode)) {
+				payDtd.reject((-33) + responseCode);
+			} else {
+				payDtd.reject(-30);
+			}
+		}, function(msg) {
+			payDtd.reject(-30);
+		});
+	};
+	/** 
+	    当请求支付已经到weixin应用但是失败 错误编码 以 -13 + message(message如果为weixin异常一定为负数) 
+		-13 当前环境不支持微信支付	
+	  	-12 微信获取accessToken失败
+	  	-11 微信生成预支付订单失败
+	  	-10 微信支付请求被拒绝
+	 */
+	Model.prototype.payOrderByWeixin = function(payDtd, orderID) {
+	alert("weixin:"+navigator.weixin);
+//		if (!navigator.weixin) {
+//			payDtd.reject(-13);
+//			return;
+//		}
+		var notifyUrl = location.origin;
+		var traceID = justep.UUID.createUUID();
+		var traceNo = orderID;
+
+		var weixin = navigator.weixin;
+		weixin.generatePrepayId({
+			"body" : "x5外卖",
+			"feeType" : "1",
+			"notifyUrl" : notifyUrl,
+			"totalFee" : "1",
+			"traceId" : traceID,
+			"tradeNo" : traceNo
+		}, function(prepayId) {
+			weixin.sendPayReq(prepayId, function(message) {
+				var responseCode = parseInt(message);
+				if (responseCode === 0) {
+					payDtd.resolve(1);
+				} else if (!isNaN(responseCode)) {
+					payDtd.reject((-13) + responseCode);
+				} else {
+					payDtd.reject(-10);
+				}
+			}, function(message) {
+				justep.Util.hint("微信支付失败！");
+				payDtd.reject(-10);
+			});
+		}, function(message) {
+			justep.Util.hint("微信支付失败！");
+			payDtd.reject(-11);
+		});
+	};
+	/** 
+	    当请求支付已经到unionpay但是失败
+		-50 unionpay 失败
+	 */
+	Model.prototype.payOrderByUnion = function(payDtd,orderID) {
+		Baas.sendRequest({
+			"url" : "/unionpay/unionpay",
+			"action" : "tn",
+			"params" : {
+				"orderId":orderID
+			},
+			"success" : function(data) {
+				navigator.unionpay.pay({
+					tn : data.tn
+				}, function(code) {
+					if(code === "success"){
+						payDtd.resolve(4);
+					}else{
+						payDtd.reject(-50);
+					}
+					
+				}, function(code) {
+					payDtd.reject(-50);
+				});
+			},
+			"error":function(){
+				payDtd.reject(-50);
+			}
+		});
+	};
+	
+	
+	
+	
 	
 	return Model;
 });

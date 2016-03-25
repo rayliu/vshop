@@ -44,7 +44,6 @@ define(function(require){
 		2、存入data和缓存
 		3、打开 页面并传参
 		*/
-
 		var searchKeyData = this.comp("searchKeyData");
 		var text=this.comp("keyInput").val();
 		if(text.length>0 && searchKeyData.find(["key"],[text]).length==0){		

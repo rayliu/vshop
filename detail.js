@@ -4,7 +4,8 @@ define(function(require) {
 	var allData = require("./js/loadData");	
 	require("cordova!org.apache.cordova.device");
 	require("cordova!com.justep.cordova.plugin.weixin.v3");
-
+	var buttom = "";
+	
 	var Model = function() {
 		this.callParent();
 		this.goodsID="";
@@ -22,9 +23,9 @@ define(function(require) {
 		1、参数接收事件
 		2、根据参数从服务端过滤数据
 		*/
-		if (this.params && this.params.shopID) {
+		if (this.params.goodsID) {
 			this.shopID = this.params.shopID;
-			this.goodsID = this.params.goodsID;
+			this.goodsID = this.params.goodsID;	
 		}
 	};	
 	
@@ -35,49 +36,46 @@ define(function(require) {
 		2、根据goodsID过滤数据
 		3、修改对应图片的src
 		*/		
-		var url = require.toUrl("./detail/json/imgData.json");
-		allData.loadDataFromFile(url,event.source,true);
-		
-        var carousel=this.comp("carousel1");        
-        event.source.each(function(obj){			
-			var fImgUrl=require.toUrl(obj.row.val("fImgUrl"));
-			if( obj.index==0){
-				$(carousel.domNode).find("img").eq(0).attr({"src":fImgUrl});
-			} else {
-				carousel.add('<img src="'+fImgUrl+'" class="image-wall tb-img"/>');
-			}
-		});
+//		var url = require.toUrl("./detail/json/imgData.json");
+//		allData.loadDataFromFile(url,event.source,true);
+		var carouselData= this.comp("商品轮播图片表");
+		if (this.params.goodsID) {
+			//this.shopID = this.params.shopID;
+			this.goodsID = this.params.goodsID;
+			
+			//加载model数据
+			justep.Baas.sendRequest({
+				"url" : "/eeda/shop",
+				"action" : "queryByValue",
+				"async" : false,
+				"params" : {'tableName':'商品轮播图片表','templateName':'f1','value' : this.params.goodsID},
+				"success" : function(data) {
+					carouselData.loadData(data);
+				}
+			});
+		}
+
+//		var baasData = event.source;
+//		var me = this;
+//		var carousel = this.comp("imgData");
+//		baasData.each(function(obj) {
+//			var fImg = require.toUrl(obj.row.val("fImg"));
+//			debugger;
+//			
+//			if (me.comp('contents1').getLength() > obj.index) {
+//				$(carousel.domNode).find("img").eq(obj.index).attr({
+//					"src" : fImg
+//				});
+//				if (obj.index == 0) {
+//					localStorage.setItem("index_BannerImg_src", fImg);
+//				}
+//			} else {
+//				carousel.add('<img src="' + fImgUrl + '" class="tb-img1" bind-click="openPageClick" pagename="' + fUrl + '"/>');
+//			}
+//		});
 	};
 	
-	//获取商品信息
-	Model.prototype.goodsDataCustomRefresh = function(event){
-		/*
-		1、加载商品数据
-		2、根据goodsID过滤数据
-		*/				
-		var url = require.toUrl("./detail/json/goodsData.json");
-		allData.loadDataFromFile(url,event.source,true);
-	};
-	
-	//获取店铺信息
-	Model.prototype.shopDataCustomRefresh = function(event){
-		/*
-		1、加载店铺数据
-		2、根据shopID过滤数据
-		 */
-        var url = require.toUrl("./detail/json/shopData.json");
-        allData.loadDataFromFile(url,event.source,true);       
-	};
-	
-	//获取参数信息
-	Model.prototype.parameterDataCustomRefresh = function(event){
-		/*
-		1、加载参数数据
-		2、根据goodsID过滤数据
-		 */
-        var url = require.toUrl("./detail/json/parameterData.json");
-        allData.loadDataFromFile(url,event.source,true);       
-	};
+
 	
 	//获取评论信息
 	Model.prototype.commentsDataCustomRefresh = function(event){
@@ -112,6 +110,7 @@ define(function(require) {
 		1、弹出商品尺码颜色选择框
 		2、点击确定后购物车中增加一条相应数据
 		*/
+		buttom = 'addCard';
 		this.comp("stateData").setValue("state",0);
 		this.comp("popOver").show();
 	};
@@ -123,6 +122,7 @@ define(function(require) {
 		2、传入新窗口，打开的窗口中显示购买确认页面
 		3、在打开的窗口中接收数据，并从服务端过滤数据
 		*/
+		buttom = 'buy';
 		this.comp("stateData").setValue("state","0");
 		this.comp("popOver").show();
 	};
@@ -203,10 +203,10 @@ define(function(require) {
 		1、颜色选择点击事件
 		2、修改当前颜色状态
 		*/
-		var colorData=this.comp("colorData");
+		var colorData=this.comp("商品规格表");
 		var row=colorData.getCurrentRow();		
-		colorData.setValue("fState", "0", colorData.find(["fState"],["1"],true,true,true)[0]);
-		colorData.setValue("fState", "1",row);
+		colorData.setValue("选中状态", "0", colorData.find(["选中状态"],["1"],true,true,true)[0]);
+		colorData.setValue("选中状态", "1",row);
 	};	
 
 	Model.prototype.menuCartBtnClick = function(event){
@@ -217,5 +217,263 @@ define(function(require) {
 		justep.Shell.showMainPage();
 	};	
 
+	
+	Model.prototype.商品表CustomRefresh = function(event){
+		//加载model数据
+		var goodsdata= this.comp("商品表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'商品表','templateName':'f1','value' : this.params.goodsID},
+			"success" : function(data) {
+				goodsdata.loadData(data);
+			}
+		});
+	};	
+
+	
+	Model.prototype.图文详情表CustomRefresh = function(event){
+		//加载model数据
+		var Rdata= this.comp("图文详情表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'图文详情表','templateName':'f2','value' : this.params.goodsID},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};	
+
+	
+	Model.prototype.详情参数表CustomRefresh = function(event){
+		//加载model数据
+		var Rdata= this.comp("详情参数表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'详情参数表','templateName':'f2','value' : this.params.goodsID},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};	
+
+	
+	Model.prototype.商店表CustomRefresh = function(event){
+		//加载model数据
+		var Rdata= this.comp("商店表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'商店表','templateName':'f7','value' : this.params.shopID},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};	
+
+	
+	Model.prototype.商品规格表CustomRefresh = function(event){
+		//加载model数据
+		var Rdata= this.comp("商品规格表");
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'商品规格表','templateName':'f2','value' : this.params.goodsID},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};	
+	
+	
+	Model.prototype.addCardClick = function(event){
+		/*
+		1、切换到购物车页面
+		*/
+		var pages = this.comp("popOver");
+		var obj={};
+		obj.规格 = this.comp("商品规格表").getCurrentRow().val("规格信息");
+		obj.商品编号 = this.comp("商品表").getCurrentRow().val("编号");
+		obj.商店编号 = this.comp("商品表").getCurrentRow().val("商店编号");
+		obj.商店名称 = this.comp("商品表").getCurrentRow().val("商店名称");
+		obj.标题 = this.comp("商品表").getCurrentRow().val("标题");
+		obj.图片外链 = this.comp("商品表").getCurrentRow().val("图片外链");
+		obj.现价 = this.comp("商品表").getCurrentRow().val("现价");
+		obj.原价 = this.comp("商品表").getCurrentRow().val("原价");
+		obj.是否选中 = 0;
+		obj.数量 = this.comp('数量').val('数量');
+		obj.总价 = this.comp('数量').val('数量')*(this.comp("商品表").getCurrentRow().val("现价"));
+		
+		// 通过Baas保存数据
+		event.cancel = true;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "createOrder",
+			"params" : {
+				"tableName":"购物车商品表",
+				"json" : JSON.stringify( obj) 
+			},
+			"success" : function(resultData) {
+				if(resultData.id){
+					pages.hide();
+					justep.Util.hint("加入购物车成功")
+				}
+			}
+		});
+	}
+		
+		
+		
+	//下订单
+	Model.prototype.addOrderClick = function(event){
+		/*
+		1、切换到购物车页面
+		*/
+		var pages = this.comp("popOver");
+		var obj={};
+		
+		obj.规格 = this.comp("商品规格表").getCurrentRow().val("规格信息");
+		obj.商品编号 = this.comp("商品表").getCurrentRow().val("编号");
+		obj.商店编号 = this.comp("商品表").getCurrentRow().val("商店编号");
+		obj.商店名称 = this.comp("商品表").getCurrentRow().val("商店名称");
+		obj.标题 = this.comp("商品表").getCurrentRow().val("标题");
+		obj.图片外链 = this.comp("商品表").getCurrentRow().val("图片外链");
+		obj.现价 = this.comp("商品表").getCurrentRow().val("现价");
+		obj.原价 = this.comp("商品表").getCurrentRow().val("原价");
+		obj.是否选中 = 0;
+		obj.数量 = this.comp('数量').val('数量');
+		obj.总价 = this.comp('数量').val('数量')*(this.comp("商品表").getCurrentRow().val("现价"));
+		
+		// 通过Baas保存数据
+		event.cancel = true;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "createOrder",
+			"params" : {
+				"tableName":"购物车商品表",
+				"json" : JSON.stringify( obj) 
+			},
+			"success" : function(resultData) {
+				justep.Shell.showPage("order", {
+					cardObjectIDs : resultData.objectId,
+					cardIDs : resultData.id,
+					pageName : 'detail'
+				});
+			}
+		});
+	};	
+	
+	
+	//减数量
+	Model.prototype.reductionBtnClick = function(event){		
+		/*
+		1、减少数量按钮绑定点击事件onClick()
+		2、点击按钮，当前记录的fNumber值减1
+		3、fNumber为1时不再相减
+		*/
+		var row = this.comp('数量');
+		var n=row.val("数量");
+		if(n>1){
+			row.setValue("数量",n-1);
+		}
+	};
+	
+	//加数量
+	
+	Model.prototype.addBtnClick = function(event){
+		/*
+		1、增加数量按钮绑定点击事件onClick()
+		2、点击按钮，当前记录的fNumber值加1
+		*/
+		var row = this.comp('数量');
+		var n=row.val("数量");
+		row.setValue("数量",n+1);
+	};
+
+	
+	Model.prototype.confirmBtn = function(event){
+		if(buttom =='addCard'){
+			var pages = this.comp("popOver");
+			var obj={};
+			obj.规格 = this.comp("商品规格表").getCurrentRow().val("规格信息");
+			obj.商品编号 = this.comp("商品表").getCurrentRow().val("编号");
+			obj.商店编号 = this.comp("商品表").getCurrentRow().val("商店编号");
+			obj.商店名称 = this.comp("商品表").getCurrentRow().val("商店名称");
+			obj.标题 = this.comp("商品表").getCurrentRow().val("标题");
+			obj.图片外链 = this.comp("商品表").getCurrentRow().val("图片外链");
+			obj.现价 = this.comp("商品表").getCurrentRow().val("现价");
+			obj.原价 = this.comp("商品表").getCurrentRow().val("原价");
+			obj.是否选中 = 0;
+			obj.数量 = this.comp('数量').val('数量');
+			obj.总价 = this.comp('数量').val('数量')*(this.comp("商品表").getCurrentRow().val("现价"));
+			
+			// 通过Baas保存数据
+			event.cancel = true;
+			justep.Baas.sendRequest({
+				"url" : "/eeda/shop",
+				"action" : "createOrder",
+				"params" : {
+					"tableName":"购物车商品表",
+					"json" : JSON.stringify( obj) 
+				},
+				"success" : function(resultData) {
+					if(resultData.id){
+						pages.hide();
+						justep.Util.hint("加入购物车成功")
+					}
+				}
+			});
+		}else{
+			var pages = this.comp("popOver");
+			var obj={};
+			
+			obj.规格 = this.comp("商品规格表").getCurrentRow().val("规格信息");
+			obj.商品编号 = this.comp("商品表").getCurrentRow().val("编号");
+			obj.商店编号 = this.comp("商品表").getCurrentRow().val("商店编号");
+			obj.商店名称 = this.comp("商品表").getCurrentRow().val("商店名称");
+			obj.标题 = this.comp("商品表").getCurrentRow().val("标题");
+			obj.图片外链 = this.comp("商品表").getCurrentRow().val("图片外链");
+			obj.现价 = this.comp("商品表").getCurrentRow().val("现价");
+			obj.原价 = this.comp("商品表").getCurrentRow().val("原价");
+			obj.是否选中 = 0;
+			obj.数量 = this.comp('数量').val('数量');
+			obj.总价 = this.comp('数量').val('数量')*(this.comp("商品表").getCurrentRow().val("现价"));
+			
+			// 通过Baas保存数据
+			event.cancel = true;
+			justep.Baas.sendRequest({
+				"url" : "/eeda/shop",
+				"action" : "createOrder",
+				"params" : {
+					"tableName":"购物车商品表",
+					"json" : JSON.stringify( obj) 
+				},
+				"success" : function(resultData) {
+					justep.Shell.showPage("order", {
+						objectId : resultData.objectId,
+						cardId : resultData.id,
+						pageName : 'detail'
+					});
+				}
+			});
+		}
+	};
+
+	
+	Model.prototype.scrollView1PullDown = function(event){
+		this.comp("商品表").refreshData();
+		this.comp("商店表").refreshData();
+		this.comp("商品规格表").refreshData();
+		this.comp("商品轮播图片表").refreshData();
+	};
+
+	
 	return Model;
 });
