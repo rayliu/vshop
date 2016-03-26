@@ -23,6 +23,22 @@ import java.util.HashMap;
 
 
 public class LatoService{
+	
+	//查询表信息
+	public static JSONObject queryTable(JSONObject params, ActionContext context) throws Exception{
+		JSONObject json =new JSONObject();
+		String tableName = params.getString("tableName");
+		try
+		{
+			json = LoadJson.load(tableName);
+			System.out.println(tableName+":"+json);
+		}finally{
+			return json;
+		}
+	}
+	
+	
+	
 	//获取轮回图片
 	public static JSONObject carousel(JSONObject params, ActionContext context) throws Exception{
 		JSONObject json =new JSONObject();

@@ -196,6 +196,7 @@
 	<action name="createOrder" impl="eeda.controller.LatoService.createOrder" />
 	<action name="queryShop" impl="eeda.controller.LatoService.queryShop"/>
 	<action name="deleteOrder" impl="eeda.controller.LatoService.deleteOrder" />
+	<action name="queryTable" impl="eeda.controller.LatoService.queryTable" />
 
 	
 </model>
