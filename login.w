@@ -41,8 +41,8 @@
             <span class="input-group-addon" xid="span3"> 
               <i class="icon-unlocked" xid="i3"/> 
             </span>  
-            <input component="$UI/system/components/justep/input/input" class="form-control x-inputText"
-              xid="passwordInput" placeHolder="密码"/> 
+            <input component="$UI/system/components/justep/input/password" class="form-control x-inputText"
+              xid="passwordInput" placeHolder="密码" max="js:new Date()"/> 
           </div> 
         </div> 
       </div>  

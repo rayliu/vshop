@@ -29,12 +29,13 @@ define(function(require) {
 //		var url = require.toUrl("./cart/json/goodsData.json");
 //		allData.loadDataFromFile(url,event.source,true);        
 		// 通过Baas获取数据
+		var userId = localStorage.getItem("userID");
 		var dataR = event.source;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
-			"action" : "queryCartGoods",
+			"action" : "queryByValue",
 			"async" : false,
-			"params" : {},
+			"params" : {tableName:'购物车商品表',templateName:'f20',value:userId},
 			"success" : function(data) {
 				dataR.loadData(data);
 			}

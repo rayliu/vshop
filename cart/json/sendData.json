@@ -1,6 +1,7 @@
 [
 {"id":"1","fSendName":"快递","fCost":"免邮","fState":"1"},
 {"id":"2","fSendName":"特快","fCost":"20元","fState":"0"},
-{"id":"2","fSendName":"送货上门","fCost":"","fState":"0"},
-{"id":"2","fSendName":"到店自取","fCost":"","fState":"0"}
+{"id":"3","fSendName":"送货上门","fCost":"","fState":"0"},
+{"id":"4","fSendName":"到店自取","fCost":"","fState":"0"},
+{"id":"5","fSendName":"提货点取","fCost":"","fState":"0"}
 ]

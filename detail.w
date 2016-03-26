@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:351px;top:42px;"
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:281px;top:307px;"
     onParamsReceive="modelParamsReceive"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="商品轮播图片表" idColumn="编号" onCustomRefresh="imgDataCustomRefresh" confirmDelete="false"
@@ -431,9 +431,9 @@
           <div component="$UI/system/components/justep/button/buttonGroup"
             class="btn-group btn-group-justified" tabbed="true" xid="buttonGroup1"> 
             <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="收藏" xid="favoriteBtn" icon="icon-ios7-star-outline"> 
-              <i xid="i3" class="icon icon-ios7-star-outline"/>  
-              <span xid="span3">收藏</span> 
+              label="客服" xid="serviceBtn" icon="icon-android-call"> 
+              <i xid="i3" class="icon icon-android-call"/>  
+              <span xid="span3">客服</span> 
             </a>
             <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
               label="购物车" xid="menuCartBtn" icon="icon-ios7-cart-outline" onClick="menuCartBtnClick"> 

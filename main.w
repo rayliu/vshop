@@ -62,8 +62,8 @@
                   <div/> 
                 </div>
  
-                <div class="x-titlebar-right reverse" xid="div5"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-right btn-only-icon" xid="搜索" icon="icon-android-search" style="width:60px;height:30px;">
-   <i xid="i6" class="icon-android-search"></i>
+                <div class="x-titlebar-right reverse" xid="div5"><a component="$UI/system/components/justep/button/button" class="btn x-yellow btn-block" xid="搜索" icon="icon-ios7-search-strong" style="height:100%;width:70%;" bind-click="searchBtnClick">
+   <i xid="i6" class="icon-android-search icon-ios7-search-strong"></i>
    <span xid="span6"></span></a></div> 
               </div> 
             </div>  

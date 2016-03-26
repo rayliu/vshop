@@ -49,6 +49,10 @@ define(function(require){
 			"success" : function(resultData) {
 				if(resultData.id){
 					justep.Util.hint("保存成功！");
+					if(self.params.pageName!=undefined)
+						justep.Shell.showPage(self.params.pageName,{'pageName':'addressInfo'});
+					else
+						justep.Shell.showPage("user");	
 				}else{
 					justep.Util.hint("保存失败 ", {
 						"type" : "danger"
@@ -61,7 +65,7 @@ define(function(require){
 	};
 	
 	Model.prototype.modelModelConstruct = function(event){
-		this.comp('lockInput').val('是');
+		this.comp("lockInput").val('是');
 	};
 	
 	

@@ -56,7 +56,7 @@
         </li>
         <li class="list-group-item" xid="li5" bind-click="li5Click">收货地址
           <span class="pull-right text-muted" xid="span4"><![CDATA[常用收货地址]]></span>  
-          <i xid="" class="icon-android-storage"/> 
+          <i xid="" class="icon-model-s"/> 
         </li>
       <li class="list-group-item" xid="li1">我的小金库
         <span class="pull-right text-muted" xid="span1"><![CDATA[抵用卷、佣金卷

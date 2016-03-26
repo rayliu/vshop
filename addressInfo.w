@@ -34,7 +34,7 @@
       <input component="$UI/system/components/justep/input/input" class="form-control" xid="mailInput"></input></li>
        <li class="list-group-item" xid="lock">
         <span class="pull-left " xid="mailSpan" id="">是否设置为默认地址(是/否)</span> 
-      <input component="$UI/system/components/justep/input/input" class="form-control" xid="lockInput"></input></li>
+      <input component="$UI/system/components/justep/input/input" class="form-control" xid="lockInput" placeHolder="是"></input></li>
     </ul> 
   </div>  
   <a component="$UI/system/components/justep/button/button" class="btn x-orange btn-only-label btn-block"

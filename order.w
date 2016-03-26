@@ -27,7 +27,7 @@
       <column label="支付方式Code" name="payMethodCode" type="String" xid="xid21"/>  
       <column label="支付方式" name="payMethodName" type="String" xid="xid22"/>  
       <column label="状态" name="state" type="String" xid="xid23"/>  
-      <data xid="default9">[{"payMethodCode":"weixin","payMethodName":"微信支付","state":"true"},{"payMethodCode":"creditCard","payMethodName":"7Eleven代收","state":"false"},{"payMethodCode":"goPay","payMethodName":"到店支付","state":"false"},{"payMethodCode":"arrivalPay","payMethodName":"货到付款","state":"false"}]</data>
+      <data xid="default9">[{"payMethodCode":"weixin","payMethodName":"微信支付","state":"1"},{"payMethodCode":"creditCard","payMethodName":"7Eleven代收","state":"0"},{"payMethodCode":"goPay","payMethodName":"到店支付","state":"0"},{"payMethodCode":"arrivalPay","payMethodName":"货到付款","state":"0"}]</data>
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="收货地址表" idColumn="编号" onCustomRefresh="收货地址表CustomRefresh">
@@ -73,7 +73,16 @@
   <column label="规格" name="规格" type="String" xid="column12"></column>
   <column label="数量" name="数量" type="String" xid="column13"></column>
   <column label="总价" name="总价" type="String" xid="column17"></column></div>
-  </div>  
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="配送时间段配置表" idColumn="编号" onCustomRefresh="配送时间段配置表CustomRefresh"><column name="编号" type="String" xid="xid1"></column>
+  <column name="配送时间" type="String" xid="xid2"></column>
+  <column name="是否默认" type="String" xid="xid3"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="提货地点表" idColumn="编号" onCustomRefresh="提货地点表CustomRefresh"><column isCalculate="true" name="编号" type="String" xid="xid4"></column>
+  <column name="商店名称" type="String" xid="xid5"></column>
+  <column name="联系电话" type="String" xid="xid6"></column>
+  <column name="地址" type="String" xid="xid9"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid='门店信息表' idColumn="编号" onCustomRefresh="门店信息表CustomRefresh"><column isCalculate="true" name="编号" type="String" xid="xid10"></column>
+  <column name="电话" type="String" xid="xid11"></column>
+  <column name="地址" type="String" xid="xid12"></column></div></div>  
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
     xid="popOver"> 
     <div class="x-popOver-overlay" xid="div9"/>  
@@ -111,6 +120,72 @@
               <span component="$UI/system/components/justep/button/radio" class="x-radio"
                 bind-value="ref('state')" checkedValue="1" checked="false" xid="radio1"/>  
               <span bind-text="ref('payMethodName')" xid="span11"/> 
+            </li> 
+          </ul> 
+        </div>
+      </div> 
+    </div> 
+  </div>
+  <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
+    xid="popDelivryTime"> 
+    <div class="x-popOver-overlay" xid=""/>  
+    <div class="x-popOver-content" xid=""> 
+      <div class="x-cards panel-heading" xid=""> 
+        <h5 xid=""><![CDATA[选择配送时间：]]></h5>
+      </div>  
+      <div class="panel-body" xid=""> 
+        <div component="$UI/system/components/justep/list/list" class="x-list"
+          xid="list1" data="配送时间段配置表"> 
+          <ul class="x-list-template" xid="listTemplateUl2"> 
+            <li xid="li3" class="list-group-item tb-noborder" bind-click="deliveryTimeLiClick"> 
+              <span component="$UI/system/components/justep/button/radio" class="x-radio"
+                bind-value="ref('是否默认')" checkedValue="是" checked="false" xid="radio1"/>  
+              <span bind-text="ref('配送时间')" xid="span11"/> 
+            </li> 
+          </ul> 
+        </div>
+      </div> 
+    </div> 
+  </div>
+  <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
+    xid="popSelfPickup"> 
+    <div class="x-popOver-overlay" xid=""/>  
+    <div class="x-popOver-content" xid=""> 
+      <div class="x-cards panel-heading" xid=""> 
+        <h5 xid=""><![CDATA[门店信息：]]></h5>
+      </div>  
+      <div class="panel-body" xid=""> 
+        <div component="$UI/system/components/justep/list/list" class="x-list"
+          xid="list1" data="门店信息表"> 
+          <ul class="x-list-template" xid="listTemplateUl2"> 
+            <li xid="li3" class="list-group-item tb-noborder" bind-click="selfPickupLiClick"> 
+              <span component="$UI/system/components/justep/button/radio" class="x-radio"
+                bind-value="" checkedValue="1" checked="false" xid="radio1"/>  
+              <span bind-text="ref('地址')" xid="span11"/> 
+              <span bind-text="ref('电话')" xid="span11"/>  
+            </li> 
+          </ul> 
+        </div>
+      </div> 
+    </div> 
+  </div>
+  <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
+    xid="popPickup"> 
+    <div class="x-popOver-overlay" xid=""/>  
+    <div class="x-popOver-content" xid=""> 
+      <div class="x-cards panel-heading" xid=""> 
+        <h5 xid=""><![CDATA[选择提货点：]]></h5>
+      </div>  
+      <div class="panel-body" xid=""> 
+        <div component="$UI/system/components/justep/list/list" class="x-list"
+          xid="list1" data="提货地点表"> 
+          <ul class="x-list-template" xid="listTemplateUl2"> 
+            <li xid="li3" class="list-group-item tb-noborder" bind-click="pickupLiClick"> 
+              <span component="$UI/system/components/justep/button/radio" class="x-radio"
+                bind-value="" checkedValue="1" checked="false" xid="radio1"/>  
+              <span bind-text="ref('商店名称')" xid="span11"/> 
+              <span bind-text="ref('联系电话')" xid="span11"/> 
+              <span bind-text="ref('地址')" xid="span11"/> 
             </li> 
           </ul> 
         </div>
@@ -218,8 +293,7 @@
               <i class="icon-ios7-arrow-right text-muted"/>  
               <span xid="span12"/> 
             </a>  
-            <span class="pull-right text-muted" xid="sendTitle"><![CDATA[快递 免邮
-]]></span>  
+            <span class="pull-right text-muted" xid="sendTitle"><![CDATA[快递 免邮]]></span>  
             <span xid="span6"><![CDATA[配送方式]]></span> 
           </div>  
           <div class="panel-heading" bind-click="payMethodClick" xid="div5"> 
@@ -228,17 +302,26 @@
               <i class="icon-ios7-arrow-right text-muted" xid="i6"/>  
               <span xid="span4"/>
             </a>  
-            <span class="pull-right text-muted" xid="payTitle"><![CDATA[支付宝]]></span>  
+            <span class="pull-right text-muted" xid="payTitle"><![CDATA[微信支付]]></span>  
             <span xid="span3"><![CDATA[支付方式]]></span>
           </div>
-          <!-- <div class="panel-heading"> 
+          <div class="panel-heading" bind-click="deliveryTimeClick" xid="div6"> 
             <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-xs btn-only-icon pull-right"
-              label="button" xid="button5" icon="icon-ios7-arrow-right"> 
-              <i class="icon-ios7-arrow-right text-muted" xid="i7"/>  
-              <span xid="span13"/>
-            </a>
-            <span xid="span10"><![CDATA[运费险]]></span> 
-          </div>   -->  
+              label="button" xid="button7" icon="icon-ios7-arrow-right"> 
+              <i class="icon-ios7-arrow-right text-muted" xid="i6"/>  
+              <span xid=""/>
+            </a>  
+            <span class="pull-right text-muted" xid="deliveryTitle"><![CDATA[]]>默认18点后</span>  
+            <span xid=""><![CDATA[配送时间]]></span>
+          </div>
+          <!-- <div class="panel-heading"> 
+            <div class="media-left media-middle"> 
+              <span class="x-flex" style="width:80px;"><![CDATA[配送时间]]></span> 
+            </div>  
+            <div class="media-body"> 
+              <input component="$UI/system/components/justep/input/input" class="form-control input-sm tb-noborder" xid="deliveryTime" placeHolder="默认18点以后" dataType="Date"></input>
+            </div> 
+          </div>   -->
           <div class="panel-heading"> 
             <div class="media-left media-middle"> 
               <span class="x-flex" style="width:80px;"><![CDATA[买家留言：]]></span> 
@@ -248,6 +331,24 @@
                 xid="input1" placeHolder="选填，可填写您和卖家达成的协议"/> 
             </div> 
           </div>  
+          <div class="panel-heading" bind-click="selfPickupClick" xid="" id="selfPickupDiv" style="display:none" > 
+            <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-xs btn-only-icon pull-right"
+              label="button" xid="button77" icon="icon-ios7-arrow-right"> 
+              <i class="icon-ios7-arrow-right text-muted" xid="i77"/>  
+              <span xid=""/>
+            </a>  
+            <span class="pull-right text-muted" xid="selfPickupTitle"><![CDATA[]]>请选择提货点</span>  
+            <span xid=""><![CDATA[店铺地址]]></span>
+          </div>
+          <div class="panel-heading" bind-click="pickupClick" xid="" id="pickupDiv" style="display:none" > 
+            <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-xs btn-only-icon pull-right"
+              label="button" xid="button79" icon="icon-ios7-arrow-right"> 
+              <i class="icon-ios7-arrow-right text-muted" xid="i79"/>  
+              <span xid=""/>
+            </a>  
+            <span class="pull-right text-muted" xid="pickupTitle"><![CDATA[]]>请选择提货点</span>  
+            <span xid=""><![CDATA[提货点]]></span>
+          </div>
           <div class="panel-heading text-right" bind-text="'共'+ $model.购物车商品表.count(&quot;id&quot;)+'种商品'"/> 
         </div> 
       </div> 

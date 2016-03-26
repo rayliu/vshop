@@ -26,7 +26,8 @@
     <calculate xid="calculate4">
      <expr xid="default5"></expr></calculate> </col> </rule>
   <column label="数量" name="数量" type="String" xid="xid2"></column>
-  <column label="总价" name="总价" type="String" xid="xid9"></column></div>  
+  <column label="总价" name="总价" type="String" xid="xid9"></column>
+  <column label="用户编号" name="用户编号" type="String" xid="xid12"></column></div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="商店表" idColumn="编号" confirmDelete="false" confirmRefresh="false" onCustomRefresh="商店表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid10"/>  

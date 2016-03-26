@@ -13,9 +13,12 @@ define(function(require){
 	require("cordova!com.justep.cordova.plugin.unionpay");
 	require("res!./img");
 	
-	var Model = function(){
+	
+	var Model = function(event){
 		this.callParent();
 	};
+	
+	
 		
 	//图片路径转换
 	Model.prototype.getImageUrl = function(url){
@@ -35,6 +38,7 @@ define(function(require){
 	
 	//打开成功页面
 	Model.prototype.confirmBtnClick = function(event){
+		this.comp('confirmBtn').set('disabled',true);
 		/*
 		0`生成订单
 		1、确认按钮点击事件
@@ -55,6 +59,11 @@ define(function(require){
 		obj.原价 = this.comp("购物车商品表").getCurrentRow().val("原价");
 		obj.规格 = this.comp("购物车商品表").getCurrentRow().val("规格");
 		obj.数量 = this.comp("购物车商品表").getCurrentRow().val("数量");
+		obj.配送时间 = this.comp("配送时间段配置表").getCurrentRow().val("配送时间");
+		if(送货方式=='提货点取')
+			obj.提货点 = this.comp("提货地点表").getCurrentRow().val("地址")+"，电话："+this.comp("提货地点表").getCurrentRow().val("联系电话");
+		if(送货方式=='到店自取')
+			obj.门店信息 = this.comp("门店信息表").getCurrentRow().val("地址")+"，电话："+this.comp("门店信息表").getCurrentRow().val("电话");
 		obj.状态 = "未付款";
 		if(送货方式=='特快')
 			obj.总价 = this.comp("购物车商品表").getCurrentRow().val("数量")*this.comp("购物车商品表").getCurrentRow().val("现价")+20;
@@ -130,10 +139,25 @@ define(function(require){
 		}else if(row.val("fSendName")=='快递'){
 			this.comp('购物车商品表').setValue("总价",(this.comp('购物车商品表').val('总价')-20));
 		}
+		if(row.val("fSendName")=='提货点取'){
+			$('#pickupDiv').show();
+		}else {
+			$('#pickupDiv').hide();
+		}
+		if(row.val("fSendName")=='到店自取'){
+			$('#selfPickupDiv').show();
+		}else{
+			$('#selfPickupDiv').hide();
+		}
 		var title=row.val("fSendName")+" "+row.val("fCost");		
 		$("span[xid=sendTitle]", this.getRootNode()).text(title);
 		this.comp("popOver").hide();
 	};
+	
+	Model.prototype.payMethodClick = function(event){
+		this.comp("popOverPay").show();
+	};
+	
 	Model.prototype.payMethodLiClick = function(event){
 		/*
 		1、配送列表点击事件
@@ -142,19 +166,61 @@ define(function(require){
 		this.comp("payMethodData").setValue("state",0);
 		var row = event.bindingContext.$object; 
 		row.val("state",1);
-		var title=row.val("payMethodName");		
+		var title=row.val("payMethodName");	
 		$("span[xid=payTitle]", this.getRootNode()).text(title);
 		this.comp("popOverPay").hide();
 	};
 	
-	Model.prototype.payMethodClick = function(event){
-		this.comp("popOverPay").show();
+	
+	Model.prototype.deliveryTimeClick = function(event){
+		this.comp("popDelivryTime").show();
+	};
+	Model.prototype.deliveryTimeLiClick = function(event){
+		/*
+		1、配送列表点击事件
+		2、选中配送方式，关闭配送列表
+		*/
+		this.comp("配送时间段配置表").setValue("state",'否');
+		var row = event.bindingContext.$object; 
+		row.val("状态",'是');
+		var title=row.val("配送时间");		
+		$("span[xid=deliveryTitle]", this.getRootNode()).text(title);
+		this.comp("popDelivryTime").hide();
 	};
 	
-	Model.prototype.payRadioClick = function(event){
-		this.comp("popOverPay").hide();
+	
+	Model.prototype.pickupClick = function(event){
+		this.comp("popPickup").show();
+	};
+	Model.prototype.pickupLiClick = function(event){
+		/*
+		1、配送列表点击事件
+		2、选中配送方式，关闭配送列表
+		*/
+		//this.comp("提货地点表").setValue("state",'否');
+		var row = event.bindingContext.$object; 
+		//row.val("状态",'是');
+		var title=row.val("地址");		
+		$("span[xid=pickupTitle]", this.getRootNode()).text(title);
+		this.comp("popPickup").hide();
 	};
 	
+	
+	Model.prototype.selfPickupClick = function(event){
+		this.comp("popSelfPickup").show();
+	};
+	Model.prototype.selfPickupLiClick = function(event){
+		/*
+		1、配送列表点击事件
+		2、选中配送方式，关闭配送列表
+		*/
+		//this.comp("提货地点表").setValue("state",'否');
+		var row = event.bindingContext.$object; 
+		//row.val("状态",'是');
+		var title=row.val("地址");		
+		$("span[xid=selfPickupTitle]", this.getRootNode()).text(title);
+		this.comp("popSelfPickup").hide();
+	};
 	
 	/*Model.prototype.商店表CustomRefresh = function(event){
 		var Rdata= this.comp("商店表");
@@ -178,8 +244,8 @@ define(function(require){
 			"async" : false,
 			"params" : {'tableName':'收货地址表','templateName':'f2,f7','value' : userID+',是'},
 			"success" : function(data) {
-				Rdata.loadData(data);
-			}
+				Rdata.loadData(data);	
+			}	
 		});
 	};
 	
@@ -375,6 +441,57 @@ define(function(require){
 			},
 			"error":function(){
 				payDtd.reject(-50);
+			}
+		});
+	};
+	
+	
+	
+	
+	
+	Model.prototype.配送时间段配置表CustomRefresh = function(event){
+		var dataR = event.source;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryTable",
+			"async" : false,
+			"params" : {tableName:'配送时间段配置表'},
+			"success" : function(data) {
+				dataR.loadData(data);
+			}
+		});
+	};
+	
+	
+	
+	
+	
+	Model.prototype.提货地点表CustomRefresh = function(event){
+		var dataR = event.source;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryTable",
+			"async" : false,
+			"params" : {tableName:'提货地点表'},
+			"success" : function(data) {
+				dataR.loadData(data);
+			}
+		});
+	};
+	
+	
+	
+	
+	
+	Model.prototype.门店信息表CustomRefresh = function(event){
+		var dataR = event.source;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryTable",
+			"async" : false,
+			"params" : {tableName:'门店信息表'},
+			"success" : function(data) {
+				dataR.loadData(data);
 			}
 		});
 	};

@@ -76,7 +76,10 @@ define(function(require) {
 			justep.Util.hint("登录成功");
 
 			setTimeout(function() {
-				justep.Shell.showPage("main");
+				if(this.params.pageName!='')
+					justep.Shell.showPage(this.params.pageName);
+				else
+					justep.Shell.showPage("main");
 			}, 3000);
 
 		}
@@ -220,7 +223,7 @@ define(function(require) {
 	};
 
 	Model.prototype.loginBtn = function(event) {
-
+		var self = this;
 		var phoneInput = this.comp("nameInput").val();
 		var passwordInput = this.comp("passwordInput").val();
 		Baas.sendRequest({
@@ -241,7 +244,11 @@ define(function(require) {
 						var status={
 							status:"login"
 						}
-						justep.Shell.showPage("main",status);	
+						
+						if(self.params.pageName!=undefined)
+							justep.Shell.showPage(self.params.pageName,status);
+						else
+							justep.Shell.showPage("main",status);	
 					}else{
 						justep.Util.hint("密码有误！", {
 						"type" : "danger"
