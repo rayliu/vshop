@@ -1,6 +1,7 @@
 define(function(require){
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
+	var Baas = justep.Baas;
 	var allData = require("./js/loadData");
 	
 	require("$UI/system/lib/cordova/cordova");
@@ -18,7 +19,57 @@ define(function(require){
 		this.callParent();
 	};
 	
-	
+	Model.prototype.modelLoad = function(event) {
+	    debugger;
+		var self = this;
+		// 获取url上的code参数 - 微信授权code，用于获取微信用户信息
+//		var weixinCode = this.getContext().getRequestParameter("code");
+		var urlParam = new RegExp('[\\?&]code=([^&#]*)').exec(window.location.href);
+		var weixinCode = urlParam[1] || '';
+
+		// 判断运行环境是否在X5移动客户端中，如果在移动客户端中，则当deviceready后取手机设备uuid作为用户唯一标识
+		if (justep.Browser.isX5App) {
+			this._deviceType = "app";
+
+			CommonUtils.attachDoubleClickExitApp(function() {
+				if (self.comp('contents').getActiveIndex() === 0) {
+					return true;
+				}
+				return false;
+			});
+			document.addEventListener("deviceready", function() {
+				self._userID = window.device.uuid;
+				self._userDefaultName = "新用户（来自X5APP的用户）";
+			}, false);
+
+		} else if (weixinCode !== "") {
+			this._deviceType = "wx";
+			if (justep.Browser.isWeChat) {
+				this.wxApi = new navigator.WxApi("wx1a63f107b6b0815c");
+			}
+			
+//			Baas.sendRequest({
+//				"url" : "/weixin/weixin",
+//				"action" : "userinfo",
+//				"async" : false,
+//				"params" : {
+//					code : weixinCode
+//				},
+//				"success" : function(weixinUser) {
+//					self._userID = weixinUser.openid;
+//					self._userDefaultName = weixinUser.nickname + "（来自微信的用户）";
+//					self._userDefaultAddress = weixinUser.country + weixinUser.province + weixinUser.city;
+//					self._userPhotoURL = weixinUser.headimgurl;
+//				}
+//			});
+			
+		}
+		
+//		this.comp('userData').filters.setVar("user", this._userID);
+//		this.comp('orderData').filters.setVar("user", this._userID);
+		
+		//this.queryAddr();
+	};
 		
 	//图片路径转换
 	Model.prototype.getImageUrl = function(url){
@@ -310,7 +361,8 @@ define(function(require){
 			return;
 		}
 		var tradeNo = orderID;
-		var notifyUrl = location.origin + "/baas/weixin/weixin/notify";
+		var notifyUrl = location.origin + "/baas/weixin/weixin/notify"
+		debugger;
 		this.wxApi.chooseWXPay({
 			body : "x5外卖",
 			mchId : "1228613502",

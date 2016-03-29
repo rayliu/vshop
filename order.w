@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xid="window" class="window" component="$UI/system/components/justep/window/window"
   design="device:m;">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="width:178px;height:auto;left:312px;top:123px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="width:178px;height:auto;left:312px;top:123px;" onLoad="modelLoad"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="sendData" idColumn="id" onCustomRefresh="sendDataCustomRefresh"> 
       <column label="id" name="id" type="String" xid="xid7"/>  
@@ -27,7 +27,7 @@
       <column label="支付方式Code" name="payMethodCode" type="String" xid="xid21"/>  
       <column label="支付方式" name="payMethodName" type="String" xid="xid22"/>  
       <column label="状态" name="state" type="String" xid="xid23"/>  
-      <data xid="default9">[{"payMethodCode":"weixin","payMethodName":"微信支付","state":"1"},{"payMethodCode":"creditCard","payMethodName":"7Eleven代收","state":"0"},{"payMethodCode":"goPay","payMethodName":"到店支付","state":"0"},{"payMethodCode":"arrivalPay","payMethodName":"货到付款","state":"0"}]</data>
+      <data xid="default9">[{"payMethodCode":"weixinJSSDK","payMethodName":"微信支付","state":"1"},{"payMethodCode":"creditCard","payMethodName":"7Eleven代收","state":"0"},{"payMethodCode":"goPay","payMethodName":"到店支付","state":"0"},{"payMethodCode":"arrivalPay","payMethodName":"货到付款","state":"0"}]</data>
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="收货地址表" idColumn="编号" onCustomRefresh="收货地址表CustomRefresh">
