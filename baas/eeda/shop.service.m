@@ -187,16 +187,13 @@
 	</action>
 	
 	
-	<action name="queryCarousel" impl="eeda.controller.LatoService.carousel"/>
-	<action name="queryIndexGoods" impl="eeda.controller.LatoService.getGoods"/>
-	<action name="queryCategory" impl="eeda.controller.LatoService.queryCategory" />
-	<action name="queryCartGoods" impl="eeda.controller.LatoService.queryCartGoods" />
+
 	<action name="queryByValue" impl="eeda.controller.LatoService.queryByValue" />
 	<action name="queryInterface" impl="eeda.controller.LatoService.queryInterface" />
 	<action name="createOrder" impl="eeda.controller.LatoService.createOrder" />
-	<action name="queryShop" impl="eeda.controller.LatoService.queryShop"/>
 	<action name="deleteOrder" impl="eeda.controller.LatoService.deleteOrder" />
 	<action name="queryTable" impl="eeda.controller.LatoService.queryTable" />
+	<action name="updateOrder" impl="eeda.controller.LatoService.updateOrder" />
 
 	
 </model>

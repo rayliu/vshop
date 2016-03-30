@@ -30,75 +30,13 @@ public class LatoService{
 		String tableName = params.getString("tableName");
 		try
 		{
+			System.out.println("查询表内容："+tableName);
 			json = LoadJson.load(tableName);
-			System.out.println(tableName+":"+json);
 		}finally{
 			return json;
 		}
 	}
 	
-	
-	
-	//获取轮回图片
-	public static JSONObject carousel(JSONObject params, ActionContext context) throws Exception{
-		JSONObject json =new JSONObject();
-		try
-		{
-			json = LoadJson.load("轮播图片表");
-			System.out.println("轮播图片表"+json);
-		}finally{
-			return json;
-		}
-	}
-	 //获取首页商品
-	public static JSONObject getGoods(JSONObject params, ActionContext context) throws Exception{
-		JSONObject json =new JSONObject();
-		try
-		{
-			json = LoadJson.load("商品表");
-			System.out.println(json);
-		}finally{
-			return json;
-		}
-	}
-	
-	
-	 //获取商店表
-		public static JSONObject queryShop(JSONObject params, ActionContext context) throws Exception{
-			JSONObject json =new JSONObject();
-			try
-			{
-				json = LoadJson.load("商店表");
-				System.out.println(json);
-			}finally{
-				return json;
-			}
-		}
-	
-	//获取分类数据
-	public static JSONObject queryCategory(JSONObject params, ActionContext context) throws Exception{
-		JSONObject json =new JSONObject();
-		try
-		{
-			json = LoadJson.load("分类表");
-		}finally{
-			return json;
-		}
-	}
-
-	
-	
-	//获取购物车数据
-	public static JSONObject queryCartGoods(JSONObject params, ActionContext context) throws Exception{
-		JSONObject json =new JSONObject();
-		try
-		{
-			json = LoadJson.load("购物车商品表");
-			System.out.println(json);
-		}finally{
-			return json;
-		}
-	}
 	
 
 	
@@ -109,12 +47,10 @@ public class LatoService{
 		String templateName = params.getString("templateName");
 		String value = params.getString("value");
 		String type = params.getString("type");
-
-		System.out.println("内容："+tableName+templateName+value);
+		System.out.println("通过条件查询表："+tableName+" templateName:"+templateName+" value:"+value);
 		try
 		{
 			json = LoadJson.query(tableName,templateName,value,type);
-			System.out.println("搜索："+json);
 		}finally{
 			return json;
 		}
@@ -157,7 +93,6 @@ public class LatoService{
 	}
 	
 	
-	
 	//删除单据
 	public static JSONObject deleteOrder(JSONObject params, ActionContext context) throws Exception{
 		LOAFormDataObject vObj = null;
@@ -173,6 +108,26 @@ public class LatoService{
 				json.put("result", result);
 				System.out.println("删除："+i+":"+result);
 			}
+		}finally{
+			return json;
+		}
+	}
+	
+	//通过objectId更新表信息
+	public static JSONObject updateOrder(JSONObject params, ActionContext context) throws Exception{
+		LOAFormDataObject vObj = null;
+		JSONObject json =new JSONObject();
+		String tableName = params.getString("tableName");      //表明
+		String objectId = params.getString("objectId");        //更新的objectId 
+		String templateName = params.getString("templateName");//更新的表字段名
+		String value = params.getString("value");           //更新的信息
+		String result = "fail";
+		try
+		{
+			result = LoadJson.updateByObjectId(tableName,objectId,templateName,value);
+			json.put("result", result);
+			System.out.println("更新："+objectId+":"+result);
+			
 		}finally{
 			return json;
 		}

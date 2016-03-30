@@ -2,11 +2,14 @@ package eeda.controller;
 
 
 import java.util.ArrayList;
+import loa.models.LOARawValue;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,9 +19,12 @@ import loa.biz.LOAApp;
 import loa.biz.LOAFilterExpressionItem;
 import loa.biz.LOAFilterExpressionItem.FilterOperator;
 import loa.biz.LOAFilterItem;
+import loa.biz.LOAFormDataObject;
 import loa.biz.LOAFormList;
 import loa.biz.LOAParamValueList;
 import loa.biz.LOAQueryInfo;
+import net.sf.json.JSONObject;
+import loa.models.LOARawValue;
 import net.sf.json.JSONObject;
 
 public class TestMain {
@@ -27,44 +33,105 @@ public class TestMain {
 
 	
 	public static void main(String[] args) {
-		com.alibaba.fastjson.JSONObject json = LoadJson.query("购物车商品表", "f18", "1,2,3", "in");
-		System.out.print("**********----***"+json);
+//		JSONObject json = queryInterface("购物车商品表", "购物车商店接口(value)","2");
+//		System.out.print("**********----***"+json);
+//		System.out.println("*end****");
+		String result = LoadJson.updateByObjectId("用户表", "2","积分","88888");
+		System.out.print("**********----***"+result);
 		System.out.println("*end****");
+		
+//		JSONObject json = query("用户表", "f1","2", "equal");
+//		System.out.println(json);
+		
+		//vObj = vApp.getFormDataObject("模块分类", "1");
+		// LOARawValue value = vObj.getRawValue("编号");
+		// // System.out.println("编号:" + value.get());
+		// // value.set("去拉拉");
+		// // vObj.save();
 		
 	}
 	
-	//云表接口调用
-		public static JSONObject queryInterface(String tableName,String functionName) {
-			LOAApp vApp = LOAApp.getInstance();
-			LOAFormList vObjList = null;
-			vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-					appName,
-					appKey, true);	
-			try {
-				vApp.login("admin", "admin");
-				
-				LOAQueryInfo queryInfo = vApp.createQueryInfo();
-				
-				LOAParamValueList paramManager = queryInfo.getParamValueList();
-				
-				queryInfo.getPageInfo().SetToLoadAllConfig();
-				
-				// 创建查询对象的过滤项（对一个查询对象，可以添加多个数据项的查询）
-				//paramManager.add("value",value);
-				//paramManager.add("value",value);
-
-				vObjList = vApp.query(tableName,functionName ,queryInfo);
-				
-			} catch (Exception e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
+	//编号
+	public static int autoNumbe(String tableName){
+		LOAApp vApp = LOAApp.getInstance();
+		LOAFormList vObjList = null;
+		int MaxNum = 0;
+		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+				appName,
+				appKey, true);	
+		try{
+			LOAFormList list = vApp.getFormList(tableName);
+			
+			List<Map> idList = new Gson().fromJson(list.saveToJson().toString(), 
+					new TypeToken<List<Map>>(){}.getType());
+			for(Map map:idList){
+				int num = Integer.parseInt((String) map.get("编号"));
+				if(MaxNum<num){
+					MaxNum = num;
+				}	
 			}
-			return change(vApp,vObjList);
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
 		}
+		return (MaxNum+1);
+	}
+	
+	//删除表数据
+	public static String delete(String tableName,String value){
+		LOAFormDataObject vObj = null;
+		String result = "fail";
+		
+		LOAApp vApp = LOAApp.getInstance();
+		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+				appName,
+				appKey, true);	
+		try{
+			vObj = vApp.getFormDataObject(tableName, value);
+			if (null != vObj) {
+				vObj.delete();
+				result = "sussess";
+			}	
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	
+	//生成单据
+	public static JSONObject create(String tableName,String json){
+		LOAFormDataObject vObj = null;
+		JSONObject oJson =new JSONObject();
+		LOAApp vApp = LOAApp.getInstance();
+		int num = autoNumbe(tableName);
+		try{
+			vObj = vApp.newFormDataObject(tableName);
+			
+			vObj.addRawValue("编号",num);
+			Gson gson = new Gson();
+			Map<String, ?> dto= gson.fromJson(json, HashMap.class);
+			for (Entry<String, ?> entry: dto.entrySet()) {
+	            String role = entry.getKey();
+	            String value =  entry.getValue().toString();
+	            
+	            vObj.addRawValue(role,value);
+			}
+			vObj.save();
+			oJson.put("id", num);
+			oJson.put("objectId", vObj.getObjectID());
+			System.out.println("*************************"+oJson);
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return oJson;
+	}
 	
-	public static JSONObject query(String tableName,String templateName,String value) {
+	
+	//云表接口调用（模糊查询）
+	public static JSONObject queryInterface(String tableName,String functionName,String value) {
 		LOAApp vApp = LOAApp.getInstance();
 		LOAFormList vObjList = null;
 		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
@@ -74,14 +141,85 @@ public class TestMain {
 			vApp.login("admin", "admin");
 			
 			LOAQueryInfo queryInfo = vApp.createQueryInfo();
+			queryInfo.getPageInfo().SetToLoadAllConfig();
+			LOAParamValueList paramManager = queryInfo.getParamValueList();
+
 			// 创建查询对象的过滤项（对一个查询对象，可以添加多个数据项的查询）
-			LOAFilterItem vFilterItem = queryInfo.getFilterList().add(templateName);
+			paramManager.add("value",value);
+
+			//paramManager.add("value",value);
+			vObjList = vApp.query(tableName,functionName ,queryInfo);
 			
-			// 过滤项配置过滤信息(对一个数据项，可以设置多个查询值项)
-			LOAFilterExpressionItem vFilterValueItem =  vFilterItem.getExpressionList().add();
-			vFilterValueItem.IsAnd = true;
-			vFilterValueItem.Operator = FilterOperator.Equal; // 等于
-			vFilterValueItem.Value 	= value;
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return change(vApp,vObjList);
+	}
+	
+	/*
+	 * 
+	 * 
+	 * 暂不可用
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
+	//通过objectId查询表数据
+	public static void qeuryByObjectId(String tableName,String objectId){
+		LOAFormDataObject vObj = null;
+		String result = "false";
+		
+		LOAApp vApp = LOAApp.getInstance();
+		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+				appName,
+				appKey, true);	
+		try{
+			vObj = vApp.getFormDataObject(tableName, objectId);
+			
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		//return change(vApp,vObj);//无法转换LOAFormDataObject类型
+	}
+	
+	//通过条件查询
+	public static JSONObject query(String tableName,String templateName,String value,String type) {
+		LOAApp vApp = LOAApp.getInstance();
+		LOAFormList vObjList = null;
+		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+				appName,
+				appKey, true);	
+		try {
+			vApp.login("admin", "admin");
+			
+			
+			LOAQueryInfo queryInfo = vApp.createQueryInfo();
+			// 创建查询对象的过滤项（对一个查询对象，可以添加多个数据项的查询）
+			String[] templateNameArray = templateName.split(",");
+			String[] valueArray = value.split(",");
+			
+			for (int i = 0; i < templateNameArray.length; i++) {
+				LOAFilterItem vFilterItem = queryInfo.getFilterList().add(templateNameArray[i]);		
+				if("in".equals(type)){
+					for (int j = 0; j < valueArray.length; j++) {
+						LOAFilterExpressionItem vFilterValueItem =  vFilterItem.getExpressionList().add();
+						if(j == 0)
+							vFilterValueItem.IsAnd = true;
+						else
+							vFilterValueItem.IsAnd = false;
+						vFilterValueItem.Operator = FilterOperator.Equal;
+						vFilterValueItem.Value 	= valueArray[j];
+					}
+				}else{
+					LOAFilterExpressionItem vFilterValueItem =  vFilterItem.getExpressionList().add();
+					vFilterValueItem.IsAnd = true;
+					vFilterValueItem.Operator = FilterOperator.Equal;
+					vFilterValueItem.Value 	= valueArray[i];
+				}
+			}
 			vObjList = vApp.getFormList(tableName, queryInfo);
 			
 		} catch (Exception e) {
@@ -91,7 +229,23 @@ public class TestMain {
 		return change(vApp,vObjList);
 	}
 	
-	
+	//查询表
+	public static JSONObject load(String tableName){
+		LOAApp vApp = LOAApp.getInstance();
+		LOAFormList list = null;
+		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+				appName,
+				appKey, true);	
+		try {
+			vApp.login("admin", "admin");
+			list = vApp.getFormList(tableName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return change(vApp,list);
+	}
+
+	//wex5 json格式转换
 	public static JSONObject change(LOAApp vApp, LOAFormList list) {
  		JSONObject json =new JSONObject();
  		Set nameArray = null; //表字段名集合

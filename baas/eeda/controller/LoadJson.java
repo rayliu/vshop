@@ -1,6 +1,7 @@
 package eeda.controller;
 
 import java.util.ArrayList;
+import loa.models.LOARawValue;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,30 @@ public class LoadJson {
 		return (MaxNum+1);
 	}
 	
+	
+	//通过objectId更新表数据
+	public static String updateByObjectId(String tableName,String objectId,String templateName,String value){
+		LOAFormDataObject vObj = null;
+		String result = "fail";
+		
+		LOAApp vApp = LOAApp.getInstance();
+		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+				appName,
+				appKey, true);	
+		try{
+			vApp.login("admin", "admin");
+			vObj = vApp.getFormDataObject(tableName, objectId);
+			LOARawValue oldValue = vObj.getRawValue(templateName);
+			oldValue.set(value);
+			vObj.save();
+			result = "sussess";
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	//删除表数据
 	public static String delete(String tableName,String value){
 		LOAFormDataObject vObj = null;
@@ -68,6 +93,7 @@ public class LoadJson {
 				appName,
 				appKey, true);	
 		try{
+			vApp.login("admin", "admin");
 			vObj = vApp.getFormDataObject(tableName, value);
 			if (null != vObj) {
 				vObj.delete();
@@ -157,6 +183,7 @@ public class LoadJson {
 				appName,
 				appKey, true);	
 		try{
+			vApp.login("admin", "admin");
 			vObj = vApp.getFormDataObject(tableName, objectId);
 			
 		} catch (Exception e) {
