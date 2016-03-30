@@ -140,11 +140,11 @@
                   </div>  
                   <div component="$UI/system/components/justep/panel/panel"
                     class="panel panel-default x-card" xid="panel5"> 
-                    <h4 xid="h41" class="list-group-item text-black"><![CDATA[精选商品]]></h4>  
+                    <h4 xid="h41" class="list-group-item text-black" style="width:100%"><![CDATA[精选商品]]></h4>  
                     <div component="$UI/system/components/justep/list/list"
                       class="x-list x-flex" xid="list1" data="商品表" limit="10" disablePullToRefresh="false"
                       disableInfiniteLoad="false" bind-click="listClick"> 
-                      <ul class="x-list-template" xid="listTemplateUl1"> 
+                      <ul class="x-list-template" xid="listTemplateUl1" style="width:100%"> 
                         <li xid="li1" class="col-xs-12"> 
                           <div class="x-card"> 
                             <div align="center" class=""> 
@@ -165,7 +165,7 @@
                                 <span xid="span28" class="pull-right" bind-text=" $object.val(&quot;送货方式&quot;)"/> 
                               </div> 
                             </div>  
-                            <hr style="border-bottom:1px dashed;" class="text-muted"/> 
+                            <hr /> 
                           </div> 
                         </li> 
                       </ul> 

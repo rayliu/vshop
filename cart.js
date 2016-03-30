@@ -55,7 +55,8 @@ define(function(require) {
 			"async" : false,
 			"params" : {
 			tableName:"购物车商品表",
-			functionName:"购物车商店接口"
+			functionName:"购物车商店接口(value)",
+			value:"2"
 			},
 			"success" : function(data) {
 				dataR.loadData(data);
