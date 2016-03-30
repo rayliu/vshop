@@ -56,14 +56,14 @@
                       width="38px"/> 
                   </a> 
                 </div>  
-                <div class="x-titlebar-title tb-searchBox" xid="div1" bind-click="searchBtnClick"> 
+               <!--  <div class="x-titlebar-title tb-searchBox" xid="div1" bind-click="searchBtnClick"> 
                   <span><![CDATA[搜索]]></span>  
                   <i xid="i10" class="icon-ios7-search-strong"/>  
                   <div/> 
-                </div>
+                </div> -->
  
-                <div class="x-titlebar-right reverse" xid="div5"><a component="$UI/system/components/justep/button/button" class="btn x-yellow btn-block" xid="搜索" icon="icon-ios7-search-strong" style="height:100%;width:70%;" bind-click="searchBtnClick">
-   <i xid="i6" class="icon-android-search icon-ios7-search-strong"></i>
+                <div class="x-titlebar-right reverse" xid="div5" style="width:31px;"><a  component="$UI/system/components/justep/button/button" class="x-orange" xid="搜索" icon="icon-android-search" bind-click="searchBtnClick" style="background-color:#ff4400;width:34px;text-align:center;">
+   <i xid="i6" class="icon-android-search"></i>
    <span xid="span6"></span></a></div> 
               </div> 
             </div>  
