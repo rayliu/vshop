@@ -93,6 +93,27 @@ define(function(require) {
 		var n=row.val("数量");
 		if(n>1){
 			row.val("数量",n-1);
+			
+			justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "updateOrder",
+			"async" : false,
+			"params" : {
+				'tableName':'购物车商品表',
+				'objectId':row.val('objectId'),
+				'templateName':'数量',
+				'value' : n-1},
+			"success" : function(data) {
+				if(data.result=='sussess')
+					justep.Util.hint("数量-1");
+				else{
+					row.val("数量",n);
+					justep.Util.hint("-1失败", {
+						"type" : "danger"
+					});
+					}
+				}
+			});
 		}
 	};
 	
@@ -105,6 +126,28 @@ define(function(require) {
 		var row = event.bindingContext.$object;
 		var n=row.val("数量");
 		row.val("数量",n+1);
+		
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "updateOrder",
+			"async" : false,
+			"params" : {
+				'tableName':'购物车商品表',
+				'objectId':row.val('objectId'),
+				'templateName':'数量',
+				'value' : n+1},
+			"success" : function(data) {
+				if(data.result=='sussess')
+					justep.Util.hint("数量+1");
+				else{
+					row.val("数量",n);
+					justep.Util.hint("+1失败", {
+						"type" : "danger"
+					});
+				}
+					
+			}
+		});
 	};
 	
 	//删除

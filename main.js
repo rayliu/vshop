@@ -169,9 +169,9 @@ define(function(require) {
 	    var dataR = this.comp("商品表");
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
-			"action" : "queryIndexGoods",
+			"action" : "queryTable",
 			"async" : false,
-			"params" : {},
+			"params" : {tableName:"商品表"},
 			"success" : function(data) {
 				dataR.loadData(data);
 			}
@@ -206,9 +206,9 @@ define(function(require) {
 		var dataR = this.comp("轮播图片表");
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
-			"action" : "queryCarousel",
+			"action" : "queryTable",
 			"async" : false,
-			"params" :  {},
+			"params" :  {tableName:'轮播图片表'},
 			"success" : function(data) {
 				dataR.loadData(data);
 			}

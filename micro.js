@@ -70,9 +70,9 @@ define(function(require) {
 		var dataR = this.comp("分类表");
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
-			"action" : "queryCategory",
+			"action" : "queryTable",
 			"async" : false,
-			"params" :  {},
+			"params" :  {tableName:'分类表'},
 			"success" : function(data) {
 				dataR.loadData(data);
 			}
