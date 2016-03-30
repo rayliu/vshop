@@ -33,15 +33,28 @@ public class LoadJson {
 	static String appKey="b642c0ae-8df1-4017-9c90-de28b9812771";
 	
 	
+	//检查是否已经登录
+	static boolean isLogin= false;
+	LOAApp vApp = null ;
+	public static void checkLogin() throws Exception{
+		if(!isLogin){
+			vApp = LOAApp.getInstance();
+		
+			vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+					appName,
+					appKey, true);	
+			vApp.login("admin", "admin");
+			isLogin=true;
+		}
+	}
+	
+	
 	//编号
 	public static int autoNumbe(String tableName){
-		LOAApp vApp = LOAApp.getInstance();
 		LOAFormList vObjList = null;
-		int MaxNum = 0;
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
+		int MaxNum = 0;	
 		try{
+			checkLogin();
 			LOAFormList list = vApp.getFormList(tableName);
 			
 			List<Map> idList = new Gson().fromJson(list.saveToJson().toString(), 
@@ -65,12 +78,9 @@ public class LoadJson {
 		LOAFormDataObject vObj = null;
 		String result = "fail";
 		
-		LOAApp vApp = LOAApp.getInstance();
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
+		
 		try{
-			vApp.login("admin", "admin");
+			checkLogin();
 			vObj = vApp.getFormDataObject(tableName, objectId);
 			LOARawValue oldValue = vObj.getRawValue(templateName);
 			oldValue.set(value);
@@ -78,6 +88,7 @@ public class LoadJson {
 			result = "sussess";
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
+			updateByObjectId();
 			e.printStackTrace();
 		}
 		return result;
@@ -88,11 +99,8 @@ public class LoadJson {
 		LOAFormDataObject vObj = null;
 		String result = "fail";
 		
-		LOAApp vApp = LOAApp.getInstance();
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
 		try{
+			checkLogin();
 			vApp.login("admin", "admin");
 			vObj = vApp.getFormDataObject(tableName, value);
 			if (null != vObj) {
@@ -111,7 +119,6 @@ public class LoadJson {
 	public static JSONObject create(String tableName,String json){
 		LOAFormDataObject vObj = null;
 		JSONObject oJson =new JSONObject();
-		LOAApp vApp = LOAApp.getInstance();
 		int num = autoNumbe(tableName);
 		try{
 			vObj = vApp.newFormDataObject(tableName);
@@ -137,15 +144,11 @@ public class LoadJson {
 	}
 	
 	
-	//云表接口调用（模糊查询）
+	//云表接口调用
 	public static JSONObject queryInterface(String tableName,String functionName,String value) {
-		LOAApp vApp = LOAApp.getInstance();
 		LOAFormList vObjList = null;
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
 		try {
-			vApp.login("admin", "admin");
+			checkLogin();
 			
 			LOAQueryInfo queryInfo = vApp.createQueryInfo();
 			queryInfo.getPageInfo().SetToLoadAllConfig();
@@ -177,13 +180,9 @@ public class LoadJson {
 	public static void qeuryByObjectId(String tableName,String objectId){
 		LOAFormDataObject vObj = null;
 		String result = "false";
-		
-		LOAApp vApp = LOAApp.getInstance();
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
+
 		try{
-			vApp.login("admin", "admin");
+			checkLogin();
 			vObj = vApp.getFormDataObject(tableName, objectId);
 			
 		} catch (Exception e) {
@@ -195,13 +194,10 @@ public class LoadJson {
 	
 	//通过条件查询
 	public static JSONObject query(String tableName,String templateName,String value,String type) {
-		LOAApp vApp = LOAApp.getInstance();
 		LOAFormList vObjList = null;
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
+
 		try {
-			vApp.login("admin", "admin");
+			checkLogin();
 			
 			
 			LOAQueryInfo queryInfo = vApp.createQueryInfo();
@@ -239,16 +235,12 @@ public class LoadJson {
 	
 	//查询表
 	public static JSONObject load(String tableName){
-		LOAApp vApp = LOAApp.getInstance();
 		LOAFormList list = null;
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
 		try {
-			vApp.login("admin", "admin");
+			checkLogin();
 			list = vApp.getFormList(tableName);
 		} catch (Exception e) {
-			e.printStackTrace();
+			load(tableName);
 		}
 		return change(vApp,list);
 	}
