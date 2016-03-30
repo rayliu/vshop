@@ -125,12 +125,12 @@
                               <span xid="span10"><![CDATA[大闸蟹]]></span> 
                             </div> 
                           </td>  
-                          <td bind-click="openPageClick" pagename="./list.w"
+                          <td pagename="./list.w"
                             xid="td4"> 
                             <div class="text-center" xid="div7"> 
                               <img alt="" xid="image8" src="./img/main/4.png"
                                 class="img-responsive center-block tb-img5" style="height:45px;width:45px;"
-                                height="60px"/>  
+                                height="100%" bind-click="image8Click"/>  
                               <span xid="span11"><![CDATA[积分商城]]></span> 
                             </div> 
                           </td> 

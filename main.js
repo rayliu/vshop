@@ -236,5 +236,9 @@ define(function(require) {
 		});*/
 	};
 	
+	Model.prototype.image8Click = function(event){
+		justep.Shell.showPage("testOrder");	
+	};
+	
 	return Model;
 });

@@ -50,6 +50,9 @@ define(function(require) {
 				},
 				"registered" : {
 					url : require.toUrl('./registered.w')
+				},
+				"testOrder" : {
+					url : require.toUrl('./test/order.w')
 				}
 			}
 		});
