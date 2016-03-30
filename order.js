@@ -48,20 +48,21 @@ define(function(require){
 				this.wxApi = new navigator.WxApi("wx1a63f107b6b0815c");
 			}
 			
-//			Baas.sendRequest({
-//				"url" : "/weixin/weixin",
-//				"action" : "userinfo",
-//				"async" : false,
-//				"params" : {
-//					code : weixinCode
-//				},
-//				"success" : function(weixinUser) {
-//					self._userID = weixinUser.openid;
-//					self._userDefaultName = weixinUser.nickname + "（来自微信的用户）";
-//					self._userDefaultAddress = weixinUser.country + weixinUser.province + weixinUser.city;
-//					self._userPhotoURL = weixinUser.headimgurl;
-//				}
-//			});
+			//必须调用,否则后续报错  oauth2AccessToken 找不到 
+			Baas.sendRequest({
+				"url" : "/weixin/weixin",
+				"action" : "userinfo",
+				"async" : false,
+				"params" : {
+					code : weixinCode
+				},
+				"success" : function(weixinUser) {
+					self._userID = weixinUser.openid;
+					self._userDefaultName = weixinUser.nickname + "（来自微信的用户）";
+					self._userDefaultAddress = weixinUser.country + weixinUser.province + weixinUser.city;
+					self._userPhotoURL = weixinUser.headimgurl;
+				}
+			});
 			
 		}
 		
