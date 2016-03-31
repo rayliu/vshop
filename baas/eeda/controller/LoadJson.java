@@ -31,7 +31,7 @@ import eeda.controller.LoadJson;
 public class LoadJson {
 	static String appName="7cfefd52-27f6-4600-9ad5-efe28441f216";
 	static String appKey="b642c0ae-8df1-4017-9c90-de28b9812771";
-	
+	static int i = 0;
 	
 	//检查是否已经登录
 	static boolean isLogin= false;
@@ -85,9 +85,14 @@ public class LoadJson {
 			oldValue.set(value);
 			vObj.save();
 			result = "sussess";
+			i = 0;
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			updateByObjectId( tableName, objectId, templateName, value);
+			System.out.println(e.getMessage());
+			for ( ;i < 5; ) {
+				i++;
+				updateByObjectId( tableName, objectId, templateName, value);
+			}
 			//e.printStackTrace();
 		}
 		return result;
@@ -106,9 +111,14 @@ public class LoadJson {
 				vObj.delete();
 				result = "sussess";
 			}	
+			i = 0;
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			delete( tableName, value);
+			System.out.println(e.getMessage());
+			for ( ;i < 5; ) {
+				i++;
+				delete( tableName, value);
+			}
 			//e.printStackTrace();
 		}
 		return result;
@@ -135,10 +145,15 @@ public class LoadJson {
 			vObj.save();
 			oJson.put("id", num);
 			oJson.put("objectId", vObj.getObjectID());
-			System.out.println("*************************"+oJson);
+			System.out.println("***"+oJson);
+			i = 0;
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			create( tableName, json);
+			System.out.println(e.getMessage());
+			for ( ;i < 5; ) {
+				i++;
+				create( tableName, json);
+			}
 			//e.printStackTrace();
 		}
 		return oJson;
@@ -161,9 +176,14 @@ public class LoadJson {
 			//paramManager.add("value",value);
 			vObjList = vApp.query(tableName,functionName ,queryInfo);
 			
+			i = 0;
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			queryInterface( tableName, functionName, value);
+			System.out.println(e.getMessage());
+			for ( ;i < 5; ) {
+				i++;
+				queryInterface( tableName, functionName, value);
+			}
 			//e.printStackTrace();
 		}
 		return change(vApp,vObjList);
@@ -187,9 +207,14 @@ public class LoadJson {
 			checkLogin();
 			vObj = vApp.getFormDataObject(tableName, objectId);
 			
+			i = 0;
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			qeuryByObjectId( tableName, objectId);
+			System.out.println(e.getMessage());
+			for ( ;i < 5; ) {
+				i++;
+				qeuryByObjectId( tableName, objectId);
+			}
 			//e.printStackTrace();
 		}
 		//return change(vApp,vObj);//无法转换LOAFormDataObject类型
@@ -229,9 +254,14 @@ public class LoadJson {
 			}
 			vObjList = vApp.getFormList(tableName, queryInfo);
 			
+			i = 0;
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			query( tableName, templateName, value, type) ;
+			System.out.println(e.getMessage());
+			for ( ;i < 5; ) {
+				i++;
+				query( tableName, templateName, value, type) ;
+			}
 			//e.printStackTrace();
 		}
 		return change(vApp,vObjList);
@@ -243,8 +273,14 @@ public class LoadJson {
 		try {
 			checkLogin();
 			list = vApp.getFormList(tableName);
+			i = 0;
 		} catch (Exception e) {
-			load(tableName);
+			// TODO 自动生成的 catch 块
+			System.out.println(e.getMessage());
+			for ( ;i < 5; ) {
+				i++;
+				load(tableName);
+			}
 		}
 		return change(vApp,list);
 	}
