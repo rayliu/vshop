@@ -4,26 +4,21 @@
   design="device:mobile;" xid="window">  
   <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:132px;top:75px;"
     onModelConstruct="" onLoad="modelLoad" onunLoad="modelUnLoad" onParamsReceive="modelParamsReceive"> 
-    
-    
-    
-    <div component="$UI/system/components/justep/data/data" autoLoad="true" queryAction="queryCarousel" tableName="轮播图片表" url="/eeda/shop"
-      xid="轮播图片表" idColumn="编号" onCustomRefresh="轮播图片表CustomRefresh"> 
+    <div component="$UI/system/components/justep/data/data" autoLoad="true"
+      queryAction="queryCarousel" tableName="轮播图片表" url="/eeda/shop" xid="轮播图片表" idColumn="编号"
+      onCustomRefresh="轮播图片表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid1"/>  
       <column label="图片图片" name="图片外链" type="String" xid="xid2"/>  
-      <column label="链接地址" name="图片超链接" type="String" xid="xid9"/> 
-    <master xid="default13" data="轮播图片表"></master></div>  
-    
-    
+      <column label="链接地址" name="图片超链接" type="String" xid="xid9"/>  
+      <master xid="default13" data="轮播图片表"/>
+    </div>  
     <!-- <div component="$UI/system/components/justep/data/baasData" autoLoad="true"
       xid="baasCarouselData" queryAction="queryCarousel" tableName="carousel" url="/eeda/shop"
       idColumn="id"> 
       <column label="id" name="id" type="String" xid="default5"/>  
       <column label="fImgUrl" name="fImgUrl" type="String" xid="default6"/>  
       <column label="fUrl" name="fUrl" type="String" xid="default7"/> 
-    </div>   -->
-    
-    
+    </div>   -->  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="商品表" idColumn="编号" limit="6" onCustomRefresh="商品表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid8"/>  
@@ -52,19 +47,25 @@
                   <a component="$UI/system/components/justep/button/button"
                     class="btn btn-link btn-icon-top" icon="img:./main/img/logo.png"
                     style="width:40px;"> 
-                    <img src="./main/img/logo.png" xid="image1" height="38px"
-                      width="38px"/> 
+                    <!-- <img src="./main/img/logo.png" xid="image1" height="38px"
+                      width="38px"/>   -->
                   </a> 
-                </div>  
-               <!--  <div class="x-titlebar-title tb-searchBox" xid="div1" bind-click="searchBtnClick"> 
+                </div>
+                <div class="x-titlebar-title tb-searchBox" xid="div1" bind-click="searchBtnClick"> 
                   <span><![CDATA[搜索]]></span>  
-                  <i xid="i10" class="icon-ios7-search-strong"/>  
+                  <!-- <i xid="i10" class="icon-ios7-search-strong"/>   -->
                   <div/> 
-                </div> -->
- 
-                <div class="x-titlebar-right reverse" xid="div5" style="width:31px;"><a  component="$UI/system/components/justep/button/button" class="x-orange" xid="搜索" icon="icon-android-search" bind-click="searchBtnClick" style="background-color:#ff4400;width:34px;text-align:center;">
-   <i xid="i6" class="icon-android-search"></i>
-   <span xid="span6"></span></a></div> 
+                </div>  
+                <div class="x-titlebar-right reverse" xid="div5" style="width:31px;">
+                  <!-- <a component="$UI/system/components/justep/button/button"
+                    class="x-orange" xid="搜索" icon="icon-android-search" bind-click="searchBtnClick"
+                    style="background-color:#ff4400;width:34px;text-align:center;"> 
+                    <i xid="i6" class="icon-android-search"/>  
+                    <span xid="span6"/>
+                  </a> -->
+                <a component="$UI/system/components/justep/button/button" bind-click="searchBtnClick" class="btn btn-default" label="搜索" xid="button1" style="background-color:#ff4400;color:white;width:68px;height:32px;">
+   <i xid="i6"></i>
+   <span xid="span6">搜索</span></a></div>
               </div> 
             </div>  
             <div class="x-panel-content  x-scroll-view" xid="content3" style="bottom: 0px;"> 
@@ -86,8 +87,9 @@
                         active="0" slidable="true" wrap="true" swipe="true" xid="contentsImg"
                         routable="false"> 
                         <div class="x-contents-content" xid="content2"> 
-                          <img alt="" xid="image13" bind-click="openPageClick"  bind-attr-src="轮播图片表.ref('图片外链')"
-                            class="tb-img1" pagename="" style="height:170px;" align="middle"/> 
+                          <img alt="" xid="image13" bind-click="openPageClick"
+                            bind-attr-src="轮播图片表.ref('图片外链')" class="tb-img1" pagename=""
+                            style="height:170px;" align="middle"/> 
                         </div> 
                       </div> 
                     </div> 
@@ -125,8 +127,7 @@
                               <span xid="span10"><![CDATA[大闸蟹]]></span> 
                             </div> 
                           </td>  
-                          <td pagename="./list.w"
-                            xid="td4"> 
+                          <td pagename="./list.w" xid="td4"> 
                             <div class="text-center" xid="div7"> 
                               <img alt="" xid="image8" src="./img/main/4.png"
                                 class="img-responsive center-block tb-img5" style="height:45px;width:45px;"
@@ -165,7 +166,7 @@
                                 <span xid="span28" class="pull-right" bind-text=" $object.val(&quot;送货方式&quot;)"/> 
                               </div> 
                             </div>  
-                            <hr /> 
+                            <hr/> 
                           </div> 
                         </li> 
                       </ul> 

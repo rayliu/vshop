@@ -2,14 +2,14 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:281px;top:307px;"
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:335px;top:495px;"
     onParamsReceive="modelParamsReceive"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="商品轮播图片表" idColumn="编号" onCustomRefresh="imgDataCustomRefresh" confirmDelete="false"
       confirmRefresh="false"> 
       <column label="编号" name="编号" type="String" xid="xid2"/>  
       <column label="商品编号" name="商品编号" type="String" xid="xid1"/>  
-      <column label="图片外链" name="图片外链" type="String" xid="xid37"/>
+      <column label="图片外链" name="图片外链" type="String" xid="xid37"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="commentsData" idColumn="id" onCustomRefresh="commentsDataCustomRefresh"> 
@@ -23,10 +23,10 @@
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="stateData" idColumn="state"> 
       <column label="显示状态" name="state" type="Integer" xid="xid26"/>  
-      <data xid="default4">[{"state":0}]</data>
+      <data xid="default4">[{"state":0}]</data> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="商品表" idColumn="编号" onCustomRefresh="商品表CustomRefresh">
+      xid="商品表" idColumn="编号" onCustomRefresh="商品表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid27"/>  
       <column label="商店编号" name="商店编号" type="String" xid="xid28"/>  
       <column label="商店名称" name="fShopName" type="String" xid="xid29"/>  
@@ -36,17 +36,17 @@
       <column label="原价" name="原价" type="Float" xid="xid33"/>  
       <column label="送货方式" name="送货方式" type="String" xid="xid34"/>  
       <column label="销量" name="销量" type="String" xid="xid35"/>  
-      <column label="库存" name="库存" type="Integer" xid="xid36"/>
+      <column label="库存" name="库存" type="Integer" xid="xid36"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="图文详情表" idColumn="编号" onCustomRefresh="图文详情表CustomRefresh">
+      xid="图文详情表" idColumn="编号" onCustomRefresh="图文详情表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid38"/>  
       <column label="商品编号" name="商品编号" type="String" xid="xid39"/>  
       <column label="图片外链" name="图片外链" type="String" xid="xid40"/>  
-      <column label="图片解析" name="图片解析" type="String" xid="xid41"/>
+      <column label="图片解析" name="图片解析" type="String" xid="xid41"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="详情参数表" idColumn="编号" onCustomRefresh="详情参数表CustomRefresh">
+      xid="详情参数表" idColumn="编号" onCustomRefresh="详情参数表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid42"/>  
       <column label="商品编号" name="商品编号" type="String" xid="xid43"/>  
       <column label="商品类别" name="商品类别" type="String" xid="xid44"/>  
@@ -57,31 +57,31 @@
       <column label="地址" name="地址" type="String" xid="xid49"/>  
       <column label="保质期" name="保质期" type="String" xid="xid50"/>  
       <column name="col9" type="String" xid="xid51"/>  
-      <column name="col10" type="String" xid="xid52"/>
+      <column name="col10" type="String" xid="xid52"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="商店表" idColumn="编号" onCustomRefresh="商店表CustomRefresh">
+      xid="商店表" idColumn="编号" onCustomRefresh="商店表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid53"/>  
       <column label="名称" name="名称" type="String" xid="xid54"/>  
       <column label="等级" name="等级" type="String" xid="xid55"/>  
       <column label="图片外链" name="图片外链" type="String" xid="xid56"/>  
       <column label="商品描述" name="商品描述" type="String" xid="xid57"/>  
       <column label="店铺服务" name="店铺服务" type="String" xid="xid58"/>  
-      <column label="商品数量" name="商品数量" type="Integer" xid="xid59"/>
+      <column label="商品数量" name="商品数量" type="Integer" xid="xid59"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="商品规格表" idColumn="编号" onCustomRefresh="商品规格表CustomRefresh">
+      xid="商品规格表" idColumn="编号" onCustomRefresh="商品规格表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid60"/>  
       <column label="商品编号" name="商品编号" type="String" xid="xid61"/>  
       <column label="规格信息" name="规格信息" type="String" xid="xid62"/>  
-      <column label="选中状态" name="选中状态" type="String" xid="xid63"/>
+      <column label="选中状态" name="选中状态" type="String" xid="xid63"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="数量" idColumn="编号">
+      xid="数量" idColumn="编号"> 
       <column label="数量" name="数量" type="Integer" xid="xid64"/>  
       <column label="编号" name="编号" type="String" xid="xid65"/>  
-      <data xid="default5">[{"数量":1,"编号":"1"}]</data>
-    </div>
+      <data xid="default5">[{"数量":1,"编号":"1"}]</data> 
+    </div> 
   </div>  
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
     xid="popOver" position="bottom"> 
@@ -150,40 +150,51 @@
     </div> 
   </div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card tb-trans x-has-iosstatu  x-scroll-view"> 
-    <div class="x-panel-top" xid="top1">
+    <div class="x-panel-top" xid="top1"> 
       <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar tb-box"
         xid="titleBar"> 
-        <div class="x-titlebar-left" xid="left1">
+        <div class="x-titlebar-left" xid="left1"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-backBtn"
             xid="backBtn" icon="icon-chevron-left" onClick="backBtnClick"> 
             <i xid="i6" class="icon-chevron-left"/>  
             <span xid="span6">关闭</span> 
-          </a>
+          </a> 
         </div>  
-        <div class="x-titlebar-title" xid="title1">
+        <div class="x-titlebar-right reverse" xid="right1"> 
+          <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-moreBtn pull-right"
+            xid="homeBtn" icon="icon-home" onClick="homeBtnClick"> 
+            <i xid="i13" class="icon-home"/>  
+            <span xid="span23"/> 
+          </a> 
+        </div> 
+      </div>  
+      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar1" style="margin:400px 0px 0px 0px;">
+        <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-cartBtn pull-right"
             xid="cartBtn" icon="icon-ios7-cart" onClick="shoppingCartBtnClick"> 
             <i xid="i12" class="icon-ios7-cart"/>  
-            <span xid="span4"/>
-          </a>
-        </div>  
-        <div class="x-titlebar-right reverse" xid="right1">
-          <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-moreBtn pull-right"
-            xid="moreBtn" icon="icon-android-more"> 
-            <i xid="i13" class="icon-android-more"/>  
-            <span xid="span23"/>
+            <span xid="span4"/> 
           </a> 
         </div>
       </div>
-    </div>
+      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar1" style="margin:450px 0px 0px 0px;">
+        <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
+          <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-cartBtn pull-right"
+            xid="topBtn" icon="icon-chevron-up" onClick="shoppingCartBtnClick"> 
+            <i xid="i12" class="icon-chevron-up"/>  
+            <span xid="span4"/> 
+          </a> 
+        </div>
+      </div>
+    </div>  
     <div class="x-panel-content x-cards tb-trans"> 
       <div class="x-scroll" component="$UI/system/components/justep/scrollView/scrollView"
         xid="scrollView1" onPullDown="scrollView1PullDown"> 
         <div class="x-content-center x-pull-down container" xid="div1"> 
           <i class="x-pull-down-img glyphicon x-icon-pull-down" xid="i1"/>  
-          <span class="x-pull-down-label" xid="span1">下拉刷新...</span>
+          <span class="x-pull-down-label" xid="span1">下拉刷新...</span> 
         </div>  
-        <div class="x-scroll-content" xid="div6">
+        <div class="x-scroll-content" xid="div6"> 
           <div component="$UI/system/components/bootstrap/carousel/carousel"
             class="x-carousel carousel" xid="carousel1" auto="false" style="height:251px;"> 
             <ol class="carousel-indicators" xid="default1"/>  
@@ -191,7 +202,7 @@
               active="0" slidable="true" wrap="true" swipe="true" xid="contents1"
               routable="false"> 
               <div class="x-contents-content" xid="content1"> 
-                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)"/>
+                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)"/> 
               </div> 
             </div> 
           </div>  
@@ -199,28 +210,29 @@
             xid="panel1"> 
             <div component="$UI/system/components/bootstrap/row/row" data="商品表"
               class="row tb-nopadding" xid="row1"> 
-              <div class="col col-xs-10  tb-nopadding" xid="col8"> 
-                <h4 xid="h41" class=" text-black" bind-text="商品表.ref(&quot;标题&quot;)"/>  
-                <div xid="div4"> 
+              <div class="col col-xs-11 center-block tb-nopadding " style="text-align:center;"
+                xid="col8"> 
+                <h4 xid="h41" class="text-black" bind-text="商品表.ref(&quot;标题&quot;)"/>  
+                <div xid="div4" style="text-align:center;"> 
                   <span xid="span17" class="text-danger h3">￥</span>  
-                  <span xid="span29" bind-text="商品表.ref('现价')" class="text-danger h3"/>
+                  <span xid="span29" bind-text="商品表.ref('现价')" class="text-danger h3"/> 
                 </div>  
-                <div xid="div5" class="text-muted"> 
+                <div xid="div5" class="text-muted" style="text-align:center;"> 
                   <span xid="span19">价格：</span>  
                   <span xid="span18" class="tb-text-del">￥</span>  
-                  <span xid="span13" class="tb-text-del" bind-text=" $model.商品表.val(&quot;原价&quot;)"/>
+                  <span xid="span13" class="tb-text-del" bind-text=" $model.商品表.val(&quot;原价&quot;)"/> 
                 </div> 
               </div>  
-              <div class="col col-xs-2  tb-nopadding" xid="col9"> 
+              <div class="col col-xs-1  tb-nopadding" xid="col9"> 
                 <a component="$UI/system/components/justep/button/button"
                   class="btn btn-link btn-icon-top pull-right tb-nopadding" label="分享"
                   xid="shareBtn" icon="icon-android-share" onClick="shareBtnClick"> 
                   <i xid="i10" class="text-success icon-android-share"/>  
-                  <span xid="span10" class="text-success">分享</span>
+                  <span xid="span10" class="text-success">分享</span> 
                 </a> 
               </div> 
             </div>  
-            <div component="$UI/system/components/bootstrap/row/row" class="row text-muted h5 tb-nopadding"
+            <!--   <div component="$UI/system/components/bootstrap/row/row" class="row text-muted h5 tb-nopadding"
               xid="row2"> 
               <div class="col col-xs-4  tb-nopadding" xid="col11"> 
                 <span xid="span14">快递</span>  
@@ -234,14 +246,14 @@
               <div class="col col-xs-4 text-center" xid="col13"> 
                 <span xid="span16" bind-text="商品表.ref('地址')"/>
               </div> 
-            </div> 
+            </div> --> 
           </div>  
           <div component="$UI/system/components/justep/panel/panel" class="panel panel-heading x-card"
             bind-click="popOverClick" xid="panel2"> 
             <i xid="i4" class="text-muted icon-chevron-right pull-right btn-sm"/>  
-            <span xid="span20">选择商品规格</span>
+            <span xid="span20">选择商品规格</span> 
           </div>  
-          <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card"
+          <!-- <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card"
             xid="panel3"> 
             <div class="panel-body" xid="div9"> 
               <div class="h5 text-black" xid="div10"> 
@@ -270,8 +282,8 @@
                 </a> 
               </div> 
             </div> 
-          </div>  
-          <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card"
+          </div>-->  
+          <!-- <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card"
             xid="panel4"> 
             <div xid="div9" class="panel-body tb-nopadding"> 
               <div class="panel-body media" xid="div15"> 
@@ -326,7 +338,7 @@
                 </a> 
               </div> 
             </div> 
-          </div>  
+          </div>   -->  
           <div component="$UI/system/components/justep/panel/panel" class="panel x-card"
             xid="panel5"> 
             <div component="$UI/system/components/justep/button/buttonGroup"
@@ -334,13 +346,13 @@
               <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-label active"
                 label="图文详情" xid="detailsBtn" target="detailsContent"> 
                 <i xid="i14"/>  
-                <span xid="span31">图文详情</span>
+                <span xid="span31">图文详情</span> 
               </a>  
-              <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-label"
+              <!-- <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-label"
                 label="产品参数" xid="parameterBtn" target="parameterContent"> 
                 <i xid="i15"/>  
                 <span xid="span33">产品参数</span>
-              </a> 
+              </a>  --> 
             </div>  
             <div component="$UI/system/components/justep/contents/contents"
               class="x-contents" active="0" xid="contents2"> 
@@ -355,12 +367,12 @@
                         bind-attr-src="ref(&quot;图片外链&quot;)"/>  
                       <span bind-text="ref('图片解析')" class="tb-nopadding text-muted"
                         xid="span38"/>  
-                      <div class="clearfix" xid="div18"/>
+                      <div class="clearfix" xid="div18"/> 
                     </li> 
                   </ul> 
                 </div> 
               </div>  
-              <div class="x-contents-content panel-body" xid="parameterContent"> 
+              <!-- <div class="x-contents-content panel-body" xid="parameterContent"> 
                 <div component="$UI/system/components/justep/list/list" class="x-list x-cards"
                   xid="list1" data="详情参数表"> 
                   <ul class="x-list-template" xid="ul1" componentname="ul(html)"
@@ -416,14 +428,44 @@
                     </li> 
                   </ul> 
                 </div> 
+              </div> --> 
+            </div> 
+          </div>  
+          <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card"
+            xid="panel3"> 
+            <div class="panel-body" xid="div9"> 
+              <div class="h5 text-black" xid="div10"> 
+                <span xid="span22">宝贝评价（</span>1
+                <span xid="span28">）</span> 
+              </div>  
+              <div class="media-left" xid="div11"> 
+                <img src="" alt="" xid="image3" class="img-circle" bind-attr-src="commentsData.ref('fUserImg')"
+                  height="40px" style="width:40px;"/> 
+              </div>  
+              <div class="media-body" xid="div12"> 
+                <span xid="span30" bind-text="commentsData.ref('fUserName')"/> 
+              </div>  
+              <div xid="div13"> 
+                <span xid="span32" bind-text="commentsData.ref('fContent')"/> 
+              </div>  
+              <div class="text-muted" xid="div14"> 
+                <span xid="span36" bind-text="commentsData.ref('fDate')"/> 
+              </div>  
+              <div component="$UI/system/components/justep/button/buttonGroup"
+                class="btn-group btn-group-justified" tabbed="true" xid="buttonGroup3"> 
+                <a component="$UI/system/components/justep/button/button"
+                  class="btn btn-link btn-only-label text-black" label="查看更多评论" xid="button4"> 
+                  <i xid="i11"/>  
+                  <span xid="span5">查看更多评论</span> 
+                </a> 
               </div> 
             </div> 
-          </div>
+          </div> 
         </div>  
         <div class="x-content-center x-pull-up" xid="div8"> 
-          <span class="x-pull-up-label" xid="span25">加载更多...</span>
+          <span class="x-pull-up-label" xid="span25">加载更多...</span> 
         </div> 
-      </div>
+      </div> 
     </div>  
     <div class="x-panel-bottom" xid="bottom1"> 
       <div component="$UI/system/components/bootstrap/row/row" class="row"> 
@@ -431,14 +473,14 @@
           <div component="$UI/system/components/justep/button/buttonGroup"
             class="btn-group btn-group-justified" tabbed="true" xid="buttonGroup1"> 
             <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="客服" xid="serviceBtn" icon="icon-android-call"> 
-              <i xid="i3" class="icon icon-android-call"/>  
+              label="客服" xid="serviceBtn" icon="icon-chatbubble-working"> 
+              <i xid="i3" class="icon icon-chatbubble-working"/>  
               <span xid="span3">客服</span> 
-            </a>
+            </a>  
             <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="购物车" xid="menuCartBtn" icon="icon-ios7-cart-outline" onClick="menuCartBtnClick"> 
-              <i xid="i2" class="icon icon-ios7-cart-outline"/>  
-              <span xid="span2">购物车</span> 
+              label="收藏" xid="menuCartBtn" icon="icon-heart" onClick="menuCartBtnClick"> 
+              <i xid="i2" class="icon icon-heart"/>  
+              <span xid="span2">收藏</span> 
             </a> 
           </div> 
         </div>  

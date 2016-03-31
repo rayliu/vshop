@@ -88,12 +88,14 @@ define(function(require) {
 	};
 	
 	//更多评论按钮
-	Model.prototype.moreBtnClick = function(event){
+	Model.prototype.homeBtnClick = function(event){
 		/*
 		1、获取当前商品ID
 		2、传入新窗口，打开的窗口中显示评论列表
 		3、在打开的窗口中接收数据，并从服务端过滤数据		
 		*/
+		justep.Shell.fireEvent("detail",{});
+		justep.Shell.showMainPage();
 	};
 	
 	//购物车按钮
