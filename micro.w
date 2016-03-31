@@ -29,10 +29,10 @@
         xid="list1" data="分类表" limit="10" disablePullToRefresh="false" disableInfiniteLoad="false"
         > 
         <ul class="x-list-template" xid="listTemplateUl1"> 
-          <li xid="li1" class="col-xs-4 heig" bind-click="listClick"> 
-            <div class="x-card" xid="div3"> 
-              <div align="center" class="" xid="div4"> 
-                 <img bind-attr-src=' $object.val("图片外链")' alt="" class="img-responsive" pagename="./class.w" xid="image3" style="height:85%;width:85%;" dir="ltr" ></img>
+          <li xid="li1" class="col-xs-4" bind-click="listClick"> 
+            <div class="x-card" xid="div3" style="margin-top:20px;">
+              <div class="" xid="div4" style="height:90%;width:90%;"> 
+                 <img bind-attr-src=' $object.val("图片外链")' alt="" class="img-responsive" pagename="./class.w" xid="image3" dir="ltr"></img>
               </div>  
               <div class="caption" xid="div5"> 
                 <h5 class="text-black text" xid="h52" style="font-size:15px" bind-text=" $object.val(&quot;名称&quot;)"/>  

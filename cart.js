@@ -48,6 +48,7 @@ define(function(require) {
 		 */
 		//var url = require.toUrl("./cart/json/shopData.json");
 		//allData.loadDataFromFile(url,event.source,true);
+		var userId = localStorage.getItem("userID");
 		var dataR = event.source;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
@@ -56,7 +57,7 @@ define(function(require) {
 			"params" : {
 			tableName:"购物车商品表",
 			functionName:"购物车商店接口(value)",
-			value:"2"
+			value:userId
 			},
 			"success" : function(data) {
 				dataR.loadData(data);
