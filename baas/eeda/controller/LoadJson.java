@@ -35,7 +35,7 @@ public class LoadJson {
 	
 	//检查是否已经登录
 	static boolean isLogin= false;
-	LOAApp vApp = null ;
+	static LOAApp vApp = null ;
 	public static void checkLogin() throws Exception{
 		if(!isLogin){
 			vApp = LOAApp.getInstance();
@@ -78,7 +78,6 @@ public class LoadJson {
 		LOAFormDataObject vObj = null;
 		String result = "fail";
 		
-		
 		try{
 			checkLogin();
 			vObj = vApp.getFormDataObject(tableName, objectId);
@@ -88,8 +87,8 @@ public class LoadJson {
 			result = "sussess";
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			updateByObjectId();
-			e.printStackTrace();
+			updateByObjectId( tableName, objectId, templateName, value);
+			//e.printStackTrace();
 		}
 		return result;
 	}
@@ -109,7 +108,8 @@ public class LoadJson {
 			}	
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+			delete( tableName, value);
+			//e.printStackTrace();
 		}
 		return result;
 	}
@@ -138,7 +138,8 @@ public class LoadJson {
 			System.out.println("*************************"+oJson);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+			create( tableName, json);
+			//e.printStackTrace();
 		}
 		return oJson;
 	}
@@ -162,7 +163,8 @@ public class LoadJson {
 			
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+			queryInterface( tableName, functionName, value);
+			//e.printStackTrace();
 		}
 		return change(vApp,vObjList);
 	}
@@ -187,7 +189,8 @@ public class LoadJson {
 			
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+			qeuryByObjectId( tableName, objectId);
+			//e.printStackTrace();
 		}
 		//return change(vApp,vObj);//无法转换LOAFormDataObject类型
 	}
@@ -228,7 +231,8 @@ public class LoadJson {
 			
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+			query( tableName, templateName, value, type) ;
+			//e.printStackTrace();
 		}
 		return change(vApp,vObjList);
 	}

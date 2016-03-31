@@ -65,12 +65,10 @@ public class LatoService{
 		String value = params.getString("value");
 		
 		
-		System.out.println("接口内容："+tableName+functionName+"value:"+value);
+		System.out.println("查询接口内容："+tableName+"functionName:"+functionName+"value:"+value);
 		try
 		{
 			json = LoadJson.queryInterface(tableName,functionName,value);
-		
-			System.out.println("接口搜索："+json);
 		}finally{
 			return json;
 		}
@@ -84,6 +82,7 @@ public class LatoService{
 		String tableName = params.getString("tableName");
 		JSONObject oJson =new JSONObject();
 		String json =  params.getString("json");
+		System.out.println("生成单据："+tableName);
 		try
 		{
 			oJson = LoadJson.create(tableName,json);
@@ -100,6 +99,7 @@ public class LatoService{
 		String tableName = params.getString("tableName");
 		String value = params.getString("value");
 		String result = "fail";
+		System.out.println("删除单据："+tableName+" objectId:"+value);
 		try
 		{
 			String[] array = value.split(",");
