@@ -168,7 +168,7 @@
           </a> 
         </div> 
       </div>  
-      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar1" style="margin:400px 0px 0px 0px;">
+      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar1" style="margin:270px 0px 0px 0px;">
         <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-cartBtn pull-right"
             xid="cartBtn" icon="icon-ios7-cart" onClick="shoppingCartBtnClick"> 
@@ -177,10 +177,10 @@
           </a> 
         </div>
       </div>
-      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar1" style="margin:450px 0px 0px 0px;">
+      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar2"  style="margin:320px 0px 0px 0px;">
         <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
-          <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-cartBtn pull-right"
-            xid="topBtn" icon="icon-chevron-up" onClick="shoppingCartBtnClick"> 
+          <a component="$UI/system/components/justep/button/button" href="#aaaa"  class="btn btn-link btn-only-icon tb-cartBtn pull-right"
+            xid="topBtn" icon="icon-chevron-up" > 
             <i xid="i12" class="icon-chevron-up"/>  
             <span xid="span4"/> 
           </a> 
@@ -195,6 +195,7 @@
           <span class="x-pull-down-label" xid="span1">下拉刷新...</span> 
         </div>  
         <div class="x-scroll-content" xid="div6"> 
+        <a name="aaaa"></a>
           <div component="$UI/system/components/bootstrap/carousel/carousel"
             class="x-carousel carousel" xid="carousel1" auto="false" style="height:251px;"> 
             <ol class="carousel-indicators" xid="default1"/>  
@@ -431,36 +432,22 @@
               </div> --> 
             </div> 
           </div>  
-          <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card"
-            xid="panel3"> 
-            <div class="panel-body" xid="div9"> 
-              <div class="h5 text-black" xid="div10"> 
-                <span xid="span22">宝贝评价（</span>1
-                <span xid="span28">）</span> 
-              </div>  
-              <div class="media-left" xid="div11"> 
-                <img src="" alt="" xid="image3" class="img-circle" bind-attr-src="commentsData.ref('fUserImg')"
-                  height="40px" style="width:40px;"/> 
-              </div>  
-              <div class="media-body" xid="div12"> 
-                <span xid="span30" bind-text="commentsData.ref('fUserName')"/> 
-              </div>  
-              <div xid="div13"> 
-                <span xid="span32" bind-text="commentsData.ref('fContent')"/> 
-              </div>  
-              <div class="text-muted" xid="div14"> 
-                <span xid="span36" bind-text="commentsData.ref('fDate')"/> 
-              </div>  
-              <div component="$UI/system/components/justep/button/buttonGroup"
-                class="btn-group btn-group-justified" tabbed="true" xid="buttonGroup3"> 
-                <a component="$UI/system/components/justep/button/button"
-                  class="btn btn-link btn-only-label text-black" label="查看更多评论" xid="button4"> 
-                  <i xid="i11"/>  
-                  <span xid="span5">查看更多评论</span> 
-                </a> 
-              </div> 
-            </div> 
-          </div> 
+          <div component="$UI/system/components/justep/panel/panel" class="panel x-card"
+            xid="panel6"> 
+	          <div component="$UI/system/components/justep/button/buttonGroup"
+	              class="btn-group btn-group-justified tb-tabs" tabbed="true" xid="buttonGrou"> 
+	              <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-label active"
+	                label="相关推荐" xid=""> 
+	                <i xid="i14"/>  
+	                <span xid="spa">相关推荐</span> 
+	              </a>
+	         </div>  
+	         <div class="x-scroll-content">
+        	 </div>
+         </div>
+         
+         
+         
         </div>  
         <div class="x-content-center x-pull-up" xid="div8"> 
           <span class="x-pull-up-label" xid="span25">加载更多...</span> 

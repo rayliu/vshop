@@ -36,12 +36,12 @@ public class TestMain {
 //		JSONObject json = queryInterface("购物车商品表", "购物车商店接口(value)","2");
 //		System.out.print("**********----***"+json);
 //		System.out.println("*end****");
-		String result = LoadJson.updateByObjectId("用户表", "2","积分","88888");
-		System.out.print("**********----***"+result);
-		System.out.println("*end****");
+//		String result = LoadJson.updateByObjectId("用户表", "2","9595","88888");
+//		System.out.print("**********----***"+result);
+//		System.out.println("*end****");
 		
-//		JSONObject json = query("用户表", "f1","2", "equal");
-//		System.out.println(json);
+		JSONObject json = query("用户表", "f1","2", "in");
+		System.out.println(json);
 		
 		//vObj = vApp.getFormDataObject("模块分类", "1");
 		// LOARawValue value = vObj.getRawValue("编号");

@@ -48,7 +48,7 @@ define(function(require) {
 				"url" : "/eeda/shop",
 				"action" : "queryByValue",
 				"async" : false,
-				"params" : {'tableName':'商品轮播图片表','templateName':'f1','value' : this.params.goodsID},
+				"params" : {'tableName':'商品轮播图片表','templateName':'f2','value' : this.params.goodsID},
 				"success" : function(data) {
 					carouselData.loadData(data);
 				}
