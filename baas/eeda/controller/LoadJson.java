@@ -139,8 +139,8 @@ public class LoadJson {
 			for (Entry<String, ?> entry: dto.entrySet()) {
 	            String role = entry.getKey();
 	            String value =  entry.getValue().toString();
-	            
-	            vObj.addRawValue(role,value);
+	            if(!"".equals(value))
+	            	vObj.addRawValue(role,value);
 			}
 			vObj.save();
 			oJson.put("id", num);
@@ -321,6 +321,7 @@ public class LoadJson {
 				else
 					stringArray += ",String";
 			}
+			
 			
 			Map array3 = new HashMap();
 			array3.put("relationAlias", nameArray.toString().substring(1,nameArray.toString().length()-1));
