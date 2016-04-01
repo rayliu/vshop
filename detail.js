@@ -440,8 +440,42 @@ define(function(require) {
 		this.comp("商品表").refreshData();
 		this.comp("商店表").refreshData();
 		this.comp("商品规格表").refreshData();
-		this.comp("商品轮播图片表").refreshData();
+		this.comp("图文详情表").refreshData();
+		this.comp("图文详情表").refreshData();
+		this.comp("相关推荐表").refreshData();
 	};
+
+	
+	Model.prototype.相关推荐表CustomRefresh = function(event){
+		var type = this.comp('商品表').val('商品类别');
+		var Rdata= event.source;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" : {'tableName':'商品表','templateName':'f12','value' : type},
+			"success" : function(data) {
+				Rdata.loadData(data);
+			}
+		});
+	};
+
+
+	
+	Model.prototype.listClick = function(event){
+		var data = this.comp("相关推荐表");
+		this.params.goodsID=data.getValue("编号");
+		this.params.shopID=data.getValue("商店编号");
+		this.scrollView1PullDown();
+		this.toLocaleString("topper");
+	};
+
+
+	
+	Model.prototype.topBtnClick = function(event){
+		window.scrollTo(0,0);
+	};
+
 
 	
 	return Model;

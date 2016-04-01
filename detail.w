@@ -2,7 +2,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:335px;top:495px;"
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:225px;top:44px;"
     onParamsReceive="modelParamsReceive"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="商品轮播图片表" idColumn="编号" onCustomRefresh="imgDataCustomRefresh" confirmDelete="false"
@@ -82,7 +82,15 @@
       <column label="编号" name="编号" type="String" xid="xid65"/>  
       <data xid="default5">[{"数量":1,"编号":"1"}]</data> 
     </div> 
-  </div>  
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="相关推荐表" idColumn="编号" onCustomRefresh="相关推荐表CustomRefresh"><column name="编号" type="String" xid="xid9"></column>
+  <column name="标题" type="String" xid="xid10"></column>
+  <column name="图片外链" type="String" xid="xid11"></column>
+  <column name="现价" type="String" xid="xid12"></column>
+  <column name="原价" type="String" xid="xid13"></column>
+  <column name="送货方式" type="String" xid="xid14"></column>
+  <column name="销量" type="String" xid="xid15"></column>
+  <column name="商品类别" type="String" xid="xid16"></column>
+  <column name="商店编号" type="String" xid="xid17"></column></div></div>  
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
     xid="popOver" position="bottom"> 
     <div class="x-popOver-overlay" xid="div2"/>  
@@ -179,8 +187,8 @@
       </div>
       <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar2"  style="margin:320px 0px 0px 0px;">
         <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
-          <a component="$UI/system/components/justep/button/button" href="#aaaa"  class="btn btn-link btn-only-icon tb-cartBtn pull-right"
-            xid="topBtn" icon="icon-chevron-up" > 
+          <a component="$UI/system/components/justep/button/button"  class="btn btn-link btn-only-icon tb-cartBtn pull-right"
+            xid="topBtn" icon="icon-chevron-up" onClick="topBtnClick"> 
             <i xid="i12" class="icon-chevron-up"/>  
             <span xid="span4"/> 
           </a> 
@@ -194,15 +202,14 @@
           <i class="x-pull-down-img glyphicon x-icon-pull-down" xid="i1"/>  
           <span class="x-pull-down-label" xid="span1">下拉刷新...</span> 
         </div>  
-        <div class="x-scroll-content" xid="div6"> 
-        <a name="aaaa"></a>
+        <div class="x-scroll-content" xid="div6">
           <div component="$UI/system/components/bootstrap/carousel/carousel"
             class="x-carousel carousel" xid="carousel1" auto="false" style="height:251px;"> 
-            <ol class="carousel-indicators" xid="default1"/>  
+            <ol class="carousel-indicators" xid="default1" />  
             <div class="x-contents carousel-inner" role="listbox" component="$UI/system/components/justep/contents/contents"
               active="0" slidable="true" wrap="true" swipe="true" xid="contents1"
               routable="false"> 
-              <div class="x-contents-content" xid="content1"> 
+              <div class="x-contents-content" xid="content1"  id="topper"> 
                 <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)"/> 
               </div> 
             </div> 
@@ -443,6 +450,65 @@
 	              </a>
 	         </div>  
 	         <div class="x-scroll-content">
+	         	<div class="col-xs-6 tb-twoColList"> 
+                <div component="$UI/system/components/justep/list/list" class="x-list x-flex"
+                  data="相关推荐表" limit="4" filter="$row.index()%2==0" xid="list2"
+                  bind-click="listClick" disablePullToRefresh="false" disableInfiniteLoad="false"> 
+                  <ul class="x-list-template" xid="ul3"> 
+                    <li xid="li4"> 
+                      <div xid="div8"> 
+                        <img src="" alt="" bind-attr-src="ref('图片外链')"
+                          class="img-responsive" style="width:100%;" xid="image2"/>  
+                        <div xid="div19"> 
+                          <h5 bind-text="ref('标题')" class="text-black"
+                            xid="h52"/>  
+                          <div xid="div12"> 
+                            <span class="text-danger" xid="span3">￥</span>  
+                            <span bind-text="ref('现价')" class="text-danger"
+                              xid="span4"/> 
+                          </div>  
+                          <div xid="div13" class="text-muted"> 
+                            <span xid="span24">月销</span>  
+                            <span xid="span26" bind-text="ref('销量')"/>  
+                            <span xid="span27">笔</span>  
+                            <span xid="span28" bind-text="ref('送货方式')" class="pull-right"/> 
+                          </div> 
+                        </div> 
+                      </div> 
+                    </li> 
+                  </ul> 
+                </div> 
+              </div>  
+              <div class="col-xs-6 tb-twoColList"> 
+                <div component="$UI/system/components/justep/list/list" class="x-list x-flex"
+                  data="相关推荐表" limit="4" bind-click="listClick" filter="$row.index()%2==1"
+                  xid="list4"> 
+                  <ul class="x-list-template" xid="ul4"> 
+                    <li xid="li5"> 
+                      <div xid="div24"> 
+                        <img src="" alt="" bind-attr-src="ref('图片外链')"
+                          class="img-responsive" style="width:100%;" xid="image3"/>  
+                        <div xid="div25"> 
+                          <h5 bind-text="ref('标题')" class="text-black"
+                            xid="h53"/>  
+                          <div xid="div23"> 
+                            <span class="text-danger" xid="span23">￥</span>  
+                            <span bind-text="ref('现价')" class="text-danger"
+                              xid="span19"/> 
+                          </div>  
+                          <div xid="div22" class="text-muted"> 
+                            <span xid="span18">月销</span>  
+                            <span xid="span14" bind-text="ref('销量')"/>  
+                            <span xid="span17">笔</span>  
+                            <span xid="span13" bind-text="ref('送货方式')" class="pull-right"/> 
+                          </div> 
+                        </div> 
+                      </div> 
+                    </li> 
+                  </ul> 
+                </div> 
+              </div>
+              <div class="clearfix" xid="div2"/> 
         	 </div>
          </div>
          

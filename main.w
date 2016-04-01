@@ -33,7 +33,10 @@
       <column label="销量" name="销量" type="String" xid="xid6"/>  
       <column label="地址" name="地址" type="String" xid="xid7"/> 
     </div> 
-  </div>  
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="轮播" idColumn="编号" onCustomRefresh="轮播CustomRefresh">
+   <column label="编号" name="编号" type="String" xid="xid1"></column>
+  <column label="图片图片" name="图片外链" type="String" xid="xid2"></column>
+  <column label="链接地址" name="图片超链接" type="String" xid="xid9"></column></div></div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full"> 
     <div class="x-panel-content tb-trans"> 
       <div component="$UI/system/components/justep/contents/contents" class="x-contents x-full"
@@ -63,7 +66,7 @@
                     <i xid="i6" class="icon-android-search"/>  
                     <span xid="span6"/>
                   </a> -->
-                <a component="$UI/system/components/justep/button/button" bind-click="searchBtnClick" class="btn btn-default" label="搜索" xid="button1" style="background-color:#ff4400;color:white;width:68px;height:32px;">
+                <a component="$UI/system/components/justep/button/button" bind-click="searchBtnClick" class="btn x-gray" label="搜索" xid="button1" style="background-color:#ff4400;color:white;width:68px;height:32px;">
    <i xid="i6"></i>
    <span xid="span6">搜索</span></a></div>
               </div> 

@@ -16,13 +16,6 @@ define(function(require) {
 	};
 	
 
-	Model.prototype.goodsDataCustomRefresh = function(event) {
-		/*
-		 * 1、加载商品数据
-		 */
-		var url = require.toUrl("./main/json/goodsData.json");
-		allData.loadDataFromFile(url, event.source, true);
-	};
 
 	// 打开页面
 	Model.prototype.openPageClick = function(event) {
@@ -183,19 +176,6 @@ define(function(require) {
 	};
 	
 	
-	/*Model.prototype.轮播图片表BeforeRefresh = function(event){
-		var dataR = this.comp("轮播图片表");
-		justep.Baas.sendRequest({
-			"url" : "/eeda/shop",
-			"action" : "queryCarousel",
-			"async" : false,
-			"params" :  {},
-			"success" : function(data) {
-				dataR.loadData(data);
-			}
-		});
-	};*/
-	
 	
 	Model.prototype.轮播图片表CustomRefresh = function(event){
 		/*
@@ -204,21 +184,50 @@ define(function(require) {
 		 * 3、如果img已经创建了，只修改属性
 		 * 4、第一张图片信息存入localStorage*/ 
 		var dataR = this.comp("轮播图片表");
+		var dataE = this.comp("轮播");
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "queryTable",
 			"async" : false,
-			"params" :  {tableName:'轮播图片表'},
+			"params" :  {tableName:"轮播图片表"},
 			"success" : function(data) {
 				dataR.loadData(data);
+				dataE.loadData(data);
 			}
 		});
-		 
-		 
+		
+	};
+	
+	Model.prototype.image8Click = function(event){
+		justep.Shell.showPage("testOrder");	
+	};
+	
+	
+	
+	Model.prototype.轮播CustomRefresh = function(event){
 		/*var baasData = event.source;
 		var me = this;
 		var carousel = this.comp("轮播图片表");
+
 		baasData.each(function(obj) {
+			var fImgUrl = require.toUrl(obj.row.val("图片外链"));
+			var fUrl = require.toUrl(obj.row.val("图片超链接"));
+			if (me.comp('contentsImg').getLength() > obj.index) {
+				$(carousel.domNode).find("img").eq(obj.index).attr({
+					"src" : fImgUrl,
+					"pagename" : fUrl
+				});
+				if (obj.index == 0) {
+					localStorage.setItem("index_BannerImg_src", fImgUrl);
+					localStorage.setItem("index_BannerImg_url", fUrl);
+				}
+			} else {
+				carousel.add('<img src="' + fImgUrl + '" class="tb-img1" bind-click="openPageClick" pagename="' + fUrl + '"/>');
+			}
+		});*/
+		/*var me = this;
+		var carousel = this.comp('轮播图片表');
+		carousel.each(function(obj) {
 			var fImgUrl = require.toUrl(obj.row.val("图片外链"));
 			var fUrl = require.toUrl(obj.row.val("图片超链接"));
 			if (me.comp('contentsImg').getLength() > obj.index) {
@@ -236,9 +245,7 @@ define(function(require) {
 		});*/
 	};
 	
-	Model.prototype.image8Click = function(event){
-		justep.Shell.showPage("testOrder");	
-	};
+	
 	
 	return Model;
 });
