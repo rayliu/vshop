@@ -368,10 +368,10 @@ define(function(require){
 		var notifyUrl = location.origin + "/baas/weixin/weixin/notify"
 		debugger;
 		this.wxApi.chooseWXPay({
-			body : "x5外卖",
-			mchId : "1228613502",
+			body : "vshop test",
+			mchId : "1312195301",
 			notifyUrl : notifyUrl,
-			outTradeNo : tradeNo,
+			outTradeNo : "test0000000001",
 			totalFee : "1"
 		}).done(function() {
 			payDtd.resolve(2);
