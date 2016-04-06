@@ -116,20 +116,21 @@ public class LatoService{
 	//通过objectId更新表信息
 	public static JSONObject updateOrder(JSONObject params, ActionContext context) throws Exception{
 		LOAFormDataObject vObj = null;
-		JSONObject json =new JSONObject();
+		JSONObject oJson =new JSONObject();
 		String tableName = params.getString("tableName");      //表明
 		String objectId = params.getString("objectId");        //更新的objectId 
-		String templateName = params.getString("templateName");//更新的表字段名
-		String value = params.getString("value");           //更新的信息
+//		String templateName = params.getString("templateName");//更新的表字段名
+//		String value = params.getString("value");           //更新的信息
+		String json =  params.getString("json");
 		String result = "fail";
 		try
 		{
-			result = LoadJson.updateByObjectId(tableName,objectId,templateName,value);
-			json.put("result", result);
+			result = LoadJson.updateByObjectId(tableName,objectId,json);
+			oJson.put("result", result);
 			System.out.println("更新："+objectId+":"+result);
 			
 		}finally{
-			return json;
+			return oJson;
 		}
 	}
 }

@@ -74,29 +74,36 @@ public class LoadJson {
 	
 	
 	//通过objectId更新表数据
-	public static String updateByObjectId(String tableName,String objectId,String templateName,String value){
-		LOAFormDataObject vObj = null;
-		String result = "fail";
-		
-		try{
-			checkLogin();
-			vObj = vApp.getFormDataObject(tableName, objectId);
-			LOARawValue oldValue = vObj.getRawValue(templateName);
-			oldValue.set(value);
-			vObj.save();
-			result = "sussess";
-		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			System.out.println(e.getMessage());
-			while(i<5){
-				System.out.println(tableName+"第"+i+"次报错");
-				updateByObjectId( tableName, objectId, templateName, value);
-				System.out.println("第"+i+"次ok");
+		public static String updateByObjectId(String tableName,String objectId,String json){
+			LOAFormDataObject vObj = null;
+			String result = "fail";
+			
+			try{
+				checkLogin();
+				
+				vObj = vApp.getFormDataObject(tableName, objectId);
+				Gson gson = new Gson();
+				Map<String, ?> dto= gson.fromJson(json, HashMap.class);
+				for (Entry<String, ?> entry: dto.entrySet()) {
+		            String role = entry.getKey();
+		            String value =  entry.getValue().toString();
+		            LOARawValue oldValue = vObj.getRawValue(role);
+					oldValue.set(value);
+				}
+				vObj.save();
+				result = "success";
+			} catch (Exception e) {
+				// TODO 自动生成的 catch 块
+				System.out.println(e.getMessage());
+				while(i<5){
+					System.out.println(tableName+"第"+i+"次报错");
+					updateByObjectId( tableName, objectId, json);
+					System.out.println("第"+i+"次ok");
+				}
+				//e.printStackTrace();
 			}
-			//e.printStackTrace();
+			return result;
 		}
-		return result;
-	}
 	
 	//删除表数据
 	public static String delete(String tableName,String value){
@@ -109,7 +116,7 @@ public class LoadJson {
 			vObj = vApp.getFormDataObject(tableName, value);
 			if (null != vObj) {
 				vObj.delete();
-				result = "sussess";
+				result = "success";
 			}	
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
