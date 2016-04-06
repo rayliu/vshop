@@ -2,7 +2,16 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xid="window" class="window" component="$UI/system/components/justep/window/window"
   design="device:m;">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:54px;top:529px;" onModelConstruct="modelModelConstruct"/>  
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:54px;top:529px;" onModelConstruct="modelModelConstruct"><div component="$UI/system/components/justep/data/data" autoLoad="true"
+      xid="收货地址表" idColumn="编号" onCustomRefresh="收货地址表CustomRefresh"> 
+      <column name="编号" type="String" xid="xid1"/>  
+      <column name="用户编号" type="String" xid="xid2"/>  
+      <column name="姓名" type="String" xid="xid3"/>  
+      <column name="地址" type="String" xid="xid4"/>  
+      <column name="邮编" type="String" xid="xid5"/>  
+      <column name="电话" type="String" xid="xid6"/>  
+      <column name="是否启用" type="String" xid="xid7"/> 
+    </div> </div>  
   <div component="$UI/system/components/justep/panel/panel" class="panel panel-default x-card x-has-iosstatusbar"
     xid="panel1"> 
     <div xid="div28" class="text-center o-use"> 

@@ -15,6 +15,7 @@ define(function(require){
 	Model.prototype.saveBtnClick = function(event){
 		var self = this;
 		self.comp("saveBtn").set('disabled',true);
+		var objectId = this.comp('收货地址表').val('objectId')
 		
 		var name = this.comp('nameInput').val();
 		var phone = this.comp('phoneInput').val();
@@ -31,6 +32,47 @@ define(function(require){
 			return false;
 		}
 		
+		//更改默认地址
+		if(lock=='是'){
+			//先查询出现在的默认地址
+			//更新其是否启用为否
+			justep.Baas.sendRequest({
+				"url" : "/eeda/shop",
+				"action" : "queryByValue",
+				"params" : {
+					"tableName":"收货地址表",
+					'templateName':'f7,f2',
+					"value" : '是 ,'+user
+				},
+				"success" : function(data) {
+					if(data.rows.length>0){
+					    var thisObjectId = $(data.rows).attr('objectId').value;
+					    var array = {};
+					    array.是否启用='否';
+					    
+					    justep.Baas.sendRequest({
+						"url" : "/eeda/shop",
+						"action" : "updateOrder",
+						"params" : {
+							"tableName":"收货地址表",
+							'objectId':thisObjectId,
+							"json" : JSON.stringify(array) 
+						},
+						"success" : function(resultData) {
+							if(resultData.result=='success'){
+							}else{
+								justep.Util.hint("更新失败 ", {
+									"type" : "danger"
+									});
+								}
+							}
+						});
+					    
+					}
+				}
+			});
+		}
+		
 		var obj = {};
 		obj.姓名 = name;
 		obj.电话 = phone;
@@ -38,34 +80,88 @@ define(function(require){
 		obj.邮编 = mail;
 		obj.是否启用 = lock;
 		obj.用户编号 = user;
-
-		justep.Baas.sendRequest({
+		
+		if(self.params.addressId != undefined){
+			justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "updateOrder",
+			"params" : {
+				"tableName":"收货地址表",
+				'objectId':objectId,
+				"json" : JSON.stringify(obj) 
+			},
+			"success" : function(resultData) {
+				if(resultData.result=='success'){
+					justep.Util.hint("更新成功！");
+					self.comp("saveBtn").set('disabled',false);
+					if(self.params.pageName!=undefined)
+						justep.Shell.showPage(self.params.pageName,{'pageName':'addressInfo'});
+					else
+						justep.Shell.showPage("address");	
+				}else{
+					justep.Util.hint("更新失败 ", {
+						"type" : "danger"
+					});
+					self.comp("saveBtn").set('disabled',false);
+					}
+					
+				}
+			});
+		}else{
+			justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "createOrder",
-				"params" : {
+			"params" : {
 				"tableName":"收货地址表",
 				"json" : JSON.stringify(obj) 
 			},
 			"success" : function(resultData) {
 				if(resultData.id){
 					justep.Util.hint("保存成功！");
+					self.comp("saveBtn").set('disabled',false);
 					if(self.params.pageName!=undefined)
 						justep.Shell.showPage(self.params.pageName,{'pageName':'addressInfo'});
 					else
-						justep.Shell.showPage("user");	
+						justep.Shell.showPage("address");	
 				}else{
 					justep.Util.hint("保存失败 ", {
 						"type" : "danger"
 					});
 					self.comp("saveBtn").set('disabled',false);
-				}
+					}
 					
+				}
+			});
+		}
+	};
+	
+	Model.prototype.收货地址表CustomRefresh = function(event){
+		var self = this;
+		if(self.params.addressId == undefined){
+			self.comp("lockInput").val('是');
+			return;
+		}
+		
+		var user = localStorage.getItem("userID");
+		var dataR = event.source;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryByValue",
+			"async" : false,
+			"params" :  {tableName:'收货地址表',templateName:'f1',value:this.params.addressId},
+			"success" : function(data) {
+				self.comp("nameInput").val($(data.rows).attr('姓名').value);
+				self.comp("phoneInput").val($(data.rows).attr('电话').value);
+				self.comp("addressInput").val($(data.rows).attr('地址').value);
+				self.comp("mailInput").val($(data.rows).attr('邮编').value);
+				self.comp("lockInput").val($(data.rows).attr('是否启用').value);
+				dataR.loadData(data);
 			}
 		});
 	};
 	
 	Model.prototype.modelModelConstruct = function(event){
-		this.comp("lockInput").val('是');
+		
 	};
 	
 	
