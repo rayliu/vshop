@@ -51,7 +51,7 @@ define(function(require) {
 		if(islogin===null){
 			justep.Shell.showPage("login");
 		}else{
-			justep.Shell.showPage("addressInfo");
+			justep.Shell.showPage("address");
 		}
 	};
 	

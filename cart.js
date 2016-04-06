@@ -90,11 +90,15 @@ define(function(require) {
 		2、点击按钮，当前记录的fNumber值减1
 		3、fNumber为1时不再相减
 		*/
+		
 		var row = event.bindingContext.$object;
 		var n=row.val("数量");
 		if(n>1){
 			row.val("数量",n-1);
 			
+			var obj={};
+		    obj.数量 = n-1;
+		    
 			justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "updateOrder",
@@ -102,10 +106,12 @@ define(function(require) {
 			"params" : {
 				'tableName':'购物车商品表',
 				'objectId':row.val('objectId'),
-				'templateName':'数量',
-				'value' : n-1},
+//				'templateName':'数量',
+//				'value' : n-1
+				"json" : JSON.stringify(obj)
+				},
 			"success" : function(data) {
-				if(data.result=='sussess')
+				if(data.result=='success')
 					justep.Util.hint("数量-1");
 				else{
 					row.val("数量",n);
@@ -127,7 +133,8 @@ define(function(require) {
 		var row = event.bindingContext.$object;
 		var n=row.val("数量");
 		row.val("数量",n+1);
-		
+		var obj={};
+		obj.数量 = n+1;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "updateOrder",
@@ -135,10 +142,12 @@ define(function(require) {
 			"params" : {
 				'tableName':'购物车商品表',
 				'objectId':row.val('objectId'),
-				'templateName':'数量',
-				'value' : n+1},
+//				'templateName':'数量',
+//				'value' : n+1
+            "json" : JSON.stringify(obj)
+				},
 			"success" : function(data) {
-				if(data.result=='sussess')
+				if(data.result=='success')
 					justep.Util.hint("数量+1");
 				else{
 					row.val("数量",n);
@@ -187,7 +196,7 @@ define(function(require) {
 			"async" : false,
 			"params" : {'tableName':'购物车商品表','value' : cardObjectIDs.substring(0,cardObjectIDs.length-1)},
 			"success" : function(data) {
-				if(data.result=='sussess')
+				if(data.result=='success')
 					justep.Util.hint("删除成功");
 				else
 					justep.Util.hint("删除失败 ", {
