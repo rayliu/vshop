@@ -138,19 +138,19 @@
         <div class="clearfix"/> 
       </div>  
       <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-label btn-block tb-colorOk"
-        label="确定" onClick="confirmBtn" bind-visible="$model.stateData.val(&quot;state&quot;)==0"> 
+        label="确定" onClick="confirmBtn" bind-visible="$model.stateData.val(&quot;state&quot;)==0" id="confirmBtn"> 
         <i xid="i18"/>  
         <span xid="span50">确定</span> 
       </a>  
       <div component="$UI/system/components/justep/button/buttonGroup" class="btn-group btn-group-justified tb-shopping"
         tabbed="true" xid="buttonGroup4" bind-visible="$model.stateData.val(&quot;state&quot;)==1"> 
         <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-label"
-          onClick="addCardClick" label="加入购物车"> 
+          onClick="addCardClick" label="加入购物车" id="addCard"> 
           <i xid="i16"/>  
           <span xid="span34">加入购物车</span> 
         </a>  
         <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-label"
-          onClick="addOrderClick" label="立即购买"> 
+          onClick="addOrderClick" label="立即购买" id="addOrder"> 
           <i xid="i19"/>  
           <span xid="span37">立即购买</span> 
         </a> 

@@ -296,6 +296,9 @@ define(function(require) {
 	
 	
 	Model.prototype.addCardClick = function(event){
+		//按钮控制
+		$('#addCard').attr("disabled",true);
+		
 		var islogin=localStorage.getItem("userID")//判断用户是否登陆
 		if(islogin===null){
 			justep.Shell.showPage("login",{
@@ -333,6 +336,8 @@ define(function(require) {
 				if(resultData.id){
 					pages.hide();
 					justep.Util.hint("加入购物车成功")
+					$('#confirmBtn').attr('disabled',false);
+					$('#addCard').attr("disabled",false);
 				}
 			}
 		});
@@ -342,6 +347,10 @@ define(function(require) {
 		
 	//下订单
 	Model.prototype.addOrderClick = function(event){
+		//按钮控制
+		$('#addOrder').attr("disabled",true);
+		
+	
 		var self = this;
 		var islogin=localStorage.getItem("userID")//判断用户是否登陆
 		if(islogin===null){
@@ -388,6 +397,8 @@ define(function(require) {
 						"json" : JSON.stringify( obj) 
 					},
 					"success" : function(resultData) {
+						$('#addOrder').attr("disabled",false);
+						$('#confirmBtn').attr('disabled',false);
 						justep.Shell.showPage("order", {
 							cardObjectIDs : resultData.objectId,
 							cardIDs : resultData.id,
@@ -428,6 +439,7 @@ define(function(require) {
 
 	
 	Model.prototype.confirmBtn = function(event){
+		$('#confirmBtn').attr('disabled',true);
 		if(buttom =='addCard'){
 			this.addCardClick(event);
 		}else{
