@@ -113,9 +113,8 @@
             label="button" xid="button11" icon="icon-android-remove" onClick="reductionBtnClick"> 
             <i xid="i33" class="icon-android-remove"/>  
             <span xid="span133"/> 
-          </a>  
-          <div/>  
-          <span bind-text="$model.数量.val('数量')" class="pull-left"/>  
+          </a>    
+          <span bind-text="数量.ref('数量')" class="pull-left" style="margin-left:10px;margin-right:10px;padding:0px 0px 0px 0px;"/>  
           <a component="$UI/system/components/justep/button/button" class="btn x-gray btn-sm btn-only-icon pull-left"
             label="button" xid="button22" icon="icon-android-add" onClick="addBtnClick"> 
             <i xid="i66" class="icon-android-add"/>  
