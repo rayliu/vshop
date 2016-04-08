@@ -33,7 +33,7 @@
     <div component="$UI/system/components/justep/button/buttonGroup" class="btn-group btn-group-justified"
       tabbed="true" xid="buttonGroup3"> 
       <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-        label="我的订单" xid="button7" icon="icon-document"> 
+        label="我的订单" xid="button7" icon="icon-document" onClick="button7Click"> 
         <i xid="i14" class="icon-document icon text-muted"/>  
         <span xid="span39" class="text-muted">我的订单</span> 
       </a>  
