@@ -26,13 +26,18 @@ define(function(require){
 		});
 	};
 	
-	//修改按钮
+	//新建按钮
 	Model.prototype.button3Click = function(event){
 		var islogin=localStorage.getItem("userID")//判断用户是否登陆
 		if(islogin===null){
 			justep.Shell.showPage("login");
 		}else{
-			justep.Shell.showPage("addressInfo");
+			if(this.params.pageName==undefined)
+				justep.Shell.showPage("addressInfo");
+			else
+				justep.Shell.showPage("addressInfo",{
+					pageName:this.params.pageName
+				});
 		}
 	};
 	
