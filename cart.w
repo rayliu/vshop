@@ -2,37 +2,45 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" class="main13" component="$UI/system/components/justep/window/window"
   design="device:mobile;" xid="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:135px;top:10px;"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:233px;top:433px;"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="购物车商品表" idColumn="编号" limit="20" confirmRefresh="false" confirmDelete="false"
       onCustomRefresh="购物车商品表DataCustomRefresh"> 
-      <column label="编号" name="编号" type="String" xid="xid1"></column>
-  <column label="商店编号" name="商店编号" type="String" xid="column2"></column>
-  <column label="商品编号" name="商品编号" type="String" xid="column3"></column>
-  <column label="图片外链" name="图片外链" type="String" xid="column4"></column>
-  <column label="现价" name="现价" type="Float" xid="column5"></column>
-  <column label="标题" name="标题" type="String" xid="xid3"></column>
-  <column label="原价" name="原价" type="Float" xid="xid4"></column>
-  <column label="规格" name="规格" type="String" xid="xid5"></column>
-  <column label="是否选中" name="是否选中" type="Integer" xid="xid6"></column>
-  <rule xid="rule1">
-   <col name="fSize" xid="ruleCol2">
-    <calculate xid="calculate2">
-     <expr xid="default3"></expr></calculate> </col> 
-   <col name="总价" xid="ruleCol3">
-    <calculate xid="calculate3">
-     <expr xid="default4">$row.val('是否选中')==1?$row.val('现价')*$row.val('数量'):'0'</expr></calculate> </col> 
-   <col name="数量" xid="ruleCol4">
-    <calculate xid="calculate4">
-     <expr xid="default5"></expr></calculate> </col> </rule>
-  <column label="数量" name="数量" type="String" xid="xid2"></column>
-  <column label="总价" name="总价" type="String" xid="xid9"></column>
-  <column label="用户编号" name="用户编号" type="String" xid="xid12"></column></div>  
+      <column label="编号" name="编号" type="String" xid="xid1"/>  
+      <column label="商店编号" name="商店编号" type="String" xid="column2"/>  
+      <column label="商品编号" name="商品编号" type="String" xid="column3"/>  
+      <column label="图片外链" name="图片外链" type="String" xid="column4"/>  
+      <column label="现价" name="现价" type="Float" xid="column5"/>  
+      <column label="标题" name="标题" type="String" xid="xid3"/>  
+      <column label="原价" name="原价" type="Float" xid="xid4"/>  
+      <column label="规格" name="规格" type="String" xid="xid5"/>  
+      <column label="是否选中" name="是否选中" type="Integer" xid="xid6"/>  
+      <rule xid="rule1"> 
+        <col name="fSize" xid="ruleCol2"> 
+          <calculate xid="calculate2"> 
+            <expr xid="default3"/>
+          </calculate> 
+        </col>  
+        <col name="总价" xid="ruleCol3"> 
+          <calculate xid="calculate3"> 
+            <expr xid="default4">$row.val('是否选中')==1?$row.val('现价')*$row.val('数量'):'0'</expr>
+          </calculate> 
+        </col>  
+        <col name="数量" xid="ruleCol4"> 
+          <calculate xid="calculate4"> 
+            <expr xid="default5"/>
+          </calculate> 
+        </col> 
+      </rule>  
+      <column label="数量" name="数量" type="String" xid="xid2"/>  
+      <column label="总价" name="总价" type="String" xid="xid9"/>  
+      <column label="用户编号" name="用户编号" type="String" xid="xid12"/>
+    </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="商店表" idColumn="编号" confirmDelete="false" confirmRefresh="false" onCustomRefresh="商店表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid10"/>  
       <column label="名称" name="名称" type="Integer" xid="xid11"/>  
-      <column label="图片外链" name="图片外链" type="String" xid="xid16"/>
+      <column label="图片外链" name="图片外链" type="String" xid="xid16"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="calculateData" idColumn="allSum"> 

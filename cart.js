@@ -93,11 +93,13 @@ define(function(require) {
 		
 		var row = event.bindingContext.$object;
 		var n=row.val("数量");
+		var total = row.val("现价")*(n-1);
 		if(n>1){
 			row.val("数量",n-1);
 			
 			var obj={};
 		    obj.数量 = n-1;
+		    obj.总价 = total;
 		    
 			justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
@@ -132,9 +134,11 @@ define(function(require) {
 		*/
 		var row = event.bindingContext.$object;
 		var n=row.val("数量");
+		var total = row.val("现价")*(n+1);
 		row.val("数量",n+1);
 		var obj={};
 		obj.数量 = n+1;
+		obj.总价 = total;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "updateOrder",
