@@ -48,6 +48,9 @@ define(function(require) {
 				"address" : {
 					url : require.toUrl('./address.w')
 				},
+				"goodsOrder" : {
+					url : require.toUrl('./goodsOrder.w')
+				},
 				"registeMobile" : {
 					url : require.toUrl('./registeMobile.w')
 				},
@@ -74,7 +77,7 @@ define(function(require) {
 	};
 
 	Model.prototype.modelLoad = function(event){
-		justep.Shell.showPage("address");
+		justep.Shell.showPage("main");
 	};
 
 	return Model;

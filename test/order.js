@@ -558,5 +558,15 @@ define(function(require){
 	
 	
 	
+	Model.prototype.button4Click = function(event){
+		justep.Shell.showPage("address",{
+			"pageName":"order"
+		});
+	};
+	
+	
+	
+	
+	
 	return Model;
 });

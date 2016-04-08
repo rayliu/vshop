@@ -20,7 +20,7 @@ define(function(require){
 	};
 	
 	Model.prototype.modelLoad = function(event) {
-	    debugger;
+	    /*debugger;
 		var self = this;
 		// 获取url上的code参数 - 微信授权code，用于获取微信用户信息
 //		var weixinCode = this.getContext().getRequestParameter("code");
@@ -64,7 +64,7 @@ define(function(require){
 				}
 			});
 			
-		}
+		}*/
 		
 //		this.comp('userData').filters.setVar("user", this._userID);
 //		this.comp('orderData').filters.setVar("user", this._userID);
@@ -88,9 +88,10 @@ define(function(require){
 		allData.loadDataFromFile(url,event.source,true);
 	};
 	
-	//打开成功页面
+	//下订单
 	Model.prototype.confirmBtnClick = function(event){
 		this.comp('confirmBtn').set('disabled',true);
+		var self = this;
 		/*
 		0`生成订单
 		1、确认按钮点击事件
@@ -98,77 +99,143 @@ define(function(require){
 		    TODO 后台生成订单记录，购物车清除已购买的记录
 		2、打开成功页面
 		*/
-		var self = this;
-		var orderID = justep.UUID.createUUID();
-		var 送货方式 = this.comp("sendData").val("fSendName");
-		var obj={};
-		obj.商店编号 = this.comp("购物车商品表").getCurrentRow().val("商店编号");
-		obj.商店名称 = this.comp("购物车商品表").getCurrentRow().val("商店名称");
-		obj.商品编号 = this.comp("购物车商品表").getCurrentRow().val("商品编号");
-		obj.标题 = this.comp("购物车商品表").getCurrentRow().val("标题");
-		obj.图片外链 = this.comp("购物车商品表").getCurrentRow().val("图片外链");
-		obj.现价 = this.comp("购物车商品表").getCurrentRow().val("现价");
-		obj.原价 = this.comp("购物车商品表").getCurrentRow().val("原价");
-		obj.规格 = this.comp("购物车商品表").getCurrentRow().val("规格");
-		obj.数量 = this.comp("购物车商品表").getCurrentRow().val("数量");
-		obj.配送时间 = this.comp("配送时间段配置表").getCurrentRow().val("配送时间");
-		if(送货方式=='提货点取')
-			obj.提货点 = this.comp("提货地点表").getCurrentRow().val("地址")+"，电话："+this.comp("提货地点表").getCurrentRow().val("联系电话");
-		if(送货方式=='到店自取')
-			obj.门店信息 = this.comp("门店信息表").getCurrentRow().val("地址")+"，电话："+this.comp("门店信息表").getCurrentRow().val("电话");
-		obj.状态 = "未付款";
-		if(送货方式=='特快')
-			obj.总价 = this.comp("购物车商品表").getCurrentRow().val("数量")*this.comp("购物车商品表").getCurrentRow().val("现价")+20;
-		obj.送货地址 = this.comp("收货地址表").getCurrentRow().val("地址")+"，姓名："+this.comp("收货地址表").getCurrentRow().val("姓名")+"，电话："+this.comp("收货地址表").getCurrentRow().val("电话");
-		obj.配送方式 = 送货方式;
-		obj.买家留言 = this.comp("input1").val();
+		//通过店铺id计算生成订单的数量
+		var cardData = self.comp("购物车商品表");
+		var shopArray = [];
+		var shopNameArray = [];
+		cardData.each(function(obj){
+			var shopId = cardData.val("商店编号",obj.row);
+			var shopName = cardData.val("商店名称",obj.row);
+			var check = false;
+			for (var j = 0; j < shopArray.length; j++) {
+				if(shopArray[j]==shopId)
+					check = true;
+			}
+			if(!check){
+				shopArray.push(shopId);
+				shopNameArray.push(shopName);
+			}
+		});
 		
+		//主订单数据对象的构造
+		var user = localStorage.getItem("userID");
+		var 送货方式 = this.comp("sendData").val("fSendName");
+		var orderObj={};
+		orderObj.配送时间 = this.comp("配送时间段配置表").getCurrentRow().val("配送时间");
+		if(送货方式=='提货点取')
+			orderObj.提货点 = this.comp("提货地点表").getCurrentRow().val("地址")+"，电话："+this.comp("提货地点表").getCurrentRow().val("联系电话");
+		if(送货方式=='到店自取')
+			orderObj.门店信息 = this.comp("门店信息表").getCurrentRow().val("地址")+"，电话："+this.comp("门店信息表").getCurrentRow().val("电话");
+		orderObj.状态 = "未付款";
+		orderObj.收货地址 = this.comp("收货地址表").getCurrentRow().val("地址")+"，姓名："+this.comp("收货地址表").getCurrentRow().val("姓名")+"，电话："+this.comp("收货地址表").getCurrentRow().val("电话");
+		orderObj.配送方式 = 送货方式;
+		orderObj.买家留言 = this.comp("input1").val();
+		orderObj.用户编号 = user;
+
+		
+		//生成订单
+		//先生成主订单表
+		//再生成订单商品关系表
+		for (var int = 0; int < shopNameArray.length; int++) {
+			var total = 0;
+			cardData.each(function(obj){
+				if(shopNameArray[int]==cardData.val("商店名称",obj.row)){
+					total += cardData.val("总价",obj.row);
+				}
+			});
+			if(送货方式=='特快'){
+				total+=20;
+			}
+			orderObj.总价 = total;
+			orderObj.商店名称 = shopNameArray[int];
+				
+			//生成主单据
+			createOrder(self,shopArray[int],orderObj,cardData);
+		}
+		
+		//删除购物车
+		deleteOrder(self);
+	};
+	
+	var createOrder = function(self,shopId,orderObj,cardData){
 		//通过Baas保存数据
-		event.cancel = true;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "createOrder",
 			"params" : {
 				"tableName":"订单表",
-				"json" : JSON.stringify(obj) 
+				"json" : JSON.stringify(orderObj) 
 			},
 			"success" : function(resultData) {
-				justep.Util.hint("下单成功，谢谢您的订餐！");
-				debugger;
-				
-				justep.Baas.sendRequest({
-					"url" : "/eeda/shop",
-					"action" : "deleteOrder",
-					"async" : false,
-					"params" : {'tableName':'购物车商品表','value' : self.params.cardObjectIDs},
-					"success" : function(data) {
+				if(!resultData.id)
+					return;
+					
+				//订单商品表数据对象的构造
+				var orderId = resultData.id;
+				cardData.each(function(obj){
+					var thisShopId = cardData.val("商店编号",obj.row);
+					if(thisShopId == shopId){
+						var orderGoodsObj = {};
+						orderGoodsObj.订单编号 = orderId;
+						orderGoodsObj.商店编号 = cardData.val("商店编号",obj.row);
+						orderGoodsObj.商店名称 = cardData.val("商店名称",obj.row);
+						orderGoodsObj.商品编号 = cardData.val("商品编号",obj.row);
+						orderGoodsObj.商品名称 = cardData.val("标题",obj.row);
+						orderGoodsObj.图片外链 = cardData.val("图片外链",obj.row);
+						orderGoodsObj.现价 = cardData.val("现价",obj.row);
+						orderGoodsObj.原价 = cardData.val("原价",obj.row);
+						orderGoodsObj.规格 = cardData.val("规格",obj.row);
+						orderGoodsObj.数量 = cardData.val("数量",obj.row);
+						createOrder2(orderGoodsObj)
 					}
-				});
-				
-				
-				
-				
-				//userData.applyUpdates();
-				// 开始支付
-				var payDtd = self.payOrder(resultData.id);
-				payDtd.always(function(code) {
-					orderData.setValue("fPayState", code);
-					orderData.saveData({"onSuccess" : function() {
-							self.comp("contents").to("orderContent");
-						}});
-					self.sendOrderPushMessage();
-				}).fail(function(code) {
-					justep.Util.hint("支付遇到问题!");
-				});
+				})
 			}
 		});
-		
-		
-		
-		
-		
-		//justep.Shell.showPage("success");
-	};
+	}
+	
+	var createOrder2 = function(orderGoodsObj){
+		//通过Baas保存数据
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "createOrder",
+			"params" : {
+				"tableName":"订单商品表",
+				"json" : JSON.stringify(orderGoodsObj) 
+			},
+			"success" : function(resultData) {
+				if(!resultData.id)
+					return;
+			}
+		});
+	}
+	
+	var deleteOrder = function(self){
+		//删除购物车
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "deleteOrder",
+			"async" : false,
+			"params" : {'tableName':'购物车商品表','value' : self.params.cardObjectIDs},
+			"success" : function(data) {
+			}
+		});
+	}
+	
+	
+	var payMoney = function(self,resultData){
+		// 开始支付
+		var payDtd = self.payOrder(resultData);
+		payDtd.always(function(code) {
+			orderData.setValue("fPayState", code);
+			orderData.saveData({"onSuccess" : function() {
+					self.comp("contents").to("orderContent");
+				}});
+			self.sendOrderPushMessage();
+		}).fail(function(code) {
+			justep.Util.hint("支付遇到问题!");
+		});
+	}
+	
 	
 	Model.prototype.sendClick = function(event){
 		/*
@@ -549,6 +616,13 @@ define(function(require){
 		});
 	};
 	
+	
+	
+	Model.prototype.button4Click = function(event){
+		justep.Shell.showPage("address",{
+			"pageName":"order"
+		});
+	};
 	
 	
 	

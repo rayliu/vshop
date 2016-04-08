@@ -236,7 +236,7 @@
         </div>  
         <div class="media-right media-middle"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon text-black"
-            label="button" xid="button4" icon="icon-ios7-arrow-forward"> 
+            label="button" xid="button4" icon="icon-ios7-arrow-forward" onClick="button4Click"> 
             <i xid="i4" class="icon-ios7-arrow-forward"/>  
             <span xid="span8"/> 
           </a> 
