@@ -83,12 +83,12 @@
                   <div component="$UI/system/components/justep/panel/panel"
                     class="panel panel-default x-card" xid="panel1"> 
                     <div component="$UI/system/components/bootstrap/carousel/carousel"
-                      class="x-carousel carousel" xid="carousel1" auto="true" style="height:170px;"> 
+                      class="x-carousel carousel" xid="carousel1" auto="true" style="width:500px;"> 
                       <ol class="carousel-indicators" xid="ol1" style="height:14px;"/>  
                       <div class="x-contents carousel-inner" role="listbox"
                         component="$UI/system/components/justep/contents/contents"
                         active="0" slidable="true" wrap="true" swipe="true" xid="contentsImg"
-                        routable="false"> 
+                        routable="false" style="height:100%;width:100%;"> 
                         <div class="x-contents-content" xid="content2"> 
                           <img alt="" xid="image13" bind-click="openPageClick"
                             bind-attr-src="轮播图片表.ref('图片外链')" class="tb-img1" pagename=""

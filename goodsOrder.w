@@ -114,7 +114,7 @@
                 <div xid="div12"> 
                   <div xid="div22" style="position:absolute">
                     <span xid="span" style="text-align:left;"><![CDATA[订单号：]]></span>
-                    <span xid="span16" bind-text=" $object.val(&quot;编号&quot;)"/>
+                    <span xid="span16" bind-text=' $object.val("订单号")'/>
                   </div>
                   <div xid="div23" style="text-align:right;">
                     <span xid="" class="">合计：</span>

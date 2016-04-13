@@ -133,4 +133,63 @@ public class LatoService{
 			return oJson;
 		}
 	}
+	
+	//查询字表数据
+	public static JSONObject queryChildTable(JSONObject params, ActionContext context) throws Exception{
+		LOAFormDataObject vObj = null;
+		JSONObject json =new JSONObject();
+		String tableName = params.getString("tableName");      //表名
+		String objectId = params.getString("objectId");        //objectId 
+		String childTableName = params.getString("childTableName");//字表名
+		try
+		{
+			json = LoadJson.queryChlidTable(tableName,objectId,childTableName);
+			System.out.println("查询子表："+tableName);
+		}finally{
+			return json;
+		}
+	}
+	
+	//新增字表数据
+	public static JSONObject createChildOrder(JSONObject params, ActionContext context) throws Exception{
+		LOAFormDataObject vObj = null;
+		JSONObject oJson =new JSONObject();
+		String tableName = params.getString("tableName");      //表名
+		String objectId = params.getString("objectId");       //objectId 
+		String childTableName = params.getString("childTableName");////字表名
+		String json =  params.getString("json");
+		try
+		{
+			oJson = LoadJson.createChild(tableName,objectId,childTableName,json);
+			System.out.println("新增："+oJson);
+			
+		}finally{
+			return oJson;
+		}
+	}
+	
+	//查询内容并删除
+	public static JSONObject deleteQueryOrder(JSONObject params, ActionContext context) throws Exception{
+		LOAFormDataObject vObj = null;
+		JSONObject json =new JSONObject();
+		String tableName = params.getString("tableName");
+		String templateName = params.getString("templateName");
+		String value = params.getString("value");
+		String type = params.getString("type");
+		String result = "fail";
+		System.out.println("删除字表单据："+tableName+" objectId:"+value);
+		try
+		{
+			String[] array = value.split(",");
+			for (int i = 0; i < array.length; i++) {
+				result = LoadJson.deleteQuery(tableName,templateName,value,type);
+				json.put("result", result);
+				System.out.println("删除："+i+":"+result);
+			}
+		}finally{
+			return json;
+		}
+	}
+	
+	
 }

@@ -2,6 +2,9 @@ package eeda.controller;
 
 
 import java.util.ArrayList;
+
+import loa.models.LOADataObject;
+import loa.models.LOADataObjectList;
 import loa.models.LOARawValue;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,7 +33,21 @@ import net.sf.json.JSONObject;
 public class TestMain {
 	static String appName="7cfefd52-27f6-4600-9ad5-efe28441f216";
 	static String appKey="b642c0ae-8df1-4017-9c90-de28b9812771";
-
+	
+	//检查是否已经登录
+	static boolean isLogin= false;
+	static LOAApp vApp = null ;
+	public static void checkLogin() throws Exception{
+		if(!isLogin){
+			vApp = LOAApp.getInstance();
+		
+			vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+					appName,
+					appKey, true);	
+			vApp.login("admin", "admin");
+			isLogin=true;
+		}
+	}
 	
 	public static void main(String[] args) {
 //		JSONObject json = queryInterface("购物车商品表", "购物车商店接口(value)","2");
@@ -39,9 +56,54 @@ public class TestMain {
 //		String result = LoadJson.updateByObjectId("用户表", "2","9595","88888");
 //		System.out.print("**********----***"+result);
 //		System.out.println("*end****");
-		
-		JSONObject json = query("用户表", "f1","2", "in");
-		System.out.println(json);
+		LOADataObjectList a = null;
+
+		try {
+			checkLogin();
+			
+			LOAFormDataObject vObj = vApp.getFormDataObject("测试母表", "2");
+			LOADataObjectList detailList = vObj.getObjectListtValue("测试明细");
+			
+			
+			
+			System.out.println("detial:"+detailList.saveToJson());
+			
+			/*//查询字表
+			JSONObject d = updateItemByObjectId("测试母表","1","测试明细");
+			System.out.println("detial:"+d);*/
+			
+//			vObj = vApp.newFormDataObject(tableName);
+//			
+//			vObj.addRawValue("编号",num);
+//			Gson gson = new Gson();
+//			Map<String, ?> dto= gson.fromJson(json, HashMap.class);
+//			for (Entry<String, ?> entry: dto.entrySet()) {
+//	            String role = entry.getKey();
+//	            String value =  entry.getValue().toString();
+//	            
+//	            vObj.addRawValue(role,value);
+//			}
+//			vObj.save();
+			
+			
+			
+//			LOAFormList list = vApp.getFormList("测试母表");
+//			Object aaaa = list.saveToJson();
+//			System.out.println("detial:"+list.saveToJson());
+			//detailList.delete(index of detail);
+			//vObj.save();
+
+			/*System.out.println("begin");
+			vObj = vApp.getFormDataObject("测试母表", 1);
+			vObj .getObjectListtValue("明细表");
+			System.out.println("+++++"+LObj.getObjectListtValue("测试明细"));*/
+			
+			
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+
 		
 		//vObj = vApp.getFormDataObject("模块分类", "1");
 		// LOARawValue value = vObj.getRawValue("编号");
@@ -50,6 +112,159 @@ public class TestMain {
 		// // vObj.save();
 		
 	}
+	
+	//生成字表单据
+		public static JSONObject createChild(String tableName,String json){
+			LOAFormDataObject vObj = null;
+			JSONObject oJson =new JSONObject();
+			LOAApp vApp = LOAApp.getInstance();
+			int num = autoNumbe(tableName);
+			try{
+				vObj = vApp.newFormDataObject(tableName);
+				
+				vObj.addRawValue("编号",num);
+				Gson gson = new Gson();
+				Map<String, ?> dto= gson.fromJson(json, HashMap.class);
+				for (Entry<String, ?> entry: dto.entrySet()) {
+		            String role = entry.getKey();
+		            String value =  entry.getValue().toString();
+		            
+		            vObj.addRawValue(role,value);
+				}
+				vObj.save();
+				oJson.put("id", num);
+				oJson.put("objectId", vObj.getObjectID());
+				System.out.println("*************************"+oJson);
+			} catch (Exception e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			return oJson;
+		}
+		
+	
+	//查询字表
+	public static JSONObject updateItemByObjectId(String tableName,String objectId,String childTableName){
+		LOAApp vApp = LOAApp.getInstance();
+		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+				appName,
+				appKey, true);	
+		JSONObject addd = null;
+		try {
+			vApp.login("admin", "admin");
+			LOAFormDataObject vObj = vApp.getFormDataObject(tableName, objectId);
+			LOADataObjectList detailList = vObj.getObjectListtValue(childTableName);
+			
+			addd = change(vApp,detailList.saveToJson());
+			
+			
+			
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			System.out.println(e.getMessage());
+		}
+		return addd;
+	}
+	
+	
+	
+	//通过objectId更新表数据
+		public static String updateByObjectId(String tableName,String objectId,String json){
+			LOAFormDataObject vObj = null;
+			String result = "fail";
+			LOAApp vApp = LOAApp.getInstance();
+			vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+					appName,
+					appKey, true);	
+			try {
+				vApp.login("admin", "admin");
+				vObj = vApp.getFormDataObject(tableName, objectId);
+				Gson gson = new Gson();
+				Map<String, ?> dto= gson.fromJson(json, HashMap.class);
+				for (Entry<String, ?> entry: dto.entrySet()) {
+		            String role = entry.getKey();
+		            String value =  entry.getValue().toString();
+		            LOARawValue oldValue = vObj.getRawValue(role);
+					oldValue.set(value);
+				}
+				vObj.save();
+				result = "success";
+			} catch (Exception e) {
+				// TODO 自动生成的 catch 块
+				System.out.println(e.getMessage());
+			}
+			return result;
+		}
+		
+		
+		
+	
+	//查询表
+		public static JSONObject load(String tableName){
+			LOAApp vApp = LOAApp.getInstance();
+			LOAFormList list = null;
+			vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+					appName,
+					appKey, true);	
+			try {
+				vApp.login("admin", "admin");
+				list = vApp.getFormList(tableName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return change(vApp,list);
+		}
+
+		//wex5 json格式转换
+		public static JSONObject change(LOAApp vApp, Object obj) {
+	 		JSONObject json =new JSONObject();
+	 		Set nameArray = null; //表字段名集合
+	 		Collection valueArray = null; //表字段值名集合
+	 		String stringArray = "String";  ////表字段值类型集合
+	        try {
+				//LOAFormList list = vApp.getFormList(tableName);
+				Gson gson = new Gson(); 
+				List<Map> idList = new Gson().fromJson(obj.toString(), 
+						new TypeToken<List<Map>>(){}.getType());
+				json.put("@type", "table");
+				
+				List<Map> listMap = new ArrayList<Map>();
+				for(Map item : idList){
+					Map array = new HashMap();
+					for (int i = 0; i < item.size(); i++) {
+						nameArray = item.keySet();
+						valueArray = item.values();
+						Object key=item.keySet().toArray()[i];
+						Object value= item.values().toArray()[i];
+						Map array2 = new HashMap();
+						array2.put("value", value);
+						array.put(key, array2);
+					}
+					listMap.add(array);
+				}
+				json.put("rows", listMap);
+				
+				for (int i = 0; i < nameArray.size()-1; i++) {
+					if(nameArray.toArray()[i].equals("objectId"))
+						stringArray += ",Integer";
+					if(nameArray.toArray()[i].equals("objectVersion"))
+						stringArray += ",Integer";
+					if(nameArray.toArray()[i].equals("objectLocked"))
+						stringArray += ",boolean";
+					else
+						stringArray += ",String";
+				}
+				
+				Map array3 = new HashMap();
+				array3.put("relationAlias", nameArray.toString().substring(1,nameArray.toString().length()-1));
+				array3.put("relationTypes", stringArray);
+				json.put("userdata", array3);
+	        }  catch(Exception ex){
+	        	ex.printStackTrace();
+	        }
+	        return json;
+	    }
+	
 	
 	//编号
 	public static int autoNumbe(String tableName){
@@ -229,71 +444,7 @@ public class TestMain {
 		return change(vApp,vObjList);
 	}
 	
-	//查询表
-	public static JSONObject load(String tableName){
-		LOAApp vApp = LOAApp.getInstance();
-		LOAFormList list = null;
-		vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-				appName,
-				appKey, true);	
-		try {
-			vApp.login("admin", "admin");
-			list = vApp.getFormList(tableName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return change(vApp,list);
-	}
-
-	//wex5 json格式转换
-	public static JSONObject change(LOAApp vApp, LOAFormList list) {
- 		JSONObject json =new JSONObject();
- 		Set nameArray = null; //表字段名集合
- 		Collection valueArray = null; //表字段值名集合
- 		String stringArray = "String";  ////表字段值类型集合
-        try {
-			//LOAFormList list = vApp.getFormList(tableName);
-			Gson gson = new Gson(); 
-			List<Map> idList = new Gson().fromJson(list.saveToJson().toString(), 
-					new TypeToken<List<Map>>(){}.getType());
-			json.put("@type", "table");
-			
-			List<Map> listMap = new ArrayList<Map>();
-			for(Map item : idList){
-				Map array = new HashMap();
-				for (int i = 0; i < item.size(); i++) {
-					nameArray = item.keySet();
-					valueArray = item.values();
-					Object key=item.keySet().toArray()[i];
-					Object value= item.values().toArray()[i];
-					Map array2 = new HashMap();
-					array2.put("value", value);
-					array.put(key, array2);
-				}
-				listMap.add(array);
-			}
-			json.put("rows", listMap);
-			
-			for (int i = 0; i < nameArray.size()-1; i++) {
-				if(nameArray.toArray()[i].equals("objectId"))
-					stringArray += ",Integer";
-				if(nameArray.toArray()[i].equals("objectVersion"))
-					stringArray += ",Integer";
-				if(nameArray.toArray()[i].equals("objectLocked"))
-					stringArray += ",boolean";
-				else
-					stringArray += ",String";
-			}
-			
-			Map array3 = new HashMap();
-			array3.put("relationAlias", nameArray.toString().substring(1,nameArray.toString().length()-1));
-			array3.put("relationTypes", stringArray);
-			json.put("userdata", array3);
-        }  catch(Exception ex){
-        	ex.printStackTrace();
-        }
-        return json;
-    }
+	
 	
 	
 }

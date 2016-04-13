@@ -52,6 +52,9 @@ define(function(require){
 	};
 	
 	
+	
+	
+	
 	Model.prototype.a1Click = function(event){
 		var row = event.bindingContext.$object;
 		justep.Shell.showPage("addressInfo", {
@@ -138,6 +141,7 @@ define(function(require){
 		var self = this;
 		var row = event.bindingContext.$object;
 		var objectId = row.val("objectId");
+		var number = row.val("编号");
 
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
@@ -147,6 +151,7 @@ define(function(require){
 			"success" : function(data) {
 				if(data.result=="success"){
 					justep.Util.hint("订单已删除");
+					deleteQuery(self,number);
 					self.scrollView4PullDown();
 				}else{
 					this.comp('delete').set("disabled",false);
@@ -158,6 +163,24 @@ define(function(require){
 		});
 
 	};
+	
+	var deleteQuery = function(self,number){
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "deleteQueryOrder",
+			"async" : false,
+			"params" :  {
+				tableName:'订单商品表',
+				templateName:'f2',
+				value:number,
+				type:'equal',
+			},
+			"success" : function(data) {
+				if(data.result=='success'){
+				}
+			}
+		});
+	}
 	
 	
 

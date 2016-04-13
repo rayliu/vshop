@@ -20,7 +20,7 @@ define(function(require){
 	};
 	
 	Model.prototype.modelLoad = function(event) {
-	    /*debugger;
+	    debugger;
 		var self = this;
 		// 获取url上的code参数 - 微信授权code，用于获取微信用户信息
 //		var weixinCode = this.getContext().getRequestParameter("code");
@@ -48,7 +48,6 @@ define(function(require){
 				this.wxApi = new navigator.WxApi("wx1a63f107b6b0815c");
 			}
 			
-			//必须调用,否则后续报错  oauth2AccessToken 找不到 
 			Baas.sendRequest({
 				"url" : "/weixin/weixin",
 				"action" : "userinfo",
@@ -64,7 +63,7 @@ define(function(require){
 				}
 			});
 			
-		}*/
+		}
 		
 //		this.comp('userData').filters.setVar("user", this._userID);
 //		this.comp('orderData').filters.setVar("user", this._userID);
@@ -121,6 +120,7 @@ define(function(require){
 		var user = localStorage.getItem("userID");
 		var 送货方式 = this.comp("sendData").val("fSendName");
 		var orderObj={};
+		orderObj.订单号 = new Date().getTime().toString();
 		orderObj.配送时间 = this.comp("配送时间段配置表").getCurrentRow().val("配送时间");
 		if(送货方式=='提货点取')
 			orderObj.提货点 = this.comp("提货地点表").getCurrentRow().val("地址")+"，电话："+this.comp("提货地点表").getCurrentRow().val("联系电话");
@@ -186,12 +186,15 @@ define(function(require){
 						orderGoodsObj.原价 = cardData.val("原价",obj.row);
 						orderGoodsObj.规格 = cardData.val("规格",obj.row);
 						orderGoodsObj.数量 = cardData.val("数量",obj.row);
-						createOrder2(orderGoodsObj)
+						createOrder2(orderGoodsObj);
 					}
-				})
+				});
+				
+				//付款
+				payMoney(self,resultData);
 			}
 		});
-	}
+	};
 	
 	var createOrder2 = function(orderGoodsObj){
 		//通过Baas保存数据
@@ -207,7 +210,7 @@ define(function(require){
 					return;
 			}
 		});
-	}
+	};
 	
 	var deleteOrder = function(self){
 		//删除购物车
@@ -219,7 +222,7 @@ define(function(require){
 			"success" : function(data) {
 			}
 		});
-	}
+	};
 	
 	
 	var payMoney = function(self,resultData){
@@ -234,7 +237,7 @@ define(function(require){
 		}).fail(function(code) {
 			justep.Util.hint("支付遇到问题!");
 		});
-	}
+	};
 	
 	
 	Model.prototype.sendClick = function(event){
@@ -399,8 +402,7 @@ define(function(require){
 		   4 用户采用银联支付付款完成
 		  ....未完待续 
 	 **/
-	Model.prototype.payOrder = function(orderID) {
-	debugger;
+	Model.prototype.payOrder = function(resultData) {
 		var payDtd = $.Deferred();
 		var payType = this.comp('payMethodData').val('payMethodCode');
 		if (payType === "faceToFace" || payType === "") {
@@ -410,7 +412,7 @@ define(function(require){
 		} else if (payType == "alipay") {
 			this.payOrderByAlipay(payDtd, orderID);
 		} else if (payType == "weixinJSSDK") {
-			this.payOrderByWeixinJSSDK(payDtd,orderID);
+			this.payOrderByWeixinJSSDK(payDtd,resultData);
 		} else if (payType == "union") {
 			this.payOrderByUnion(payDtd,orderID);
 		} else {
@@ -423,20 +425,19 @@ define(function(require){
 		-23 当前环境不支持微信支付
 	  	-20 微信支付失败
 	 */
-	Model.prototype.payOrderByWeixinJSSDK = function(payDtd, orderID) {
+	Model.prototype.payOrderByWeixinJSSDK = function(payDtd, resultData) {
 		if (!navigator.WxApi) {
 			payDtd.reject(-33);
 			return;
 		}
 		var tradeNo = orderID;
 		var notifyUrl = location.origin + "/baas/weixin/weixin/notify"
-		debugger;
 		this.wxApi.chooseWXPay({
 			body : "vshop sales order",
-			mchId : "1312195301",
+			mchId : resultData.订单号,
 			notifyUrl : notifyUrl,
 			outTradeNo : tradeNo,
-			totalFee : "1"
+			totalFee : resultData.total
 		}).done(function() {
 			payDtd.resolve(2);
 		}).fail(function() {

@@ -175,7 +175,7 @@
           </a> 
         </div> 
       </div>  
-      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar1" style="margin:270px 0px 0px 0px;">
+      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar1" style="margin:300px 0px 0px 0px;">
         <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-cartBtn pull-right"
             xid="cartBtn" icon="icon-ios7-cart" onClick="shoppingCartBtnClick"> 
@@ -184,7 +184,7 @@
           </a> 
         </div>
       </div>
-      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar2"  style="margin:320px 0px 0px 0px;">
+      <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar2"  style="margin:350px 0px 0px 0px;">
         <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
           <a component="$UI/system/components/justep/button/button"  class="btn btn-link btn-only-icon tb-cartBtn pull-right"
             xid="topBtn" icon="icon-chevron-up" onClick="topBtnClick"> 
@@ -203,13 +203,13 @@
         </div>  
         <div class="x-scroll-content" xid="div6">
           <div component="$UI/system/components/bootstrap/carousel/carousel"
-            class="x-carousel carousel" xid="carousel1" auto="false" style="height:251px;"> 
+            class="x-carousel carousel" xid="carousel1" auto="false" style="height:300px;"> 
             <ol class="carousel-indicators" xid="default1" />  
             <div class="x-contents carousel-inner" role="listbox" component="$UI/system/components/justep/contents/contents"
               active="0" slidable="true" wrap="true" swipe="true" xid="contents1"
               routable="false"> 
               <div class="x-contents-content" xid="content1"  id="topper"> 
-                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)"/> 
+                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)" style="height:301px;" height="300px"/> 
               </div> 
             </div> 
           </div>  
@@ -217,7 +217,7 @@
             xid="panel1"> 
             <div component="$UI/system/components/bootstrap/row/row" data="商品表"
               class="row tb-nopadding" xid="row1"> 
-              <div class="col col-xs-11 center-block tb-nopadding " style="text-align:center;"
+              <div class="col col-xs-12 center-block tb-nopadding " style="text-align:center;"
                 xid="col8"> 
                 <h4 xid="h41" class="text-black" bind-text="商品表.ref(&quot;标题&quot;)"/>  
                 <div xid="div4" style="text-align:center;"> 
@@ -230,15 +230,7 @@
                   <span xid="span13" class="tb-text-del" bind-text=" $model.商品表.val(&quot;原价&quot;)"/> 
                 </div> 
               </div>  
-              <div class="col col-xs-1  tb-nopadding" xid="col9"> 
-                <a component="$UI/system/components/justep/button/button"
-                  class="btn btn-link btn-icon-top pull-right tb-nopadding" label="分享"
-                  xid="shareBtn" icon="icon-android-share" onClick="shareBtnClick"> 
-                  <i xid="i10" class="text-success icon-android-share"/>  
-                  <span xid="span10" class="text-success">分享</span> 
-                </a> 
-              </div> 
-            </div>  
+              </div>  
             <!--   <div component="$UI/system/components/bootstrap/row/row" class="row text-muted h5 tb-nopadding"
               xid="row2"> 
               <div class="col col-xs-4  tb-nopadding" xid="col11"> 
