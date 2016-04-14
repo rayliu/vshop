@@ -83,7 +83,7 @@
                   <div component="$UI/system/components/justep/panel/panel"
                     class="panel panel-default x-card" xid="panel1"> 
                     <div component="$UI/system/components/bootstrap/carousel/carousel"
-                      class="x-carousel carousel" xid="carousel1" auto="true" style="height:170px;"> 
+                      class="x-carousel carousel" xid="carousel1" auto="true"> 
                       <ol class="carousel-indicators" xid="ol1" style="height:14px;"/>  
                       <div class="x-contents carousel-inner" role="listbox"
                         component="$UI/system/components/justep/contents/contents"
@@ -92,7 +92,7 @@
                         <div class="x-contents-content" xid="content2"> 
                           <img alt="" xid="image13" bind-click="openPageClick"
                             bind-attr-src="轮播图片表.ref('图片外链')" class="tb-img1" pagename=""
-                            style="height:170px;" align="middle"/> 
+                            style="height:100%;" align="middle"/> 
                         </div> 
                       </div> 
                     </div> 
@@ -100,15 +100,15 @@
                   <div component="$UI/system/components/justep/panel/panel"
                     class="panel panel-default x-card" xid="panel2"> 
                     <table class="table tb-menu" component="$UI/system/components/bootstrap/table/table"
-                      xid="table1" style="height:78px;"> 
+                      xid="table1" style="height:80px;"> 
                       <tbody class="x-list-template" xid="listTemplate2"> 
                         <tr xid="tr1"> 
                           <td bind-click="openPageClick" pagename="./list.w"
                             xid="td1"> 
                             <div class="text-center" xid="div2"> 
                               <img src="./img/main/1.png" alt="" class="img-responsive center-block tb-img5"
-                                pagename="./class.w" xid="image3" style="height:45px;width:45px;"
-                                dir="ltr" height="450px"/>  
+                                pagename="./class.w" xid="image3" style="height:55%;width:55%;"
+                                dir="ltr"/>  
                               <span xid="span7"><![CDATA[全部分类]]></span> 
                             </div> 
                           </td>  
@@ -116,8 +116,8 @@
                             xid="td2"> 
                             <div class="text-center" xid="div3"> 
                               <img src="./img/main/2.png" alt="" xid="image1"
-                                class="img-responsive center-block tb-img5" style="height:45px;width:45px;"
-                                height="60px"/>  
+                                class="img-responsive center-block tb-img5" style="height:55%;width:55%;"
+                               />  
                               <span xid="span9"><![CDATA[个人中心]]></span> 
                             </div> 
                           </td>  
@@ -125,16 +125,16 @@
                             xid="td3"> 
                             <div class="text-center" xid="div4"> 
                               <img src="./img/main/3.png" alt="" xid="image2"
-                                class="img-responsive center-block tb-img5" style="height:45px;width:45px;"
-                                height="60px"/>  
+                                class="img-responsive center-block tb-img5" style="height:55%;width:55%;"
+                                />  
                               <span xid="span10"><![CDATA[大闸蟹]]></span> 
                             </div> 
                           </td>  
                           <td pagename="./list.w" xid="td4"> 
                             <div class="text-center" xid="div7"> 
                               <img alt="" xid="image8" src="./img/main/4.png"
-                                class="img-responsive center-block tb-img5" style="height:45px;width:45px;"
-                                height="100%" bind-click="image8Click"/>  
+                                class="img-responsive center-block tb-img5" style="height:55%;width:55%;"
+                                bind-click="image8Click"/>  
                               <span xid="span11"><![CDATA[积分商城]]></span> 
                             </div> 
                           </td> 
@@ -148,7 +148,7 @@
                     <div component="$UI/system/components/justep/list/list"
                       class="x-list x-flex " xid="list1" data="商品表" limit="10" disablePullToRefresh="false"
                       disableInfiniteLoad="false" bind-click="listClick"> 
-                      <ul class="x-list-template " xid="listTemplateUl1" style="width:100%"> 
+                      <ul class="x-list-template " xid="listTemplateUl1" style="height:100%;width:100%;"> 
                         <li xid="li1" class="col-xs-12 "> 
                           <div class="x-card"> 
                             <div align="center" class=""> 

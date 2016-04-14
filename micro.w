@@ -25,14 +25,14 @@
     <i class="x-pull-down-img glyphicon x-icon-pull-down" xid="i1"></i>
     <span class="x-pull-down-label" xid="span1">下拉刷新...</span></div> 
    <div class="x-scroll-content" xid="div2">
-   <div component="$UI/system/components/justep/list/list" class="x-list x-flex"
+   <div component="$UI/system/components/justep/list/list" class="x-list"
         xid="list1" data="分类表" limit="10" disablePullToRefresh="false" disableInfiniteLoad="false"
         > 
         <ul class="x-list-template" xid="listTemplateUl1"> 
           <li xid="li1" class="col-xs-4" bind-click="listClick"> 
             <div class="x-card" xid="div3" style="margin-top:20px;">
-              <div class="" xid="div4" style="height:90%;width:90%;"> 
-                 <img bind-attr-src=' $object.val("图片外链")' alt="" class="img-responsive" pagename="./class.w" xid="image3" dir="ltr"></img>
+              <div class="" xid="div4" align="center"> 
+                 <img bind-attr-src=' $object.val("图片外链")' alt="" class="img-responsive" pagename="./class.w" xid="image3" align="middle" style="width:85%;" height="85%"></img>
               </div>  
               <div class="caption" xid="div5"> 
                 <h5 class="text-black text" xid="h52" style="font-size:15px" bind-text=" $object.val(&quot;名称&quot;)"/>  

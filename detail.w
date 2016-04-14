@@ -203,13 +203,13 @@
         </div>  
         <div class="x-scroll-content" xid="div6">
           <div component="$UI/system/components/bootstrap/carousel/carousel"
-            class="x-carousel carousel" xid="carousel1" auto="false" style="height:300px;"> 
+            class="x-carousel carousel" xid="carousel1" auto="false" style=""> 
             <ol class="carousel-indicators" xid="default1" />  
             <div class="x-contents carousel-inner" role="listbox" component="$UI/system/components/justep/contents/contents"
               active="0" slidable="true" wrap="true" swipe="true" xid="contents1"
               routable="false"> 
               <div class="x-contents-content" xid="content1"  id="topper"> 
-                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)" style="height:301px;" height="300px"/> 
+                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)"/> 
               </div> 
             </div> 
           </div>  

@@ -20,7 +20,7 @@ define(function(require){
 	};
 	
 	Model.prototype.modelLoad = function(event) {
-	    debugger;
+	   /* debugger;
 		var self = this;
 		// 获取url上的code参数 - 微信授权code，用于获取微信用户信息
 //		var weixinCode = this.getContext().getRequestParameter("code");
@@ -63,7 +63,7 @@ define(function(require){
 				}
 			});
 			
-		}
+		}*/
 		
 //		this.comp('userData').filters.setVar("user", this._userID);
 //		this.comp('orderData').filters.setVar("user", this._userID);
@@ -408,13 +408,13 @@ define(function(require){
 		if (payType === "faceToFace" || payType === "") {
 			payDtd.resolve(0);
 		} else if (payType === "weixin") {
-			this.payOrderByWeixin(payDtd, orderID);
+			this.payOrderByWeixin(payDtd, resultData);
 		} else if (payType == "alipay") {
-			this.payOrderByAlipay(payDtd, orderID);
+			this.payOrderByAlipay(payDtd, resultData);
 		} else if (payType == "weixinJSSDK") {
 			this.payOrderByWeixinJSSDK(payDtd,resultData);
 		} else if (payType == "union") {
-			this.payOrderByUnion(payDtd,orderID);
+			this.payOrderByUnion(payDtd,resultData);
 		} else {
 			payDtd.reject(0);
 		}
@@ -430,7 +430,7 @@ define(function(require){
 			payDtd.reject(-33);
 			return;
 		}
-		var tradeNo = orderID;
+		var tradeNo = resultData.id;
 		var notifyUrl = location.origin + "/baas/weixin/weixin/notify"
 		this.wxApi.chooseWXPay({
 			body : "vshop sales order",
@@ -461,13 +461,13 @@ define(function(require){
 		-33 当前环境不支持支付宝支付
 	  	-30 支付宝支付支付请求被拒绝
 	 */
-	Model.prototype.payOrderByAlipay = function(payDtd, orderID) {
+	Model.prototype.payOrderByAlipay = function(payDtd, resultData) {
 		if (!navigator.alipay) {
 			payDtd.reject(-33);
 			return;
 		}
 		var notifyUrl = location.origin;
-		var tradeNo = orderID;
+		var tradeNo = resultData.id;
 		var alipay = navigator.alipay;
 		alipay.pay({
 			"seller" : "huangyx@justep.com", // 卖家支付宝账号或对应的支付宝唯一用户号
@@ -498,7 +498,7 @@ define(function(require){
 	  	-11 微信生成预支付订单失败
 	  	-10 微信支付请求被拒绝
 	 */
-	Model.prototype.payOrderByWeixin = function(payDtd, orderID) {
+	Model.prototype.payOrderByWeixin = function(payDtd, resultData) {
 	alert("weixin:"+navigator.weixin);
 //		if (!navigator.weixin) {
 //			payDtd.reject(-13);
@@ -506,7 +506,7 @@ define(function(require){
 //		}
 		var notifyUrl = location.origin;
 		var traceID = justep.UUID.createUUID();
-		var traceNo = orderID;
+		var traceNo = resultData.id;
 
 		var weixin = navigator.weixin;
 		weixin.generatePrepayId({
@@ -539,12 +539,12 @@ define(function(require){
 	    当请求支付已经到unionpay但是失败
 		-50 unionpay 失败
 	 */
-	Model.prototype.payOrderByUnion = function(payDtd,orderID) {
+	Model.prototype.payOrderByUnion = function(payDtd,resultData) {
 		Baas.sendRequest({
 			"url" : "/unionpay/unionpay",
 			"action" : "tn",
 			"params" : {
-				"orderId":orderID
+				"orderId":resultData.id
 			},
 			"success" : function(data) {
 				navigator.unionpay.pay({

@@ -32,6 +32,13 @@ public class LatoService{
 		{
 			System.out.println("查询表内容："+tableName);
 			json = LoadJson.load(tableName);
+			if(json==null){
+				json = new JSONObject();
+				json.put("@type", "table");
+				json.put("rows", "");
+			}
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return json;
 		}
@@ -51,6 +58,13 @@ public class LatoService{
 		try
 		{
 			json = LoadJson.query(tableName,templateName,value,type);
+			if(json==null){
+				json = new JSONObject();
+				json.put("@type", "table");
+				json.put("rows", "");
+			}
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return json;
 		}
@@ -69,6 +83,13 @@ public class LatoService{
 		try
 		{
 			json = LoadJson.queryInterface(tableName,functionName,value);
+			if(json==null){
+				json = new JSONObject();
+				json.put("@type", "table");
+				json.put("rows", "");
+			}
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return json;
 		}
@@ -86,6 +107,8 @@ public class LatoService{
 		try
 		{
 			oJson = LoadJson.create(tableName,json);
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return oJson;
 		}
@@ -108,6 +131,8 @@ public class LatoService{
 				json.put("result", result);
 				System.out.println("删除："+i+":"+result);
 			}
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return json;
 		}
@@ -129,6 +154,8 @@ public class LatoService{
 			oJson.put("result", result);
 			System.out.println("更新："+objectId+":"+result);
 			
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return oJson;
 		}
@@ -144,7 +171,14 @@ public class LatoService{
 		try
 		{
 			json = LoadJson.queryChlidTable(tableName,objectId,childTableName);
+			if(json==null){
+				json = new JSONObject();
+				json.put("@type", "table");
+				json.put("rows", "");
+			}
 			System.out.println("查询子表："+tableName);
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return json;
 		}
@@ -163,6 +197,8 @@ public class LatoService{
 			oJson = LoadJson.createChild(tableName,objectId,childTableName,json);
 			System.out.println("新增："+oJson);
 			
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return oJson;
 		}
@@ -186,6 +222,8 @@ public class LatoService{
 				json.put("result", result);
 				System.out.println("删除："+i+":"+result);
 			}
+		}catch(Exception nex){
+			System.out.println(nex.getMessage());
 		}finally{
 			return json;
 		}

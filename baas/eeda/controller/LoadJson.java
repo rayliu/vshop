@@ -40,15 +40,25 @@ public class LoadJson {
 	//检查是否已经登录
 	static boolean isLogin= false;
 	static LOAApp vApp = null ;
-	public static void checkLogin() throws Exception{
+	public static void checkLogin(){
 		if(!isLogin){
-			vApp = LOAApp.getInstance();
-		
-			vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
-					appName,
-					appKey, true);	
-			vApp.login("admin", "admin");
-			isLogin=true;
+			try {	
+				vApp = LOAApp.getInstance();
+				
+				vApp.init("http://cc.iyunbiao.cn/openapi/1.0",
+						appName,
+						appKey, true);	
+				vApp.login("admin", "admin");
+				isLogin=true;
+				
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+				while(i<5){
+					i++;
+					System.out.println("第"+i+"次报错");
+					checkLogin();
+				}
+			}
 		}
 	}
 	
@@ -58,16 +68,11 @@ public class LoadJson {
 		try {
 			LOAFormDataObject vObj = vApp.getFormDataObject(tableName,objectId);
 			LOADataObjectList detailList = vObj.addObjectList(childTableName);
-			jObj = change(vApp,detailList.saveToJson());
+			if(detailList.getCount()>0)
+				jObj = change(vApp,detailList.saveToJson());
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			while(i<5){
-				++i;
-				System.out.println(tableName+"第"+i+"次报错");
-				queryChlidTable( tableName, objectId, childTableName);
-				System.out.println("第"+i+"次ok");
-			}
 		}
 		return jObj;
 	}
@@ -96,12 +101,6 @@ public class LoadJson {
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			System.out.println(e.getMessage());
-			while(i<5){
-				++i;
-				System.out.println(tableName+"第"+i+"次报错");
-				createChild( tableName, objectId,childTableName, json);
-				System.out.println("第"+i+"次ok");
-			}
 		}
 		return oJson;
 	}
@@ -153,12 +152,6 @@ public class LoadJson {
 			} catch (Exception e) {
 				// TODO 自动生成的 catch 块
 				System.out.println(e.getMessage());
-				while(i<5){
-					System.out.println(tableName+"第"+i+"次报错");
-					updateByObjectId( tableName, objectId, json);
-					System.out.println("第"+i+"次ok");
-				}
-				//e.printStackTrace();
 			}
 			return result;
 		}
@@ -178,12 +171,6 @@ public class LoadJson {
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			System.out.println(e.getMessage());
-			System.out.println(tableName+"第"+i+"次报错");
-			while(i<5){
-				++i;
-				delete( tableName, value);
-			}
-			//e.printStackTrace();
 		}
 		return result;
 	}
@@ -231,12 +218,6 @@ public class LoadJson {
 			} catch (Exception e) {
 				// TODO 自动生成的 catch 块
 				System.out.println(e.getMessage());
-				System.out.println(tableName+"第"+i+"次报错");
-				while(i<5){
-					++i;
-					query( tableName, templateName, value, type) ;
-				}
-				//e.printStackTrace();
 			}
 			return result;
 		}
@@ -262,6 +243,7 @@ public class LoadJson {
 	            		oJson.put("订单号", value.concat(Integer.toString(num)));
 	            	}else if("总价".equals(role)){
 	            		oJson.put("total", value);
+	            		vObj.addRawValue(role,value);
 	            	}else
 	            		vObj.addRawValue(role,value);
 			}
@@ -272,12 +254,6 @@ public class LoadJson {
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			System.out.println(e.getMessage());
-			System.out.println(tableName+"第"+i+"次报错");
-			while(i<5){
-				++i;
-				create( tableName, json);
-			}
-			//e.printStackTrace();
 		}
 		return oJson;
 	}
@@ -299,16 +275,11 @@ public class LoadJson {
 
 			//paramManager.add("value",value);
 			vObjList = vApp.query(tableName,functionName ,queryInfo);
-			jObj = change(vApp,vObjList.saveToJson());
+			if(vObjList.getCount()>0)
+				jObj = change(vApp,vObjList.saveToJson());
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			System.out.println(e.getMessage());
-			System.out.println(tableName+"第"+i+"次报错");
-			while(i<5){
-				++i;
-				queryInterface( tableName, functionName, value);
-			}
-			//e.printStackTrace();
 		}
 		return jObj;
 	}
@@ -329,15 +300,11 @@ public class LoadJson {
 
 		try{
 			checkLogin();
+			
 			vObj = vApp.getFormDataObject(tableName, objectId);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			System.out.println(e.getMessage());
-			System.out.println(tableName+"第"+i+"次报错");
-			while(i<5){
-				++i;
-				qeuryByObjectId( tableName, objectId);
-			}
 			//e.printStackTrace();
 		}
 		//return change(vApp,vObj);//无法转换LOAFormDataObject类型
@@ -349,8 +316,7 @@ public class LoadJson {
 		JSONObject jObj = null;
 		try {
 			checkLogin();
-			
-			
+
 			LOAQueryInfo queryInfo = vApp.createQueryInfo();
 			// 创建查询对象的过滤项（对一个查询对象，可以添加多个数据项的查询）
 			String[] templateNameArray = templateName.split(",");
@@ -376,16 +342,11 @@ public class LoadJson {
 				}
 			}
 			vObjList = vApp.getFormList(tableName, queryInfo);
-			jObj = change(vApp,vObjList.saveToJson());
+			if(vObjList.getCount()>0)
+				jObj = change(vApp,vObjList.saveToJson());
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			System.out.println(e.getMessage());
-			System.out.println(tableName+"第"+i+"次报错");
-			while(i<5){
-				++i;
-				query( tableName, templateName, value, type) ;
-			}
-			//e.printStackTrace();
 		}
 		return jObj;
 	}
@@ -397,15 +358,11 @@ public class LoadJson {
 		try {
 			checkLogin();
 			list = vApp.getFormList(tableName);
-			jObj = change(vApp,list.saveToJson());
+			if(list.getCount()>0)
+				jObj = change(vApp,list.saveToJson());
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			System.out.println(e.getMessage());
-			System.out.println(tableName+"第"+i+"次报错");
-			while(i<5){
-				++i;
-				load(tableName);
-			}
 		}
 		return jObj;
 	}
@@ -449,7 +406,6 @@ public class LoadJson {
 				else
 					stringArray += ",String";
 			}
-			
 			
 			Map array3 = new HashMap();
 			array3.put("relationAlias", nameArray.toString().substring(1,nameArray.toString().length()-1));
