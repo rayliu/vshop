@@ -36,7 +36,8 @@ define(function(require){
 				justep.Shell.showPage("addressInfo");
 			else
 				justep.Shell.showPage("addressInfo",{
-					pageName:this.params.pageName
+					"pageName":this.params.pageName,
+					"cardIDs":this.params.cardIDs
 				});
 		}
 	};
@@ -67,6 +68,7 @@ define(function(require){
 	
 	Model.prototype.a1Click = function(event){
 		var row = event.bindingContext.$object;
+		justep.Shell.setIsSinglePage(true);
 		justep.Shell.showPage("addressInfo", {
 			"addressId" :row.val('编号')
 		});
@@ -101,6 +103,12 @@ define(function(require){
 						}
 					}
 				});
+		});
+		
+		if(this.params!=undefined)
+			justep.Shell.setIsSinglePage(true);
+			justep.Shell.showPage(this.params.pageName,{
+				"cardIDs":this.params.cardIDs	
 		});
 	};
 	

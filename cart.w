@@ -65,10 +65,9 @@
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card x-has-iosstatusbar"> 
     <div class="x-panel-top" height="48"> 
       <div component="$UI/system/components/justep/titleBar/titleBar" class="x-titlebar"> 
-        <div class="x-titlebar-left"> 
+        <div class="x-titlebar-left" reverse="false"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon"
-            label="button" xid="backBtn" icon="icon-chevron-left" bind-visible="$model.calculateData.val(&quot;isBack&quot;)==1"
-            onClick="backBtnClick"> 
+            label="button" xid="backBtn" icon="icon-chevron-left" onClick="backBtnClick"> 
             <i xid="i1" class="icon-chevron-left"/>  
             <span xid="span3"/> 
           </a> 
@@ -123,9 +122,8 @@
                             class="x-checkbox x-radio choose" xid="checkbox2" bind-ref="ref('是否选中')"
                             checkedValue="1"/> 
                         </div>  
-                        <div class="x-col x-col-fixed tb-nopadding" xid="col2"> 
-                          <img src="" alt="" xid="image1" class="tb-img-good"
-                            bind-click="listClick" bind-attr-src="$object.val(&quot;图片外链&quot;)"/> 
+                        <div class="x-col x-col-fixed x-col-center" xid="col2"  align="middle" style="margin:0px 10px 0px 0px;"> 
+                          <img src="" xid="image1" bind-click="listClick" bind-attr-src="$object.val(&quot;图片外链&quot;)" valign="middle" style="width:100%;"/> 
                         </div>  
                         <div class="x-col  tb-nopadding" xid="col3"> 
                           <span class="x-flex text-black h5 tb-nomargin" xid="span26"

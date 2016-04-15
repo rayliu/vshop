@@ -20,8 +20,8 @@ define(function(require){
 	};
 	
 	Model.prototype.modelLoad = function(event) {
-	   /* debugger;
-		var self = this;
+	   // debugger;
+	/*	var self = this;
 		// 获取url上的code参数 - 微信授权code，用于获取微信用户信息
 //		var weixinCode = this.getContext().getRequestParameter("code");
 		var urlParam = new RegExp('[\\?&]code=([^&#]*)').exec(window.location.href);
@@ -620,8 +620,10 @@ define(function(require){
 	
 	
 	Model.prototype.button4Click = function(event){
+		justep.Shell.setIsSinglePage(true);
 		justep.Shell.showPage("address",{
-			"pageName":"order"
+			"pageName":"order",
+			"cardIDs":this.params.cardIDs
 		});
 	};
 	

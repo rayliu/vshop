@@ -77,10 +77,9 @@
                     <li xid="li4" class="x-min-height tb-goodList" componentname="li(html)"
                       id="undefined_li4"> 
                       <div component="$UI/system/components/justep/row/row"
-                        class="x-row" xid="row2"> 
-                        <div class="tb-nopadding" xid="col2" style="width:100px;"> 
-                          <img src="" alt="" xid="image1" class="tb-img-good"
-                            bind-click="listClick" bind-attr-src="ref(&quot;图片外链&quot;)" style="height:80%;width:80%;"/> 
+                        class="x-row" xid="row2" style="height:100px;"> 
+                        <div class="x-col x-col-fixed x-col-center" xid="col2" style="width:110px;"> 
+                          <img src="" alt="" xid="image1" bind-click="listClick" bind-attr-src="ref(&quot;图片外链&quot;)" style="width:95%;" height="100%"/> 
                         </div>  
                         <div class="x-col tb-nopadding" xid="col3"> 
                           <div xid="div16"> 

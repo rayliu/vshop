@@ -32,3 +32,16 @@
 .x-panel-bottom{ border-top:1px solid #dcdcdc;}
 .x-panel-bottom .h4{ margin:5px 0;}
 .tb-settlement{ line-height:40px; background-color:#fd5001; color:#fff; font-size:16px;}
+
+.iimg{
+margin-top:auto;
+margin-bottom:auto;
+vertical-align:middle;
+}
+
+.text-hides{
+    overflow: hidden; /*自动隐藏文字*/
+	text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	white-space: nowrap;/*强制不换行*/
+	width: 8em;/*不允许出现半汉字截断*/
+}

@@ -94,9 +94,12 @@ define(function(require){
 				if(resultData.result=='success'){
 					justep.Util.hint("更新成功！");
 					self.comp("saveBtn").set('disabled',false);
-					if(self.params.pageName!=undefined)
-						justep.Shell.showPage(self.params.pageName,{'pageName':'addressInfo'});
-					else
+					if(self.params.pageName!=undefined){
+						justep.Shell.setIsSinglePage(true);
+						justep.Shell.showPage(self.params.pageName, {
+							"cardIDs":self.params.cardIDs
+						});
+					}else
 						justep.Shell.showPage("address");	
 				}else{
 					justep.Util.hint("更新失败 ", {
@@ -119,9 +122,14 @@ define(function(require){
 				if(resultData.id){
 					justep.Util.hint("保存成功！");
 					self.comp("saveBtn").set('disabled',false);
-					if(self.params.pageName!=undefined)
-						justep.Shell.showPage(self.params.pageName,{'pageName':'addressInfo'});
-					else
+					if(self.params.pageName!=undefined){
+						/*justep.Shell.setIsSinglePage(true);
+						justep.Shell.showPage(self.params.pageName,{'pageName':'addressInfo'});*/
+						justep.Shell.setIsSinglePage(true);
+						justep.Shell.showPage(self.params.pageName, {
+							"cardIDs":self.params.cardIDs
+						});
+					} else
 						justep.Shell.showPage("address");	
 				}else{
 					justep.Util.hint("保存失败 ", {

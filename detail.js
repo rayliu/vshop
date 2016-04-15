@@ -94,8 +94,9 @@ define(function(require) {
 		2、传入新窗口，打开的窗口中显示评论列表
 		3、在打开的窗口中接收数据，并从服务端过滤数据		
 		*/
-		justep.Shell.fireEvent("detail",{});
-		justep.Shell.showMainPage();
+
+		justep.Shell.setIsSinglePage(true);
+		justep.Shell.showPage("main");
 	};
 	
 	//购物车按钮
@@ -103,8 +104,10 @@ define(function(require) {
 		/*
 		1、切换到购物车页面
 		*/
-		justep.Shell.fireEvent("onShoppingContent",{});
-		justep.Shell.showMainPage();
+		
+		justep.Shell.setIsSinglePage(true);
+		justep.Shell.showPage("cart",{"pageName":"detail"});
+		//justep.Shell.showMainPage();
 	};
 	//加入购物车
 	Model.prototype.joinCartBtnClick = function(event){
@@ -250,20 +253,6 @@ define(function(require) {
 	};	
 
 	
-	Model.prototype.详情参数表CustomRefresh = function(event){
-		//加载model数据
-		var Rdata= this.comp("详情参数表");
-		justep.Baas.sendRequest({
-			"url" : "/eeda/shop",
-			"action" : "queryByValue",
-			"async" : false,
-			"params" : {'tableName':'详情参数表','templateName':'f2','value' : this.params.goodsID},
-			"success" : function(data) {
-				Rdata.loadData(data);
-			}
-		});
-	};	
-
 	
 	Model.prototype.商店表CustomRefresh = function(event){
 		//加载model数据
@@ -360,56 +349,44 @@ define(function(require) {
 			return false;
 		}
 		
+		
+		var pages = self.comp("popOver");
+		var obj={};
+		obj.规格 = self.comp("商品规格表").getCurrentRow().val("规格信息");
+		obj.商品编号 = self.comp("商品表").getCurrentRow().val("编号");
+		obj.商店编号 = self.comp("商品表").getCurrentRow().val("商店编号");
+		obj.商店名称 = self.comp("商品表").getCurrentRow().val("商店名称");
+		obj.标题 = self.comp("商品表").getCurrentRow().val("标题");
+		obj.图片外链 = self.comp("商品表").getCurrentRow().val("图片外链");
+		obj.现价 = self.comp("商品表").getCurrentRow().val("现价");
+		obj.原价 = self.comp("商品表").getCurrentRow().val("原价");
+		obj.是否选中 = 0;
+		obj.数量 = self.comp('数量').val('数量');
+		obj.总价 = self.comp('数量').val('数量')*(self.comp("商品表").getCurrentRow().val("现价"));
+		
+		// 通过Baas保存数据
+		//event.cancel = true;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
-			"action" : "queryByValue",
-			"async" : false,
-			"params" : {'tableName':'收货地址表','templateName':'f2,f7','value' : islogin+',是'},
-			"success" : function(data) {
-				if(data.rows.length<=0){
-					justep.Shell.showPage("addressInfo",{
-						"pageName":"detail"
-					});
-					return false;
-				}
-				
-				var pages = self.comp("popOver");
-				var obj={};
-				obj.规格 = self.comp("商品规格表").getCurrentRow().val("规格信息");
-				obj.商品编号 = self.comp("商品表").getCurrentRow().val("编号");
-				obj.商店编号 = self.comp("商品表").getCurrentRow().val("商店编号");
-				obj.商店名称 = self.comp("商品表").getCurrentRow().val("商店名称");
-				obj.标题 = self.comp("商品表").getCurrentRow().val("标题");
-				obj.图片外链 = self.comp("商品表").getCurrentRow().val("图片外链");
-				obj.现价 = self.comp("商品表").getCurrentRow().val("现价");
-				obj.原价 = self.comp("商品表").getCurrentRow().val("原价");
-				obj.是否选中 = 0;
-				obj.数量 = self.comp('数量').val('数量');
-				obj.总价 = self.comp('数量').val('数量')*(self.comp("商品表").getCurrentRow().val("现价"));
-				
-				// 通过Baas保存数据
-				//event.cancel = true;
-				justep.Baas.sendRequest({
-					"url" : "/eeda/shop",
-					"action" : "createOrder",
-					"params" : {
-						"tableName":"购物车商品表",
-						"json" : JSON.stringify( obj) 
-					},
-					"success" : function(resultData) {
-						$('#addOrder').attr("disabled",false);
-						$('#confirmBtn').attr('disabled',false);
-						justep.Shell.showPage("order", {
-							cardObjectIDs : resultData.objectId,
-							cardIDs : resultData.id,
-							pageName : 'detail'
-						});
-					}
+			"action" : "createOrder",
+			"params" : {
+				"tableName":"购物车商品表",
+				"json" : JSON.stringify( obj) 
+			},
+			"success" : function(resultData) {
+				$('#addOrder').attr("disabled",false);
+				$('#confirmBtn').attr('disabled',false);
+				justep.Shell.showPage("order", {
+					cardObjectIDs : resultData.objectId,
+					cardIDs : resultData.id,
+					pageName : 'detail'
 				});
-			}	
+			}
 		});
 	};	
 	
+	
+
 	
 	//减数量
 	Model.prototype.reductionBtnClick = function(event){		
@@ -452,7 +429,6 @@ define(function(require) {
 		this.comp("商品表").refreshData();
 		this.comp("商店表").refreshData();
 		this.comp("商品规格表").refreshData();
-		this.comp("图文详情表").refreshData();
 		this.comp("图文详情表").refreshData();
 		this.comp("相关推荐表").refreshData();
 	};

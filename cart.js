@@ -8,11 +8,13 @@ define(function(require) {
 		this.isBack;	
 	};
 	
+
+	
 	//返回上一页
 	Model.prototype.backBtnClick = function(event){
-		justep.Shell.closePage();
 		setTimeout(function(){
-			justep.Shell.fireEvent("onRestoreContent", {});
+			justep.Shell.fireEvent("main", {});
+			justep.Shell.showMainPage();
 		},500);
 	};
 	
@@ -262,6 +264,7 @@ define(function(require) {
 		this.comp("购物车商品表").refreshData();
 		this.comp("商店表").refreshData();
 	};
+
 
 
 	return Model;

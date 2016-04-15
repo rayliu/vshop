@@ -92,7 +92,7 @@
                         <div class="x-contents-content" xid="content2"> 
                           <img alt="" xid="image13" bind-click="openPageClick"
                             bind-attr-src="轮播图片表.ref('图片外链')" class="tb-img1" pagename=""
-                            style="height:100%;" align="middle"/> 
+                            style="height:100%;" align="middle" src="./main/img/9.png"/> 
                         </div> 
                       </div> 
                     </div> 

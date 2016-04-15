@@ -46,20 +46,6 @@
       <column label="图片解析" name="图片解析" type="String" xid="xid41"/> 
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="详情参数表" idColumn="编号" onCustomRefresh="详情参数表CustomRefresh"> 
-      <column label="编号" name="编号" type="String" xid="xid42"/>  
-      <column label="商品编号" name="商品编号" type="String" xid="xid43"/>  
-      <column label="商品类别" name="商品类别" type="String" xid="xid44"/>  
-      <column label="销售渠道" name="销售渠道" type="String" xid="xid45"/>  
-      <column label="品牌" name="品牌" type="String" xid="xid46"/>  
-      <column label="规格" name="规格" type="String" xid="xid47"/>  
-      <column label="售后服务" name="售后服务" type="String" xid="xid48"/>  
-      <column label="地址" name="地址" type="String" xid="xid49"/>  
-      <column label="保质期" name="保质期" type="String" xid="xid50"/>  
-      <column name="col9" type="String" xid="xid51"/>  
-      <column name="col10" type="String" xid="xid52"/> 
-    </div>  
-    <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="商店表" idColumn="编号" onCustomRefresh="商店表CustomRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid53"/>  
       <column label="名称" name="名称" type="String" xid="xid54"/>  
