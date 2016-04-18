@@ -148,14 +148,14 @@
         xid="titleBar"> 
         <div class="x-titlebar-left" xid="left1"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-backBtn"
-            xid="backBtn" icon="icon-chevron-left" onClick="backBtnClick"> 
+            xid="backBtn" icon="icon-chevron-left" onClick="backBtnClick" style="margin-left:10px;"> 
             <i xid="i6" class="icon-chevron-left"/>  
             <span xid="span6">关闭</span> 
           </a> 
         </div>  
         <div class="x-titlebar-right reverse" xid="right1"> 
-          <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-moreBtn pull-right"
-            xid="homeBtn" icon="icon-home" onClick="homeBtnClick"> 
+          <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon tb-moreBtn"
+            xid="homeBtn" icon="icon-home" onClick="homeBtnClick" style="margin-right:10px;"> 
             <i xid="i13" class="icon-home"/>  
             <span xid="span23"/> 
           </a> 

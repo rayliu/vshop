@@ -125,12 +125,12 @@
                 <div xid="div1" style="height:1px;background-color:#C0C0C0;"/>  
                 <div xid="div7" style="text-align:right;height:50px;" bind-visible=" $object.val(&quot;状态&quot;) =='未付款'"> 
                   <a component="$UI/system/components/justep/button/button"
-                    class="btn x-gray" label="取消订单" xid="cancel" onClick="cancelClick"> 
+                    class="btn x-gray" label="取消订单" xid="cancel" onClick="cancelClick" style="margin:5px 10px 5px 0px;"> 
                     <i xid="i2"/>  
                     <span xid="span1">取消订单</span> 
                   </a>  
                   <a component="$UI/system/components/justep/button/button"
-                    class="btn btn-default" label="付款" xid="pay" style="margin:5px 10px 10px 5px;"
+                    class="btn btn-default" label="付款" xid="pay" style="margin:5px 0px 10px 5px;display:none;"
                     onClick="payClick"> 
                     <i xid="i3"/>  
                     <span xid="span2">付款</span> 

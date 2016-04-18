@@ -260,7 +260,7 @@
               id="undefined_li4"> 
               <div class="media-left"> 
                 <img src="" alt="" xid="image4" bind-attr-src="ref('图片外链')"
-                  class="tb-img-good"/> 
+                  class="tb-img-good" style="height:95px;width:127px;"/> 
               </div>  
               <div class="media-body"> 
                 <span bind-text="ref('标题')" class="text-black h5" xid="span33"/>  

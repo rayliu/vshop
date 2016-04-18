@@ -79,8 +79,8 @@
         </div>  
         <div class="x-titlebar-right reverse"> 
           <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-only-icon"
-            label="button" xid="delBtn" icon="icon-ios7-trash-outline" onClick="delBtnClick"> 
-            <i xid="i4" class="icon-ios7-trash-outline"/>  
+            label="button" xid="delBtn" icon="icon-ios7-trash-outline" onClick="delBtnClick" id="deleteBtn"> 
+            <i xid="i4" class="icon-ios7-trash-outline" id="deleteItem"/>  
             <span xid="span20"/> 
           </a> 
         </div> 
@@ -120,7 +120,7 @@
                         <div class="x-col x-col-fixed" xid="col1" style="width:auto;"> 
                           <span component="$UI/system/components/justep/button/checkbox"
                             class="x-checkbox x-radio choose" xid="checkbox2" bind-ref="ref('是否选中')"
-                            checkedValue="1"/> 
+                            checkedValue="1" onChange="checkbox2Change"/> 
                         </div>  
                         <div class="x-col x-col-fixed x-col-center" xid="col2"  align="middle" style="margin:0px 10px 0px 0px;"> 
                           <img src="" xid="image1" bind-click="listClick" bind-attr-src="$object.val(&quot;图片外链&quot;)" valign="middle" style="width:100%;"/> 
@@ -184,7 +184,7 @@
             <span xid="span16">不含运费</span> 
           </div> 
         </div>  
-        <div class="x-col x-col-33 text-center tb-settlement" xid="col9" bind-click="settlementClick"> 
+        <div class="x-col x-col-33 text-center tb-settlement" xid="col9" bind-click="settlementClick" id="sumBtn"> 
           <span xid="span10">结算(</span>  
           <span xid="number" class="allNumber" bind-text="calculateData.ref('allNumber')"/>  
           <span xid="span14">)</span> 

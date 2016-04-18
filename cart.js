@@ -74,6 +74,7 @@ define(function(require) {
 		2、点击全选多选框按钮，获取其值
 		3、修改商品表中的fChoose字段为全选多选框按钮的值
 		*/
+		var self = this;
 		var goodsData = this.comp("购物车商品表");
 		var choose=this.comp("allChoose").val();
 		goodsData.each(function(obj){
@@ -83,6 +84,8 @@ define(function(require) {
 				goodsData.setValue("是否选中","0",obj.row);
 			}	
 		});
+
+		changeColor(self);
 	};
 	
 	//减数量
@@ -173,19 +176,15 @@ define(function(require) {
 		2、删除选中商品
 		3、如果商店里已经没有商品，则删除商店
 		*/
-//		var goodsData = this.comp("购物车商品表");
-//		var goodsRows = goodsData.find(["是否选中"],["1"]);
-//		goodsData.deleteData(goodsRows);
-//  
-//		var shopData = this.comp("商店表");
-//		var shopRows = new Array();
-//		shopData.each(function(obj){
-//			var n = goodsData.find(["商店编号"],[obj.row.val("id")]).length; 
-//			if(n == 0){
-//				shopRows.push(obj.row);
-//			}
-//		});    
-//		shopData.deleteData(shopRows);  
+		if(this.comp('calculateData').val('allSum')=='0'){
+			justep.Util.hint("您还没有勾选商品", {
+						"type" : "danger"
+					});
+			return;
+		}
+			
+		if(!confirm('确定删除？'))
+			return;
 		var data = this.comp('购物车商品表');
         var cardIDs = '';
         var cardObjectIDs = '';
@@ -202,9 +201,10 @@ define(function(require) {
 			"async" : false,
 			"params" : {'tableName':'购物车商品表','value' : cardObjectIDs.substring(0,cardObjectIDs.length-1)},
 			"success" : function(data) {
-				if(data.result=='success')
+				if(data.result=='success'){
 					justep.Util.hint("删除成功");
-				else
+					$('#sumBtn').css('background','#BEBEBE');
+				}else
 					justep.Util.hint("删除失败 ", {
 						"type" : "danger"
 					});
@@ -230,7 +230,10 @@ define(function(require) {
 		2、打开订单确认页面
 		3、点击确认按钮，选择支付方式
 		4、进入支付成功页面
-		*/		
+		*/
+		if(this.comp('calculateData').val('allSum')=='0')
+			return;
+				
         var data = this.comp('购物车商品表');
         var cardIDs = '';
         var cardObjectIDs = '';
@@ -263,6 +266,34 @@ define(function(require) {
 	Model.prototype.scrollViewPullDown = function(event){
 		this.comp("购物车商品表").refreshData();
 		this.comp("商店表").refreshData();
+	};
+
+
+
+	Model.prototype.checkbox2Change = function(event){
+	    var self = this;
+	    var row = event.bindingContext.$object;
+		if(event.checked)
+			row.val('是否选中','1');
+		else
+			row.val('是否选中','0');
+		changeColor(self);
+	};
+	
+	var changeColor = function(self){
+		var data = self.comp("购物车商品表");
+		
+		var isCheck = 0;
+		data.each(function(obj){
+			if(data.val('是否选中',obj.row)=='1'){
+				isCheck += 1;
+			}
+		}); 
+		if(isCheck>0){
+			$('#sumBtn').css('background','#ff4400');
+		}else{
+			$('#sumBtn').css('background','#BEBEBE');
+		}
 	};
 
 

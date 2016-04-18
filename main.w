@@ -107,12 +107,12 @@
                             xid="td1"> 
                             <div class="text-center" xid="div2"> 
                               <img src="./img/main/1.png" alt="" class="img-responsive center-block tb-img5"
-                                pagename="./class.w" xid="image3" style="height:55%;width:55%;"
+                                 xid="image3" style="height:55%;width:55%;"
                                 dir="ltr"/>  
                               <span xid="span7"><![CDATA[全部分类]]></span> 
                             </div> 
                           </td>  
-                          <td bind-click="openPageClick" pagename="./list.w"
+                          <td bind-click="openPageClick" pagename="./userInfo.w"
                             xid="td2"> 
                             <div class="text-center" xid="div3"> 
                               <img src="./img/main/2.png" alt="" xid="image1"
@@ -121,13 +121,13 @@
                               <span xid="span9"><![CDATA[个人中心]]></span> 
                             </div> 
                           </td>  
-                          <td bind-click="openPageClick" pagename="./list.w"
+                          <td bind-click="openPageClick" pagename="./goodsOrder.w"
                             xid="td3"> 
                             <div class="text-center" xid="div4"> 
                               <img src="./img/main/3.png" alt="" xid="image2"
                                 class="img-responsive center-block tb-img5" style="height:55%;width:55%;"
                                 />  
-                              <span xid="span10"><![CDATA[大闸蟹]]></span> 
+                              <span xid="span10"><![CDATA[我的订单]]></span> 
                             </div> 
                           </td>  
                           <td pagename="./list.w" xid="td4"> 
@@ -135,7 +135,7 @@
                               <img alt="" xid="image8" src="./img/main/4.png"
                                 class="img-responsive center-block tb-img5" style="height:55%;width:55%;"
                                 bind-click="image8Click"/>  
-                              <span xid="span11"><![CDATA[积分商城]]></span> 
+                              <span xid="span11"><![CDATA[收货地址]]></span> 
                             </div> 
                           </td> 
                         </tr> 

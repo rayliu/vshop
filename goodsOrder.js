@@ -84,6 +84,8 @@ define(function(require){
 	
 	//订单取消
 	Model.prototype.cancelClick = function(event){
+		if(!confirm("是否确认撤销此订单"))
+			return;
 		this.comp('cancel').set("disabled",true);
 		var self = this;
 		var row = event.bindingContext.$object;
@@ -137,6 +139,8 @@ define(function(require){
 	
 	//订单删除
 	Model.prototype.deleteClick = function(event){
+		if(!confirm("是否确认删除此订单"))
+			return;
 		this.comp('delete').set("disabled",true);
 		var self = this;
 		var row = event.bindingContext.$object;

@@ -4,7 +4,7 @@
   design="device:m;">  
   <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:410px;top:223px;"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="收货地址表" idColumn="编号" onCustomRefresh="收货地址表CustomRefresh"> 
+      xid="收货地址表" idColumn="编号" onCustomRefresh="收货地址表CustomRefresh" limit="6"> 
       <column name="编号" type="String" xid="xid1"/>  
       <column name="用户编号" type="String" xid="xid2"/>  
       <column name="姓名" type="String" xid="xid3"/>  

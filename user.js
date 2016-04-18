@@ -55,7 +55,7 @@ define(function(require) {
 		}
 	};
 	
-	Model.prototype.button7Click = function(event){
+	Model.prototype.li1Click = function(event){
 		var islogin=localStorage.getItem("userID")//判断用户是否登陆
 		if(islogin===null){
 			justep.Shell.showPage("login");

@@ -68,7 +68,25 @@ define(function(require){
 	
 	Model.prototype.a1Click = function(event){
 		var row = event.bindingContext.$object;
-		justep.Shell.setIsSinglePage(true);
+/*		var check = row.val('是否启用');
+		if(check=='是'){
+			if(self.params!=undefined){
+				justep.Shell.setIsSinglePage(true); 
+				justep.Shell.showPage("addressInfo", {
+					"addressId" :row.val('编号'),
+					"pageName":this.params.pageName,
+					"cardIDs":this.params.cardIDs
+				});
+			}else{
+				justep.Shell.setIsSinglePage(true); 
+				justep.Shell.showPage("addressInfo", {
+					"addressId" :row.val('编号')
+				});
+			}
+		}
+		
+		*/
+		justep.Shell.setIsSinglePage(true); 
 		justep.Shell.showPage("addressInfo", {
 			"addressId" :row.val('编号')
 		});
@@ -76,6 +94,7 @@ define(function(require){
 	
 	
 	Model.prototype.radio1Change = function(event){
+		var self = this;
 		var row = event.bindingContext.$object;
 		var objectId = row.val('objectId');
 		var dataR = this.comp('收货地址表');
@@ -83,7 +102,7 @@ define(function(require){
 		dataR.each(function(obj){
 			var array = {};
 			var newId = dataR.val('objectId',obj.row);
-			if(dataR.val('objectId',obj.row)==objectId){
+			if(newId==objectId){
 				array.是否启用 = '是';
 			}else{
 				array.是否启用 = '否';
@@ -104,14 +123,16 @@ define(function(require){
 					}
 				});
 		});
-		
-		if(this.params!=undefined)
-			justep.Shell.setIsSinglePage(true);
-			justep.Shell.showPage(this.params.pageName,{
+	
+		if(self.params!=undefined){
+			if(self.params.pageName!=undefined){
+				justep.Shell.setIsSinglePage(true);
+				justep.Shell.showPage(self.params.pageName,{
 				"cardIDs":this.params.cardIDs	
-		});
+				});
+			}
+		}
 	};
-	
-	
+
 	return Model;
 });
