@@ -122,8 +122,8 @@
                             class="x-checkbox x-radio choose" xid="checkbox2" bind-ref="ref('是否选中')"
                             checkedValue="1" onChange="checkbox2Change"/> 
                         </div>  
-                        <div class="x-col x-col-fixed x-col-center" xid="col2"  align="middle" style="margin:0px 10px 0px 0px;"> 
-                          <img src="" xid="image1" bind-click="listClick" bind-attr-src="$object.val(&quot;图片外链&quot;)" valign="middle" style="width:100%;"/> 
+                        <div class="x-col x-col-fixed" xid="col2"  align="middle" style="margin:0px 10px 0px 0px;"> 
+                          <img src="" xid="image1" bind-click="listClick" bind-attr-src="$object.val(&quot;图片外链&quot;)" valign="middle" style="width:100%;" class="img-thumbnail img-rounded"/> 
                         </div>  
                         <div class="x-col  tb-nopadding" xid="col3"> 
                           <span class="x-flex text-black h5 tb-nomargin" xid="span26"

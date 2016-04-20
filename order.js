@@ -21,7 +21,7 @@ define(function(require){
 	
 	Model.prototype.modelLoad = function(event) {
 	   // debugger;
-	/*	var self = this;
+		var self = this;
 		// 获取url上的code参数 - 微信授权code，用于获取微信用户信息
 //		var weixinCode = this.getContext().getRequestParameter("code");
 		var urlParam = new RegExp('[\\?&]code=([^&#]*)').exec(window.location.href);
@@ -63,7 +63,7 @@ define(function(require){
 				}
 			});
 			
-		}*/
+		}
 		
 //		this.comp('userData').filters.setVar("user", this._userID);
 //		this.comp('orderData').filters.setVar("user", this._userID);

@@ -78,12 +78,12 @@
                       id="undefined_li4"> 
                       <div component="$UI/system/components/justep/row/row"
                         class="x-row" xid="row2" style="height:100px;"> 
-                        <div class="x-col x-col-fixed x-col-center" xid="col2" style="width:110px;"> 
-                          <img src="" alt="" xid="image1" bind-click="listClick" bind-attr-src="ref(&quot;图片外链&quot;)" style="width:95%;" height="100%"/> 
+                        <div class="x-col x-col-fixed" xid="col2" style="width:110px;"> 
+                          <img src="" alt="" xid="image1" bind-click="listClick" bind-attr-src="ref(&quot;图片外链&quot;)" style="width:95%;" height="100%" class="img-rounded img-thumbnail"/> 
                         </div>  
                         <div class="x-col tb-nopadding" xid="col3"> 
-                          <div xid="div16"> 
-                            <span class="text-black h5 tb-nomargin" xid="span26"
+                          <div xid="div16" class="text-black99"> 
+                            <span  xid="span26"
                               bind-text=" ref(&quot;商品名称&quot;)"/> 
                           </div>  
                           <div class="text-muted h6" xid="div6"> 

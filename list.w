@@ -202,8 +202,7 @@
                   <li xid="li1" class="media"> 
                     <div xid="div10" class="media-left"> 
                       <img alt="" xid="image1" class="img-rounded media-object"
-                        bind-attr-src="ref('图片外链')" style="width:75px;"
-                        height="80px"/> 
+                        bind-attr-src="ref('图片外链')" style="width:75px;"/> 
                     </div>  
                     <div class="media-body" xid="div14"> 
                       <h5 class="media-heading lead text-black" bind-text="ref('标题')"

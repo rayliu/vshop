@@ -86,13 +86,13 @@
         <i xid="i17" class="icon-ios7-close-outline"/>  
         <span xid="span35"/> 
       </a>  
-      <img bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)" alt="" class="img-thumbnail tb-colorImg"/>  
+      <img bind-attr-src="商品表.val(&quot;图片外链&quot;)" alt="" class="img-thumbnail tb-colorImg"/>  
       <div class="tb-title"> 
         <span class="text-danger h4"><![CDATA[￥]]></span>  
-        <span bind-text="商品表.ref('现价')" class="text-danger h4"><![CDATA[]]></span>  
+        <span bind-text="商品表.val('现价')" class="text-danger h4"><![CDATA[]]></span>  
         <div xid="div7"/>  
         <span><![CDATA[库存]]></span>  
-        <span bind-text="商品表.ref('库存')"/>  
+        <span bind-text="商品表.val('库存')"/>  
         <span xid="span47"><![CDATA[件]]></span>  
         <div class="tb-numberOperation" xid="div44"> 
           <a component="$UI/system/components/justep/button/button" class="btn x-gray btn-sm btn-only-icon pull-left"
@@ -173,7 +173,7 @@
       <div component="$UI/system/components/justep/bar/bar" class="tb-box" xid="bar2"  style="margin:350px 0px 0px 0px;">
         <div class="x-titlebar-title pull-right" xid="title1" style="margin:0px 10px 0px 0px;"> 
           <a component="$UI/system/components/justep/button/button"  class="btn btn-link btn-only-icon tb-cartBtn pull-right"
-            xid="topBtn" icon="icon-chevron-up" onClick="topBtnClick"> 
+            xid="topBtn" icon="icon-chevron-up" href="#topper" onClick="topBtnClick"> 
             <i xid="i12" class="icon-chevron-up"/>  
             <span xid="span4"/> 
           </a> 
@@ -195,7 +195,7 @@
               active="0" slidable="true" wrap="true" swipe="true" xid="contents1"
               routable="false"> 
               <div class="x-contents-content" xid="content1"  id="topper"> 
-                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" $model.商品表.val(&quot;图片外链&quot;)"/> 
+                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" 商品表.val(&quot;图片外链&quot;)"/> 
               </div> 
             </div> 
           </div>  
@@ -205,15 +205,15 @@
               class="row tb-nopadding" xid="row1"> 
               <div class="col col-xs-12 center-block tb-nopadding " style="text-align:center;"
                 xid="col8"> 
-                <h4 xid="h41" class="text-black" bind-text="商品表.ref(&quot;标题&quot;)"/>  
+                <h4 xid="h41" class="text-black" bind-text="商品表.val(&quot;标题&quot;)"/>  
                 <div xid="div4" style="text-align:center;"> 
                   <span xid="span17" class="text-danger h3">￥</span>  
-                  <span xid="span29" bind-text="商品表.ref('现价')" class="text-danger h3"/> 
+                  <span xid="span29" class="text-danger h3" bind-text="商品表.val('现价')"/> 
                 </div>  
                 <div xid="div5" class="text-muted" style="text-align:center;"> 
                   <span xid="span19">价格：</span>  
                   <span xid="span18" class="tb-text-del">￥</span>  
-                  <span xid="span13" class="tb-text-del" bind-text=" $model.商品表.val(&quot;原价&quot;)"/> 
+                  <span xid="span13" class="tb-text-del" bind-text="商品表.val(&quot;原价&quot;)"/> 
                 </div> 
               </div>  
               </div>  
@@ -349,7 +349,7 @@
                     <li xid="li1" componentname="li(html)" id="undefined_li2"
                       class="list-group-item"> 
                       <img src="" alt="" xid="image5" class="image-wall tb-img"
-                        bind-attr-src="ref(&quot;图片外链&quot;)"/>  
+                        bind-attr-src="ref('图片外链')"/>  
                       <span bind-text="ref('图片解析')" class="tb-nopadding text-muted"
                         xid="span38"/>  
                       <div class="clearfix" xid="div18"/> 

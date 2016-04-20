@@ -225,7 +225,7 @@ define(function(require) {
 	
 	Model.prototype.商品表CustomRefresh = function(event){
 		//加载model数据
-		var goodsdata= this.comp("商品表");
+		var goodsdata= event.source;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "queryByValue",
@@ -240,7 +240,7 @@ define(function(require) {
 	
 	Model.prototype.图文详情表CustomRefresh = function(event){
 		//加载model数据
-		var Rdata= this.comp("图文详情表");
+		var Rdata= event.source;
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "queryByValue",
@@ -455,13 +455,15 @@ define(function(require) {
 		this.params.goodsID=data.getValue("编号");
 		this.params.shopID=data.getValue("商店编号");
 		this.scrollView1PullDown();
-		this.toLocaleString("topper");
+		//this.toLocaleString("topper");
 	};
 
 
 	
 	Model.prototype.topBtnClick = function(event){
-		window.scrollTo(0,0);
+	    //$(window).scrollTop(10,0);
+		//window.scrollTo(0,0);
+		//window.location.hash="#topper";
 	};
 
 
