@@ -264,5 +264,10 @@ define(function(require) {
 
 	};
 
+	Model.prototype.registerClick = function(event){
+		justep.Shell.setIsSinglePage(true);
+		justep.Shell.showPage("registered",{});
+	};
+
 	return Model;
 });

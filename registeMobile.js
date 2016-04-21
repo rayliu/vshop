@@ -16,23 +16,8 @@ define(function(require) {
 			var emailNumber = this.comp("varietyNumber").val();
 			var verifyCode = this.comp("verifyCode").val();
 			var userInfoData = this.comp("userInfoData");
-			if(verifyCode==emailVerify){
-				/*userInfoData.newData({
-	                    index : 0,
-	                    defaultValues : [ {
-	                        "状态" : "1",
-	                        "reg_time" : null,
-	                        "nickname" : "test",
-	                        "info" : "test add",
-	                        "login_id": emailNumber,
-	                        "login_pwd": password,
-	                        "nickname": nickInput
-	                    } ]
-	                        });
-				userInfoData.saveData();*/
-				
-				var obj={};
-		
+			if(verifyCode==emailVerify){				
+				var obj={};	
 				obj.用户名 = emailNumber;
 				obj.密码 = password;
 				obj.昵称 = nickInput;
@@ -117,12 +102,44 @@ define(function(require) {
 		var btnType=event.params.btnType;
 		variety=btnType;
 		if(btnType=='phone'){
-			$("#spanValue").text("手机注册")
-			$("#spanValue1").text("手机号")
+			$("#spanValue").text("手机注册");
+			$("#spanValue1").text("手机号");
 		}else if(btnType=='email'){
-			$("#spanValue").text("邮箱注册")
-			$("#spanValue1").text("邮箱")
+			$("#spanValue").text("邮箱注册");
+			$("#spanValue1").text("邮箱");
 		}
 	};
+	
+	Model.prototype.用户表CustomRefresh = function(event){
+		var dataR = event.source;
+		justep.Baas.sendRequest({
+			"url" : "/eeda/shop",
+			"action" : "queryTable",
+			"async" : false,
+			"params" : {tableName:"用户表"},
+			"success" : function(data) {
+				dataR.loadData(data);
+			}
+		});
+	};
+	
+
+Model.prototype.varietyNumberKeyup = function(event){
+		var mail = $('[xid=varietyNumber]').val();
+		var Rdata =  this.comp("用户表");
+		Rdata.each(function(obj){
+			var oldMail = Rdata.val('用户名',obj.row);
+			if(mail==oldMail){
+				justep.Util.hint('此邮箱已注册',{
+					"type" : "danger"
+				});
+				//$('#sendBtn').attr('disabled',true);
+				return;
+			}else{
+				//$('#sendBtn').attr('disabled',false);
+			}
+		});
+	};
+
 	return Model;
 });

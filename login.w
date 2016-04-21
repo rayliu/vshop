@@ -4,9 +4,8 @@
   design="device:mobile;" xid="window">  
   <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:25px;top:538px;"> 
     <div component="$UI/system/components/justep/data/baasData" autoLoad="false"
-      xid="baasData1" queryAction="queryRegistUser"
-      tableName="users" url="/eeda/shop" idColumn="fID"> 
-      </div>  
+      xid="baasData1" queryAction="queryRegistUser" tableName="users" url="/eeda/shop"
+      idColumn="fID"></div>  
     <!--   <div component="$UI/system/components/justep/data/baasData" autoLoad="false" xid="myPlatformData"></div> --> 
   </div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full x-card x-has-iosstatusbar"
@@ -51,8 +50,13 @@
         <i xid="i4"/>  
         <span xid="span4">登录</span> 
       </a>  
+      <div xid="div5" style="text-align:center;margin-top:5px;">
+        <span xid="span8">没有账号？</span>
+        <a component="$UI/system/components/justep/button/button" class="btn btn-link" label="马上去注册" xid="register" onClick="registerClick">
+   <i xid="i1"></i>
+   <span xid="span1">马上去注册</span></a></div>
       <div class="panel-body"/>  
-      <div class="text-muted" bind-text="'还可以选择以下方式登录'"/>  
+      <!-- <div class="text-muted" bind-text="'还可以选择以下方式登录'"/>  
       <div class="list-group"> 
         <div class="list-group-item"> 
           <div component="$UI/system/components/bootstrap/row/row" class="row panel-heading text-center"
@@ -78,12 +82,10 @@
               label="button" xid="button2" icon="icon-ios7-arrow-right"> 
               <i xid="i1" class="icon-ios7-arrow-right text-muted"/>  
               <span xid="span5"/> 
-            </a>  
-            <span xid="span8" class="text-black">没有账号？</span>  
-            <span class="text-danger" xid="span9"><![CDATA[马上去注册]]></span> 
+            </a> 
           </div> 
         </div> 
-      </div> 
+      </div>  -->
     </div> 
   </div> 
 </div>

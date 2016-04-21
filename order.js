@@ -20,7 +20,6 @@ define(function(require){
 	};
 	
 	Model.prototype.modelLoad = function(event) {
-	   // debugger;
 		var self = this;
 		// 获取url上的code参数 - 微信授权code，用于获取微信用户信息
 //		var weixinCode = this.getContext().getRequestParameter("code");
@@ -61,14 +60,8 @@ define(function(require){
 					self._userDefaultAddress = weixinUser.country + weixinUser.province + weixinUser.city;
 					self._userPhotoURL = weixinUser.headimgurl;
 				}
-			});
-			
+			});	
 		}
-		
-//		this.comp('userData').filters.setVar("user", this._userID);
-//		this.comp('orderData').filters.setVar("user", this._userID);
-		
-		//this.queryAddr();
 	};
 		
 	//图片路径转换
@@ -191,6 +184,7 @@ define(function(require){
 				});
 				
 				//付款
+				alert('开始支付');
 				payMoney(self,resultData);
 			}
 		});
@@ -430,14 +424,14 @@ define(function(require){
 			payDtd.reject(-33);
 			return;
 		}
-		var tradeNo = resultData.id;
-		var notifyUrl = location.origin + "/baas/weixin/weixin/notify"
+		var tradeNo = resultData.订单号;
+		var notifyUrl = location.origin + "/baas/weixin/weixin/notify";
 		this.wxApi.chooseWXPay({
-			body : "vshop sales order",
-			mchId : resultData.订单号,
+			body : "vshop order",
+			mchId : "1312195301",
 			notifyUrl : notifyUrl,
 			outTradeNo : tradeNo,
-			totalFee : resultData.total
+			totalFee : resultData.total*100
 		}).done(function() {
 			payDtd.resolve(2);
 		}).fail(function() {
@@ -462,17 +456,18 @@ define(function(require){
 	  	-30 支付宝支付支付请求被拒绝
 	 */
 	Model.prototype.payOrderByAlipay = function(payDtd, resultData) {
+		alert('进入支付宝');
 		if (!navigator.alipay) {
 			payDtd.reject(-33);
 			return;
 		}
 		var notifyUrl = location.origin;
-		var tradeNo = resultData.id;
+		var tradeNo = resultData.订单号;
 		var alipay = navigator.alipay;
 		alipay.pay({
-			"seller" : "huangyx@justep.com", // 卖家支付宝账号或对应的支付宝唯一用户号
-			"subject" : "x5外卖", // 商品名称
-			"body" : "x5外卖", // 商品详情
+			"seller" : "zxmac@foxmail.com", // 卖家支付宝账号或对应的支付宝唯一用户号
+			"subject" : "商品", // 商品名称
+			"body" : "vshop sale", // 商品详情
 			"price" : "0.01", // 金额，单位为RMB
 			"tradeNo" : tradeNo, // 唯一订单号
 			"timeout" : "30m", // 超时设置

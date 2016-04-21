@@ -27,7 +27,7 @@
       <column label="支付方式Code" name="payMethodCode" type="String" xid="xid21"/>  
       <column label="支付方式" name="payMethodName" type="String" xid="xid22"/>  
       <column label="状态" name="state" type="String" xid="xid23"/>  
-      <data xid="default9">[{"payMethodCode":"weixinJSSDK","payMethodName":"微信支付","state":"1"},{"payMethodCode":"creditCard","payMethodName":"7Eleven代收","state":"0"},{"payMethodCode":"goPay","payMethodName":"到店支付","state":"0"},{"payMethodCode":"arrivalPay","payMethodName":"货到付款","state":"0"}]</data>
+      <data xid="default9">[{"payMethodCode":"weixinJSSDK","payMethodName":"微信支付","state":"1"},{"payMethodCode":"alipay","payMethodName":"支付宝","state":"0"},{"payMethodCode":"goPay","payMethodName":"到店支付","state":"0"},{"payMethodCode":"arrivalPay","payMethodName":"货到付款","state":"0"}]</data>
     </div>  
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       xid="收货地址表" idColumn="编号" onCustomRefresh="收货地址表CustomRefresh">
@@ -258,9 +258,9 @@
             id="undefined_listTemplateUl4"> 
             <li xid="li4" class="panel-body media" componentname="li(html)"
               id="undefined_li4"> 
-              <div class="media-left"> 
+              <div style="width:110px;" class="pull-left"> 
                 <img src="" alt="" xid="image4" bind-attr-src="ref('图片外链')"
-                  class="tb-img-good" style="height:95px;width:127px;"/> 
+                  class="img-thumbnail" style="width:100%;"/> 
               </div>  
               <div class="media-body"> 
                 <span bind-text="ref('标题')" class="text-black h5" xid="span33"/>  
@@ -270,7 +270,7 @@
                 </div>  
                 <div class="text-muted" xid="div2"> 
                   <span xid="span32" class="text-danger">￥</span>  
-                  <span xid="span21" bind-text="ref('现价')" class="h4 text-danger"/>  
+                  <span xid="span21" bind-text="ref('现价')" class="h4 text-danger"/>
                   <span xid="span33" class="tb-text-del">￥</span>  
                   <span xid="span34" class=" tb-text-del" bind-text="ref(&quot;原价&quot;)"/> 
                 </div>  

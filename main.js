@@ -184,7 +184,6 @@ define(function(require) {
 		 * 3、如果img已经创建了，只修改属性
 		 * 4、第一张图片信息存入localStorage*/ 
 		var dataR = this.comp("轮播图片表");
-		var dataE = this.comp("轮播");
 		justep.Baas.sendRequest({
 			"url" : "/eeda/shop",
 			"action" : "queryTable",
@@ -192,7 +191,6 @@ define(function(require) {
 			"params" :  {tableName:"轮播图片表"},
 			"success" : function(data) {
 				dataR.loadData(data);
-				dataE.loadData(data);
 			}
 		});
 		
@@ -205,26 +203,7 @@ define(function(require) {
 	
 	
 	Model.prototype.轮播CustomRefresh = function(event){
-		/*var baasData = event.source;
-		var me = this;
-		var carousel = this.comp("轮播图片表");
-
-		baasData.each(function(obj) {
-			var fImgUrl = require.toUrl(obj.row.val("图片外链"));
-			var fUrl = require.toUrl(obj.row.val("图片超链接"));
-			if (me.comp('contentsImg').getLength() > obj.index) {
-				$(carousel.domNode).find("img").eq(obj.index).attr({
-					"src" : fImgUrl,
-					"pagename" : fUrl
-				});
-				if (obj.index == 0) {
-					localStorage.setItem("index_BannerImg_src", fImgUrl);
-					localStorage.setItem("index_BannerImg_url", fUrl);
-				}
-			} else {
-				carousel.add('<img src="' + fImgUrl + '" class="tb-img1" bind-click="openPageClick" pagename="' + fUrl + '"/>');
-			}
-		});*/
+		
 		/*var me = this;
 		var carousel = this.comp('轮播图片表');
 		carousel.each(function(obj) {
@@ -243,6 +222,30 @@ define(function(require) {
 				carousel.add('<img src="' + fImgUrl + '" class="tb-img1" bind-click="openPageClick" pagename="' + fUrl + '"/>');
 			}
 		});*/
+	};
+	
+	
+	
+	Model.prototype.轮播图片表AfterRefresh = function(event){
+		var baasData = event.source;
+		var me = this;
+		var carousel = this.comp("carousel1");
+		
+		baasData.each(function(obj) {
+			var fImgUrl = require.toUrl(obj.row.val("图片外链"));
+			//var fUrl = require.toUrl(obj.row.val("图片超链接"));
+			if (me.comp('contentsImg').getLength() > obj.index) {
+				$(carousel.domNode).find("img").eq(obj.index).attr({
+					"src" : fImgUrl
+				});
+				if (obj.index == 0) {
+					localStorage.setItem("index_BannerImg_src", fImgUrl);
+					//localStorage.setItem("index_BannerImg_url", fUrl);
+				}
+			} else {
+				carousel.add('<img src="' + fImgUrl + '"  class="tb-img" bind-click="openPageClick"/>');
+			}
+		});
 	};
 	
 	

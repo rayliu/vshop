@@ -5,8 +5,8 @@
   <div component="$UI/system/components/justep/model/model" xid="model" style="height:auto;left:225px;top:44px;"
     onParamsReceive="modelParamsReceive"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
-      xid="商品轮播图片表" idColumn="编号" onCustomRefresh="imgDataCustomRefresh" confirmDelete="false"
-      confirmRefresh="false"> 
+      xid="商品轮播图片表" idColumn="编号" onCustomRefresh="商品轮播图片表CustomRefresh" confirmDelete="false"
+      confirmRefresh="false" onAfterRefresh="商品轮播图片表AfterRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid2"/>  
       <column label="商品编号" name="商品编号" type="String" xid="xid1"/>  
       <column label="图片外链" name="图片外链" type="String" xid="xid37"/> 
@@ -189,13 +189,13 @@
         </div>  
         <div class="x-scroll-content" xid="div6">
           <div component="$UI/system/components/bootstrap/carousel/carousel"
-            class="x-carousel carousel" xid="carousel1" auto="false" style=""> 
+            class="x-carousel carousel" xid="carousel1" auto="true" style="" interval="3"> 
             <ol class="carousel-indicators" xid="default1" />  
             <div class="x-contents carousel-inner" role="listbox" component="$UI/system/components/justep/contents/contents"
-              active="0" slidable="true" wrap="true" swipe="true" xid="contents1"
+              active="0" slidable="true" wrap="true" swipe="true" xid="contentsImg"
               routable="false"> 
               <div class="x-contents-content" xid="content1"  id="topper"> 
-                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" 商品表.val(&quot;图片外链&quot;)"/> 
+                <img src="" alt="" xid="image1" class="image-wall tb-img" bind-attr-src=" 商品轮播图片表.val(&quot;图片外链&quot;)"/> 
               </div> 
             </div> 
           </div>  
@@ -503,14 +503,14 @@
           <div component="$UI/system/components/justep/button/buttonGroup"
             class="btn-group btn-group-justified" tabbed="true" xid="buttonGroup1"> 
             <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="客服" xid="serviceBtn" icon="icon-chatbubble-working"> 
-              <i xid="i3" class="icon icon-chatbubble-working"/>  
-              <span xid="span3">客服</span> 
+              xid="serviceBtn" icon="icon-chatbubble-working" style="height:48px;"> 
+              <i xid="i3" class="icon-chatbubble-working" style="font-size:x-large;color:orange;"/>  
+              <span xid="span3"></span> 
             </a>  
             <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top"
-              label="收藏" xid="menuCartBtn" icon="icon-heart" onClick="menuCartBtnClick"> 
-              <i xid="i2" class="icon icon-heart"/>  
-              <span xid="span2">收藏</span> 
+              xid="menuCartBtn" icon="icon-heart" onClick="menuCartBtnClick"> 
+              <i xid="i2" class="icon icon-heart" style="font-size:x-large;color:orange;"/>  
+              <span xid="span2"></span> 
             </a> 
           </div> 
         </div>  

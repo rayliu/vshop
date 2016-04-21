@@ -30,17 +30,14 @@ define(function(require) {
 	};	
 	
 	//获取轮换图片
-	Model.prototype.imgDataCustomRefresh = function(event){
+	Model.prototype.商品轮播图片表CustomRefresh = function(event){
 		/*
 		1、加载轮换图片数据
 		2、根据goodsID过滤数据
 		3、修改对应图片的src
 		*/		
-//		var url = require.toUrl("./detail/json/imgData.json");
-//		allData.loadDataFromFile(url,event.source,true);
-		var carouselData= this.comp("商品轮播图片表");
+		var carouselData= event.source;
 		if (this.params.goodsID) {
-			//this.shopID = this.params.shopID;
 			this.goodsID = this.params.goodsID;
 			
 			//加载model数据
@@ -54,25 +51,25 @@ define(function(require) {
 				}
 			});
 		}
-
-//		var baasData = event.source;
-//		var me = this;
-//		var carousel = this.comp("imgData");
-//		baasData.each(function(obj) {
-//			var fImg = require.toUrl(obj.row.val("fImg"));
-//			debugger;
-//			
-//			if (me.comp('contents1').getLength() > obj.index) {
-//				$(carousel.domNode).find("img").eq(obj.index).attr({
-//					"src" : fImg
-//				});
-//				if (obj.index == 0) {
-//					localStorage.setItem("index_BannerImg_src", fImg);
-//				}
-//			} else {
-//				carousel.add('<img src="' + fImgUrl + '" class="tb-img1" bind-click="openPageClick" pagename="' + fUrl + '"/>');
-//			}
-//		});
+	};
+	
+	Model.prototype.商品轮播图片表AfterRefresh = function(event){	
+		var baasData = event.source;
+		var me = this;
+		var carousel = this.comp("carousel1");
+		baasData.each(function(obj) {
+			var fImg = require.toUrl(obj.row.val("图片外链"));
+			if (me.comp('contentsImg').getLength() > obj.index) {
+				$(carousel.domNode).find("img").eq(obj.index).attr({
+					"src" : fImg
+				});
+				if (obj.index == 0) {
+					localStorage.setItem("index_BannerImg_src", fImg);
+				}
+			} else {
+				carousel.add('<img src="' + fImg + '" class="tb-img" bind-click="openPageClick" />');
+			}
+		});
 	};
 	
 
@@ -465,6 +462,10 @@ define(function(require) {
 		//window.scrollTo(0,0);
 		//window.location.hash="#topper";
 	};
+
+
+	
+	
 
 
 	

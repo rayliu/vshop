@@ -200,9 +200,9 @@
                 autoLoad="true"> 
                 <ul class="x-list-template" xid="listTemplateUl1"> 
                   <li xid="li1" class="media"> 
-                    <div xid="div10" class="media-left"> 
-                      <img alt="" xid="image1" class="img-rounded media-object"
-                        bind-attr-src="ref('图片外链')" style="width:75px;"/> 
+                    <div xid="div10" class="pull-left" style="width:110px;"> 
+                      <img alt="" xid="image1" class="img-thumbnail"
+                        bind-attr-src="ref('图片外链')" style="width:100%;"/> 
                     </div>  
                     <div class="media-body" xid="div14"> 
                       <h5 class="media-heading lead text-black" bind-text="ref('标题')"

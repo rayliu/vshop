@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model>
+<model> 
+    <action name="userRegisterPhone" impl="eeda.UserRegister.testPhone" />
+    <action name="userRegisterEmail" impl="eeda.UserRegister.testEmail" />
+
 	<action name="queryByValue" impl="eeda.controller.LatoService.queryByValue" />
 	<action name="queryInterface" impl="eeda.controller.LatoService.queryInterface" />
 	<action name="createOrder" impl="eeda.controller.LatoService.createOrder" />

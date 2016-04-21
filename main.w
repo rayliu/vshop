@@ -6,7 +6,7 @@
     onModelConstruct="" onLoad="modelLoad" onunLoad="modelUnLoad" onParamsReceive="modelParamsReceive"> 
     <div component="$UI/system/components/justep/data/data" autoLoad="true"
       queryAction="queryCarousel" tableName="轮播图片表" url="/eeda/shop" xid="轮播图片表" idColumn="编号"
-      onCustomRefresh="轮播图片表CustomRefresh"> 
+      onCustomRefresh="轮播图片表CustomRefresh" onAfterRefresh="轮播图片表AfterRefresh"> 
       <column label="编号" name="编号" type="String" xid="xid1"/>  
       <column label="图片图片" name="图片外链" type="String" xid="xid2"/>  
       <column label="链接地址" name="图片超链接" type="String" xid="xid9"/>  
@@ -33,10 +33,7 @@
       <column label="销量" name="销量" type="String" xid="xid6"/>  
       <column label="地址" name="地址" type="String" xid="xid7"/> 
     </div> 
-  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="轮播" idColumn="编号" onCustomRefresh="轮播CustomRefresh">
-   <column label="编号" name="编号" type="String" xid="xid1"></column>
-  <column label="图片图片" name="图片外链" type="String" xid="xid2"></column>
-  <column label="链接地址" name="图片超链接" type="String" xid="xid9"></column></div></div>  
+  </div>  
   <div component="$UI/system/components/justep/panel/panel" class="x-panel x-full"> 
     <div class="x-panel-content tb-trans"> 
       <div component="$UI/system/components/justep/contents/contents" class="x-contents x-full"
@@ -83,16 +80,16 @@
                   <div component="$UI/system/components/justep/panel/panel"
                     class="panel panel-default x-card" xid="panel1"> 
                     <div component="$UI/system/components/bootstrap/carousel/carousel"
-                      class="x-carousel carousel" xid="carousel1" auto="true"> 
-                      <ol class="carousel-indicators" xid="ol1" style="height:14px;"/>  
+                      class="x-carousel carousel" xid="carousel1" auto="true" style="width:100%;"> 
+                      <ol class="carousel-indicators" xid="ol1" />  
                       <div class="x-contents carousel-inner" role="listbox"
                         component="$UI/system/components/justep/contents/contents"
                         active="0" slidable="true" wrap="true" swipe="true" xid="contentsImg"
                         routable="false"> 
                         <div class="x-contents-content" xid="content2"> 
                           <img alt="" xid="image13" bind-click="openPageClick"
-                            bind-attr-src="轮播图片表.ref('图片外链')" class="tb-img1" pagename=""
-                            style="height:100%;" align="middle" src="./main/img/9.png"/> 
+                             class="tb-img" pagename=""
+                             src="./main/img/9.png"/> 
                         </div> 
                       </div> 
                     </div> 

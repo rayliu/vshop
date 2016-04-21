@@ -7,17 +7,11 @@
     <!--       xid="baasData2" queryAction="queryUsers" tableName="taobao_user" url="/justep/taobao"> -->  
     <!--       <filter name="userfilter" xid="filter2"><![CDATA[fID=:user]]></filter></div>  -->  
    
-   <div component="$UI/system/components/justep/data/baasData" autoLoad="true" xid="userInfoData" idColumn="id" tableName="users" url="/eeda/shop" queryAction="queryRegistUser" saveAction="saveRegistUser" autoNew="true"><column label="id" name="id" type="Integer" xid="default9"></column>
-  <column label="状态" name="status" type="Integer" xid="default10"></column>
-  <column label="登录账户" name="login_id" type="String" xid="default11"></column>
-  <column label="录登密码" name="login_pwd" type="String" xid="default12"></column>
-  <column label="昵称" name="nickname" type="String" xid="default13"></column>
-  <column label="注册时间" name="reg_time" type="DateTime" xid="default14"></column>
-  <column label="备注" name="info" type="String" xid="default15"></column>
-  <column label="标签" name="tag" type="String" xid="default16"></column>
-  <filter name="filter0" xid="filter1"></filter>
-  <filter name="filter1" xid="filter2"></filter></div>
-  </div>  
+   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="用户表" idColumn="编号" onCustomRefresh="用户表CustomRefresh"><column isCalculate="false" name="编号" type="String" xid="xid1"></column>
+  <column name="用户名" type="String" xid="xid2"></column>
+  <column name="密码" type="String" xid="xid3"></column>
+  <column name="昵称" type="String" xid="xid4"></column>
+  <column name="状态" type="String" xid="xid5"></column></div></div>  
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver"
     xid="popOver"> 
     <div class="x-popOver-overlay" xid="div9"/> 
@@ -52,7 +46,7 @@
             </div>  
             <div class="media-body" style="width:119px;"> 
               <input component="$UI/system/components/justep/input/input" class="form-control input-sm tb-noborder text-muted"
-                xid="varietyNumber" style="width:202px;"/> 
+                xid="varietyNumber" style="width:202px;" bind-keyup="varietyNumberKeyup"/> 
             </div> 
           </div>  
           <div class="panel-heading" xid="div1"> 
@@ -65,7 +59,7 @@
             </div>  
             <div class="media-body" style="width:760px;" xid="div7"> 
               <a component="$UI/system/components/justep/button/button" class="btn x-black btn-only-label btn-block"
-                label="获取验证码" xid="sendsmsbutton" style="height:33px;width:139px;" onClick="sendsmsbuttonClick"> 
+                label="获取验证码" xid="sendsmsbutton" style="height:33px;width:139px;" onClick="sendsmsbuttonClick" id="sendBtn"> 
                 <i xid="i3"/>  
                 <span xid="span5">获取验证码</span> 
               </a> 
